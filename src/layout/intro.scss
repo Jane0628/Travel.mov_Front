@@ -1,0 +1,24 @@
+.intro-container {
+    background: url('../assets/img/lala.jpg') no-repeat center / cover;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+
+    .intro-title {
+        color: #fff;
+        font-size: 70px;
+        position: absolute;
+        left: 5%;
+        top: 20%;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    .intro-name {
+        color: #fff;
+        font-size: 50px;
+        position: absolute;
+        right: 5%;
+        bottom: 5%;
+    }
+}
