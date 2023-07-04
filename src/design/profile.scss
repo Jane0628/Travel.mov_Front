@@ -1,14 +1,13 @@
-
 .prof-main {
     display: flex;
     justify-content: space-between;
 }
 
-.profil {
+.profile {
     width: 50%;
     font-size: 50px;
-    
-    
+
+
 
     input {
         width: 75%;
@@ -16,12 +15,13 @@
     }
 }
 
-.image-profil {
+.image-profile {
     width: 50%;
     height: 50%;
+
     img {
         width: 100%;
         height: 100%;
-        
+
     }
 }

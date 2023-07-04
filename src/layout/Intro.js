@@ -1,5 +1,5 @@
 import React from 'react';
-import './intro.scss';
+import '../design/intro.scss';
 import { Link } from '@mui/material';
 
 const Intro = () => {
@@ -12,12 +12,12 @@ const Intro = () => {
   }
   return (
     <>
-    <div className='intro-container'>
+      <div className='intro-container'>
 
-        <Link to= '/Main' className='intro-title' onMouseEnter={textChange} onMouseLeave={returnText}>Tramovel</Link>
+        <Link to='/Main' className='intro-title' onMouseEnter={textChange} onMouseLeave={returnText}>Tramovel</Link>
 
         <span className='intro-name'></span>
-    </div>
+      </div>
     </>
   )
 };

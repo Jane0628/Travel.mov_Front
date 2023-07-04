@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from '../../logo.png';
-import "./header.scss";
+import logo from '../../assets/img/logo.png';
+import "../../design/header.scss";
 import { Link } from 'react-router-dom';
 
 const Header = () => {
@@ -8,8 +8,8 @@ const Header = () => {
 		<>
 			<header>
 				<img src={logo} alt="logo" />
-				로그인
-				회원가입
+				<span>로그인</span>
+				<span>회원가입</span>
 			</header>
 		</>
 	);
