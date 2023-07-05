@@ -6,9 +6,9 @@ const Profile = () => {
 
   const a = document.getElementById('a');
 
-  a.addEventListener('click', e => {
-    
-  })
+  // a.addEventListener('click', e => {
+
+  // })
 
   return (
     <>
