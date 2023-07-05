@@ -1,5 +1,5 @@
 import React from 'react';
-import '../design/intro.scss';
+import '../../design/intro.scss';
 import { Link } from '@mui/material';
 
 const Intro = () => {

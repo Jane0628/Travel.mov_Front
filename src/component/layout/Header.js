@@ -8,8 +8,10 @@ const Header = () => {
 		<>
 			<header>
 				<img src={logo} alt="logo" />
-				<span>로그인</span>
-				<span>회원가입</span>
+				<div className="spans">
+					<span>로그인</span>
+					<span>회원가입</span>
+				</div>
 			</header>
 		</>
 	);
