@@ -1,0 +1,33 @@
+.my-page{
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+	justify-content: space-between;
+}
+
+.welcome{
+  width: 400px;
+  height: 500px;
+  color: #ffffff;
+  font-size: 35px;
+  text-align: center;
+  background: #b1bff9;
+  border-radius: 20px;
+  img {
+    padding-top: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 350px;
+    height: 350px;
+  }
+}
+.page-menu{
+  display: flex;
+  flex-direction: column;
+  margin: 5% 0px 10% 0px;
+}
+span{
+  color: #7b8ce0;
+  font-size: 40px;
+  margin-bottom: 20%;
+}
