@@ -21,3 +21,26 @@
   font-family: 'GangwonEdu';
   font-size: 20px;
 }
+
+h1 {
+  font-size: 40px;
+  margin: 50px 0;
+  text-align: center;
+  color: #424180;
+}
+
+input {
+  outline: none;
+  border: 1px solid #424180;
+  border-radius: 5px;
+
+  box-sizing: border-box;
+  padding: 10px;
+  height: 40px;
+}
+
+input:read-only {
+  background-color: #7b8ce0;
+  cursor: not-allowed;
+  color: white;
+}
