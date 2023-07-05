@@ -11,8 +11,11 @@ function App() {
   return (
     <>
       <Header />
-      <Main />
-      <MyPage />
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/myPage' element={<MyPage />} />
+        <Route path='/profile' element={<Profile />} />
+      </Routes>
       <Footer />
     </>
   );
