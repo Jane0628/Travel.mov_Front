@@ -1,7 +1,14 @@
 import React from 'react'
 import '../../design/profile.scss'
+import { getElementError } from '@testing-library/react'
 
 const Profile = () => {
+
+  const a = document.getElementById('a');
+
+  a.addEventListener('click', e => {
+    
+  })
 
   return (
     <>
@@ -20,6 +27,14 @@ const Profile = () => {
             <input type='password' name='pw' placeholder='비밀번호' />  <br />
             <input type='text' name='nick' placeholder='닉네임' />  <br />
             <input type='text' name='email' placeholder='이메일' />
+          </div>
+          <div className='bottom'>
+            <div className='change'>
+              <a id='a'>변경할래요</a>
+            </div>
+            <div className='no-change'>
+              <a id='a'>변경안할래요</a>
+            </div>
           </div>
         </div>
       </div>
