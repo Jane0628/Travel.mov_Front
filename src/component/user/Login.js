@@ -10,7 +10,7 @@ const Login = () => {
     const fetchLogin = async() => {
 
         const $id = document.getElementById('id');
-        const $password = document.getElementById('password');
+        const $pw = document.getElementById('pw');
 
         console.log($id.value);
 
@@ -19,7 +19,7 @@ const Login = () => {
             headers: {'content-type' : 'application/json'},
             body: JSON.stringify({
                 id: $id.ariaValueMax,
-                password: $password.value
+                password: $pw.value
             })
         });
 
@@ -33,6 +33,7 @@ const Login = () => {
         console.log(res.json);
 
         // OnLogin(token, id);
+        // redirection('/');
 
     }
 
@@ -62,8 +63,8 @@ const Login = () => {
                     variant="outlined"
                     required
                     fullWidth
-                    id="password"
-                    name="password"
+                    id="pw"
+                    name="pw"
                     autoComplete="current-password"
                 />
             </Grid>
@@ -74,6 +75,15 @@ const Login = () => {
                     variant='contained'
                     color='primary'
                 > 로그인
+                </Button>
+            </Grid>
+            <Grid item xs={8}>
+                <Button href='/join'
+                    type='button'
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                > 회원가입
                 </Button>
             </Grid>
         </form>

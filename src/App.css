@@ -5,7 +5,7 @@
 */
 @font-face {
   font-family: 'GangwonEdu';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFLightA.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -20,10 +20,17 @@
 * {
   font-family: 'GangwonEdu';
   font-size: 20px;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: white;
 }
 
 h1 {
   font-size: 40px;
+  font-weight: bold;
   margin: 50px 0;
   text-align: center;
   color: #424180;
