@@ -1,15 +1,25 @@
 import './App.css';
 import Header from './component/layout/Header';
 import { Route, Routes } from 'react-router-dom';
-import Profile from './user/Profile';
-import Intro from './layout/Intro';
-import Join from './user/Join';
-import Login from './user/Login';
+import Main from './component/layout/Main';
+import Login from './component/user/Login';
+import Join from './component/user/Join';
+import MyPage from './component/user/MyPage';
+import Profile from './component/user/Profile';
+import Footer from './component/layout/Footer';
 
 function App() {
   return (
     <>
-      <Login />
+      <Header />
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/join' element={<Join />} />
+        <Route path='/myPage' element={<MyPage />} />
+        <Route path='/profile' element={<Profile />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
