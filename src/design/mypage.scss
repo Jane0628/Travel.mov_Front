@@ -27,11 +27,15 @@
   display: flex;
   flex-direction: column;
   margin-top: 5%;
+  color: #7b8ce0;
   
 }
-
-span{
+.link{
   color: #7b8ce0;
+  font-size: 25px;
+  margin-bottom: 15%;
+}
+span{
   font-size: 25px;
   margin-bottom: 15%;
   cursor: pointer;
