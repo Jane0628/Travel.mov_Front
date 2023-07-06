@@ -1,12 +1,68 @@
-a.intro-title {
-	color: #fff;
-	font-size: 70px;
+// 캐러셀 디자인
+.carousel {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+
+	.carousel-indicators,
+	a {
+		display: none;
+	}
+
+	.carousel-item img.bottom-cut-off {
+		height: 100vh;
+		position: fixed;
+		bottom: 0;
+	}
+
+	.carousel-item img {
+		height: 100vh;
+		position: fixed;
+		top: 0;
+	}
+}
+
+// 버튼 위치 조절 및 디자인
+.position {
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+
+	a {
+		position: absolute;
+		left: 5%;
+		bottom: 10%;
+		z-index: 50;
+		color: #fff;
+		font-size: 70px;
+		transition: 0.5s;
+		text-decoration: none;
+		cursor: pointer;
+
+		width: 350px;
+		height: 100px;
+		border-radius: 10px;
+		padding: 20px 0 0;
+	}
+}
+
+#loginPage {
+	transform: translateX(100%);
 	position: absolute;
-	left: 5%;
-	bottom: 20%;
-	cursor: pointer;
-	transition: 0.5s;
-	z-index: 50;
-	text-decoration: none;
-	background-color: #424180;
+	top: 0;
+	right: 0;
+	padding-top: 100px;
+
+	background-color: white;
+	border-left: 3px solid #424180;
+	width: 500px;
+	height: 100%;
+
+	transition: 0.5s ease-in-out;
+
+	&.open {
+		transform: translateX(0%);
+		display: block;
+		z-index: 50;
+	}
 }

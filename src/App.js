@@ -67,7 +67,7 @@ function App() {
           <Route path='/myPage' element={<MyPage />} />
           <Route path='/profile' element={<Profile />} />
         </Routes>
-        <Footer /> 
+        <Footer />
       </ThemeProvider>
     </>
   );
