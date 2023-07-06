@@ -15,9 +15,14 @@ const Profile = () => {
     },
   });
 
+  const edit = e => {
+
+  }
+
   return (
     <>
       <Container>
+        <form noValidate onSubmit={edit}>
         <h1>프로필 수정</h1>
         <div className='prof-main'>
           <div className='image'>
@@ -81,21 +86,30 @@ const Profile = () => {
               <a>
                 <div className='change'>
                 <ThemeProvider theme={theme}>
-                  <Button variant="contained" color="primary" className={`custom-button small`}>
-                    변경할래요
+                  <Button 
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                  > 변경할래요
                   </Button>
                 </ThemeProvider>
                 </div>
                 <div className='no-change'>
                 <ThemeProvider theme={theme}>
-                  <Button variant="contained" color="primary" className={`custom-button small`}>
-                    변경안해요
+                  <Button href='/mypage'
+                    type='button'
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                  > 변경안해요
                   </Button>
                 </ThemeProvider>
                 </div>
               </a>
           </div>
         </div>
+        </form>
       </Container>
     </>
   )
