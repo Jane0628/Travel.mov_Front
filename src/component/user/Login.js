@@ -12,13 +12,13 @@ const Login = () => {
 
 	const redirection = useNavigate();
 
-	const {onLogin, isLoggedIn} = useContext(AuthContext);
+	const { onLogin, isLoggedIn } = useContext(AuthContext);
 
 	const REQUEST_URL = API_BASE_URL + USER;
 
 	//로그인 중일시 메인으로
 	useEffect(() => {
-		if(isLoggedIn) {
+		if (isLoggedIn) {
 			redirection('/');
 		}
 	});
@@ -28,11 +28,11 @@ const Login = () => {
 
 		const $id = document.getElementById('id');
 		const $pw = document.getElementById('pw');
-		if(!$id.value) {
+		if (!$id.value) {
 			alert('아이디를 입력하세요');
 			return;
 		}
-		if(!$pw.value) {
+		if (!$pw.value) {
 			alert('비밀번호를 입력하세요!')
 			return;
 		}

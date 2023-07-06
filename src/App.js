@@ -58,8 +58,8 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        {/* <Intro /> */}
-        <Header />
+        <Intro />
+        {/* <Header />
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
@@ -67,7 +67,7 @@ function App() {
           <Route path='/myPage' element={<MyPage />} />
           <Route path='/profile' element={<Profile />} />
         </Routes>
-        <Footer />
+        <Footer /> */}
       </ThemeProvider>
     </>
   );

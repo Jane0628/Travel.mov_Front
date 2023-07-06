@@ -13,7 +13,6 @@ const Intro = () => {
   const openLoginPage = e => {
     e.preventDefault();
     e.target.style = 'display: none';
-
     setIsOpen(true);
   }
 
