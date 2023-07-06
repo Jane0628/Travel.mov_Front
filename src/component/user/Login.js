@@ -10,7 +10,7 @@ const Login = () => {
 
 	// const redirection = useNavigate();
 
-  // 로그인 요청 함수
+	// 로그인 요청 함수
 	const fetchLogin = async () => {
 
 		const $id = document.getElementById('id');
@@ -41,7 +41,7 @@ const Login = () => {
 
 	}
 
-  // 로그인 버튼 클릭 이벤트
+	// 로그인 버튼 클릭 이벤트
 	const loginHandler = e => {
 		e.preventDefault();
 		fetchLogin();
@@ -99,6 +99,7 @@ const Login = () => {
 				</form>
 			</Container>
 		</>
+	);
 };
 
 export default Login;

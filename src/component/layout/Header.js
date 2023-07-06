@@ -13,7 +13,6 @@ const Header = () => {
 						<Link to="/login">로그인</Link>
 						<Link to="/join">회원가입</Link>
 						<Link to="/myPage">마이페이지</Link>
-						<Link to="/profile">프로필 수정</Link>
 					</>
 				</div>
 			</header>
