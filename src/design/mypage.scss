@@ -1,33 +1,59 @@
 .my-page{
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
   display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 
 .welcome{
-  width: 400px;
-  height: 500px;
-  color: #ffffff;
-  font-size: 35px;
+  width: 30%;
+  height: 550px;
+  color: #7b8ce0;
   text-align: center;
-  background: #b1bff9;
-  border-radius: 20px;
   img {
     padding-top: 25px;
     padding-left: 25px;
     padding-right: 25px;
-    width: 350px;
-    height: 350px;
+    width: 65%;
+    height: 65%;
+  }
+  .nick{
+    font-size: 2rem;
+    padding-top: 15px;    
   }
 }
+
 .page-menu{
   display: flex;
   flex-direction: column;
-  margin: 5% 0px 10% 0px;
+  margin-top: 5%;
+  color: #7b8ce0;
+  
+}
+.link{
+  color: #7b8ce0;
+  font-size: 25px;
+  margin-bottom: 15%;
 }
 span{
+  font-size: 25px;
+  margin-bottom: 15%;
+  cursor: pointer;
+}
+
+.delete{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.delete a{
+  width: 110px;
+  height: 35px;
   color: #7b8ce0;
-  font-size: 40px;
-  margin-bottom: 20%;
+  border: 2px solid #b1bff9;
+  border-radius: 15px;
+  text-align: center;
+  line-height: 45px;
+  font-size: 25px;
+  cursor: pointer;
 }
