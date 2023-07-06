@@ -20,7 +20,7 @@ const Intro = () => {
           {/* 기생충 */}
           <img
             className="d-block w-100"
-            src={require("../../img/parasite.jpg")}
+            src={require("../../img/carousel_img/parasite.jpg")}
             alt="First slide"
           />
         </Carousel.Item>
@@ -28,7 +28,7 @@ const Intro = () => {
           {/* 어바웃 타임 */}
           <img
             className="d-block w-100"
-            src={require("../../img/about_time.jpg")}
+            src={require("../../img/carousel_img/about_time.jpg")}
             alt="Second slide"
           />
         </Carousel.Item>
@@ -36,7 +36,7 @@ const Intro = () => {
           {/* 부산행 */}
           <img
             className="d-block w-100"
-            src={require("../../img/train_to_busan.jpg")}
+            src={require("../../img/carousel_img/train_to_busan.jpg")}
             alt="Third slide"
           />
         </Carousel.Item>
@@ -44,7 +44,7 @@ const Intro = () => {
           {/* 아바타 물의 길 */}
           <img
             className="d-block w-100"
-            src={require("../../img/avatar.jpg")}
+            src={require("../../img/carousel_img/avatar.jpg")}
             alt="Third slide"
           />
         </Carousel.Item>
@@ -52,7 +52,7 @@ const Intro = () => {
           {/* 범죄도시3 */}
           <img
             className="d-block w-100"
-            src={require("../../img/the_round_up.jpg")}
+            src={require("../../img/carousel_img/the_round_up.jpg")}
             alt="Second slide"
           />
         </Carousel.Item>
@@ -60,7 +60,7 @@ const Intro = () => {
           {/* 미션 임파서블 */}
           <img
             className="d-block w-100"
-            src={require("../../img/mission_impossible.jpg")}
+            src={require("../../img/carousel_img/mission_impossible.jpg")}
             alt="Third slide"
           />
         </Carousel.Item>
@@ -68,7 +68,7 @@ const Intro = () => {
           {/* 살인의 추억 */}
           <img
             className="d-block w-100"
-            src={require("../../img/memories_of_murder.jpg")}
+            src={require("../../img/carousel_img/memories_of_murder.jpg")}
             alt="Third slide"
           />
         </Carousel.Item>
@@ -76,7 +76,7 @@ const Intro = () => {
           {/* 라라랜드 */}
           <img
             className="d-block w-100"
-            src={require("../../img/lala.jpg")}
+            src={require("../../img/carousel_img/lala.jpg")}
             alt="Third slide"
           />
         </Carousel.Item>
@@ -84,7 +84,7 @@ const Intro = () => {
           {/* 헤어질 결심 */}
           <img
             className="d-block w-100"
-            src={require("../../img/decision_to_leave.jpg")}
+            src={require("../../img/carousel_img/decision_to_leave.jpg")}
             alt="Third slide"
           />
         </Carousel.Item>
