@@ -1,11 +1,24 @@
-import { Button, Checkbox, Container, FormControlLabel, Grid, TextField } from '@mui/material';
+import { Button, Checkbox, Container, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
 import '../../design/join.scss'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import AuthContext from '../../utill/AuthContext';
+import { API_BASE_URL, USER } from '../../utill/host-utils';
 
 const Join = () => {
 
   const redirection = useNavigate();
+
+	const {onLogin, isLoggedIn} = useContext(AuthContext);
+
+	const REQUEST_URL = API_BASE_URL + USER;
+
+  useEffect(() => {
+		if(isLoggedIn) {
+			redirection('/');
+		}
+	});
 
   //회원가입 요청 함수
   const fetchJoin = async() => {
@@ -17,7 +30,7 @@ const Join = () => {
 
     console.log($id.value);
 
-    const res = await fetch('http://localhost:8181/api/auth/signup', {
+    const res = await fetch(`${REQUEST_URL}/signup`, {
         method: 'POST',
         headers: {'content-type' : 'application/json'},
         body: JSON.stringify({
@@ -94,10 +107,9 @@ const Join = () => {
       alert('아이디를 먼저 올바르게 입력해주세요');
       return;
     }
-    setCheck(true);
     let msg , flag = false;
     const id = document.getElementById('id').value
-    fetch(`http://localhost:8181/api/auth/check?id=${id}`)
+    fetch(`${REQUEST_URL}/check?id=${id}`)
       .then(res => {
         if(res.status === 200) {
           return res.json();
@@ -112,7 +124,7 @@ const Join = () => {
         }
         setUserValue({...userValue, id: id});
         setMessage({...message, id: msg});
-        // setCheck(flag);
+        setCheck(flag);
         console.log('check =' + check);
       })
       .catch(error => {
@@ -166,7 +178,7 @@ const Join = () => {
     } else {
         msg = '사용 가능한 비밀번호입니다.';
         flag = true;
-        setCorrect({...correct, pw:flag});
+        setCorrect({...correct, password:flag});
     }
 
     saveInputState({
@@ -257,13 +269,19 @@ const Join = () => {
     
   }
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  // 눈 클릭 시 비밀번호 보여주는/숨기는 메서드
+	const showPasswordHandler = () => {
+		setShowPassword(!showPassword);
+	};
+
   return (
     <>
       <Container>
         <span>Join Page</span>
         <form noValidate onSubmit={joinHandler}>
           <Grid>
-            <h2>ID</h2>
             <Grid item xs={8}>
               <TextField
                 variant="outlined"
@@ -271,6 +289,7 @@ const Join = () => {
                 fullWidth
                 id="id"
                 name="id"
+                label="아이디"
                 onChange={idHandler}
               />
             </Grid>
@@ -280,24 +299,35 @@ const Join = () => {
             }>{message.id}</span>
           </Grid>
           <Grid>
-            <h2>PW</h2>
-            <Grid item xs={8}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="pw"
-                name="pw"
-                type='password'
+          <FormControl sx={{ width: '288px' }} variant="outlined" required size='small'>
+          <InputLabel>비밀번호</InputLabel>
+							<OutlinedInput
+                autoComplete="off"
+								id="pw"
+								type={showPassword ? 'text' : 'password'}
+								endAdornment={
+									<InputAdornment position="end">
+										<IconButton
+											aria-label="toggle password visibility"
+											onClick={showPasswordHandler}
+											edge="end"
+										>
+											{showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+									</InputAdornment>
+								}
+								label="비밀번호"
                 onChange={passwordHandler}
-              />
-            </Grid>
+                name="pw"
+							/>
+						</FormControl>
+          </Grid>
+          <Grid>
             <span style={
               correct.password ? {color : 'green'} : {color : 'red'}
             }>{message.password}</span>
           </Grid>
           <Grid>
-            <h2>NickN</h2>
             <Grid item xs={8}>
               <TextField
                 variant="outlined"
@@ -305,6 +335,7 @@ const Join = () => {
                 fullWidth
                 id="nickN"
                 name="nickN"
+                label="닉네임"
                 onChange={nameHandler}
               />
             </Grid>
@@ -313,7 +344,6 @@ const Join = () => {
             }>{message.nickN}</span>
           </Grid>
           <Grid>
-            <h2>Email</h2>
             <Grid item xs={8}>
               <TextField
                 variant="outlined"
@@ -322,6 +352,7 @@ const Join = () => {
                 id="email"
                 name="email"
                 autoComplete="email"
+                label="이메일"
                 onChange={emailHandler}
               />
             </Grid>
