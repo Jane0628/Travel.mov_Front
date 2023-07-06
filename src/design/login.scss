@@ -1,0 +1,41 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // 아이디 크기 조절
+  div.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+    width: 400px;
+    margin-bottom: 20px;
+  }
+
+  // 인풋 정렬
+  div {
+
+    input.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input,
+    input.css-19qh8xo-MuiInputBase-input-MuiOutlinedInput-input {
+      padding: 20px 15px 0px;
+    }
+
+    label.css-17fgrut-MuiFormLabel-root-MuiInputLabel-root {
+      margin-top: 5px;
+    }
+  }
+
+  // 눈 크기 조절
+  button {
+    svg.css-1v8usww-MuiSvgIcon-root {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  // 버튼 크기 조절 및 정렬
+  .buttons {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+
+}

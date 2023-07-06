@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
 import { Input } from '@mui/base';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import '../../design/login.scss';
 
 const Login = () => {
 
@@ -61,7 +62,7 @@ const Login = () => {
 						<TextField id="id" label="아이디" variant="outlined" size='small' />
 					</Grid>
 					<Grid item xs={8}>
-						<FormControl sx={{ m: 1, width: '25ch' }} variant="outlined" size='small'>
+						<FormControl sx={{ width: '400px' }} variant="outlined" size='small'>
 							<InputLabel htmlFor="outlined-adornment-password">비밀번호</InputLabel>
 							<OutlinedInput
 								id="outlined-adornment-password"
@@ -81,23 +82,19 @@ const Login = () => {
 							/>
 						</FormControl>
 					</Grid>
-					<Grid item xs={8}>
+					<div class="buttons">
 						<Button
 							type='submit'
-							fullWidth
 							variant='contained'
 						> 로그인
 						</Button>
-					</Grid>
-					<Grid item xs={8}>
 						<Button href='/join'
 							type='button'
-							fullWidth
 							variant='contained'
 							color='primary'
 						> 회원가입
 						</Button>
-					</Grid>
+					</div>
 				</form>
 			</Container>
 		</>

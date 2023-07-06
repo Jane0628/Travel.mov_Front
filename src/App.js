@@ -1,4 +1,6 @@
 import './App.css';
+import Intro from './component/layout/Intro';
+import Test from './component/layout/Test';
 import Header from './component/layout/Header';
 import { Route, Routes } from 'react-router-dom';
 import Main from './component/layout/Main';
@@ -57,7 +59,8 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Header />
+        <Intro />
+        {/* <Header />
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
@@ -65,7 +68,7 @@ function App() {
           <Route path='/myPage' element={<MyPage />} />
           <Route path='/profile' element={<Profile />} />
         </Routes>
-        <Footer />
+        <Footer /> */}
       </ThemeProvider>
     </>
   );
