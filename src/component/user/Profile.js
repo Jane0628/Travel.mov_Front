@@ -1,43 +1,102 @@
 import React from 'react'
 import '../../design/profile.scss'
-import { getElementError } from '@testing-library/react'
+import { Grid, Button, TextField } from '@mui/material';
+import { Input } from '@mui/base';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Container } from 'reactstrap';
 
 const Profile = () => {
 
-  const a = document.getElementById('a');
-
-  // a.addEventListener('click', e => {
-
-  // })
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#7b8ce0',
+      },
+    },
+  });
 
   return (
     <>
-      <h1>회원 정보 수정</h1>
-      <div className='prof-main'>
-        <img src={require("../../img/profileImage.png")} />
-        <div className='profile'>
-          <div className='left'>
-            <span>아이디 : </span>
-            <span>비밀번호 : </span>
-            <span>닉네임 : </span>
-            <span>이메일 : </span>
+      <Container>
+        <h1>프로필 수정</h1>
+        <div className='prof-main'>
+          <div className='image'>
+            <Grid item xs={8}>
+              <img
+                src={require("../../img/profileImage.png") }
+                alt="profile"
+              />
+            </Grid>
+            <label className='image-change' htmlFor='profile-img'>프로필 이미지 설정</label>
           </div>
-          <div className="right">
-            <input type='text' name='id' value='사용자 아이디' readOnly /> <br />
-            <input type='password' name='pw' placeholder='비밀번호' />  <br />
-            <input type='text' name='nick' placeholder='닉네임' />  <br />
-            <input type='text' name='email' placeholder='이메일' />
-          </div>
-          <div className='bottom'>
-            <div className='change'>
-              <a id='a'>변경할래요</a>
+          <div className='profile'>
+            <div className="right">
+              <Grid item xs={8}>
+                <TextField
+                  type="text"
+                  required
+                  fullWidth
+                  id="id"
+                  label="아이디"
+                  name="id"
+                  value={'SimChung2'}
+                  readOnly
+                />
+              </Grid>            
+              <Grid item xs={8}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="password"
+                  label="비밀번호"
+                  name="password"
+                  autoComplete="password"
+                  type="password"
+                />
+              </Grid>            
+              <Grid item xs={8}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="nick"
+                  label="닉네임"
+                  name="nick"
+                  autoComplete="nick"
+                />
+              </Grid>            
+              <Grid item xs={8}>
+              <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="이메일"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>            
             </div>
-            <div className='no-change'>
-              <a id='a'>변경안할래요</a>
-            </div>
+              <a>
+                <div className='change'>
+                <ThemeProvider theme={theme}>
+                  <Button variant="contained" color="primary" className={`custom-button small`}>
+                    변경할래요
+                  </Button>
+                </ThemeProvider>
+                </div>
+                <div className='no-change'>
+                <ThemeProvider theme={theme}>
+                  <Button variant="contained" color="primary" className={`custom-button small`}>
+                    변경안해요
+                  </Button>
+                </ThemeProvider>
+                </div>
+              </a>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   )
 }
