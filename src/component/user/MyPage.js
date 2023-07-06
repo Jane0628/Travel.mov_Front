@@ -37,6 +37,7 @@ const MyPage = () => {
               <span>영화 촬영지 여행 후기</span>
               <span>찜 목록</span>
               <span>으핫</span>
+              <Link to="/" className='link'>홈페이지</Link>
 
               <div className='delete'>
                 <ThemeProvider theme={theme}>
