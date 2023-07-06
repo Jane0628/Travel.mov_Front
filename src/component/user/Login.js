@@ -7,6 +7,7 @@ const Login = () => {
 
     // const redirection = useNavigate();
 
+    //로그인 요청 함수
     const fetchLogin = async() => {
 
         const $id = document.getElementById('id');
@@ -18,8 +19,8 @@ const Login = () => {
             method: 'POST',
             headers: {'content-type' : 'application/json'},
             body: JSON.stringify({
-                id: $id.ariaValueMax,
-                password: $pw.value
+                id: $id.value,
+                pw: $pw.value
             })
         });
 
@@ -37,6 +38,7 @@ const Login = () => {
 
     }
 
+    //로그인 버튼 클릭시 이벤트
     const loginHandler = e => {
         e.preventDefault();
 
