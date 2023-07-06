@@ -48,6 +48,6 @@ input {
 
 input:read-only {
   background-color: #7b8ce0;
-  cursor: not-allowed;
+  /* cursor: not-allowed; */
   color: white;
 }
