@@ -44,6 +44,7 @@ const Login = () => {
 	// 로그인 버튼 클릭 이벤트
 	const loginHandler = e => {
 		e.preventDefault();
+
 		fetchLogin();
 	}
 
