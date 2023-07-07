@@ -1,6 +1,5 @@
 import './App.css';
 import Intro from './component/layout/Intro';
-import Test from './component/layout/Test';
 import Header from './component/layout/Header';
 import { Route, Routes } from 'react-router-dom';
 import Main from './component/layout/Main';
@@ -59,16 +58,16 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Intro />
-        {/* <Header />
-        <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/join' element={<Join />} />
-          <Route path='/myPage' element={<MyPage />} />
-          <Route path='/profile' element={<Profile />} />
-        </Routes>
-        <Footer /> */}
+        {/* <Intro /> */}
+        <Header />
+          <Routes>
+            <Route path='/' element={<Main />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/join' element={<Join />} />
+            <Route path='/myPage' element={<MyPage />} />
+            <Route path='/profile' element={<Profile />} />
+          </Routes>
+        <Footer />
       </ThemeProvider>
     </>
   );
