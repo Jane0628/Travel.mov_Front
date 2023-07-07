@@ -5,10 +5,9 @@ let backEndHostName; // 백엔드 서버 호스트 이름
 
 if(clientHostName === 'localhost') { //개발 중
     backEndHostName = 'http://localhost:8181';
-    // backEndHostName = 'http://3.37.112.85';
 } else if(clientHostName === 'spring.com') { //배포해서 서비스 중
     backEndHostName = 'http://api.tramovel.com';
 }
 
 export const API_BASE_URL = backEndHostName;
-export const USER = '/api/auth';
+export const USER = '/user';

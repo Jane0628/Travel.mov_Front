@@ -18,6 +18,20 @@ header {
     }
   }
 
+  .logout-btn {
+    text-decoration: underline;
+    color: white;
+    margin-right: 10px;
+    font-size: 25px;
+    transition: 0.5s;
+    display: inline;
+
+    &:hover {
+      color: #424180;
+      cursor: pointer;
+    }
+  }
+
   a {
     color: white;
     margin-right: 10px;

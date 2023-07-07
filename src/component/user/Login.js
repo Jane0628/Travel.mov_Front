@@ -42,8 +42,8 @@ const Login = () => {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify({
-				id: $id.ariaValueMax,
-				password: $pw.value
+				id: $id.value,
+				pw: $pw.value
 			})
 		});
 
