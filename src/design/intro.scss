@@ -22,13 +22,13 @@
 	}
 }
 
-// 버튼 위치 조절 및 디자인
+// '떠나볼까?' 버튼 위치 조절 및 디자인
 .position {
 	position: relative;
 	box-sizing: border-box;
 	overflow: hidden;
 
-	a {
+	#openLogin {
 		position: absolute;
 		left: 5%;
 		bottom: 10%;
@@ -46,8 +46,8 @@
 	}
 }
 
+// 로그인 페이지
 #loginPage {
-	transform: translateX(100%);
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -59,10 +59,9 @@
 	height: 100%;
 
 	transition: 0.5s ease-in-out;
+	z-index: 50;
 
-	&.open {
-		transform: translateX(0%);
-		display: block;
-		z-index: 50;
+	&.close {
+		transform: translateX(100%);
 	}
 }
