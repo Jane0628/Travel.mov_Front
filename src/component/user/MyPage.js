@@ -20,7 +20,7 @@ const MyPage = () => {
         <h1>My Page</h1>
         <div className='my-page'>
             <div className='welcome'>
-              <Grid item xs={8}>                            
+              <Grid item xs={8} style={{ backgroundColor: 'blue' }}>                            
                 <img                                    
                   src={require("../../img/profileImage.png") }
                   alt="profile"                                    
