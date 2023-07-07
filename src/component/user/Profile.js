@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import '../../design/profile.scss'
-import { Grid, Button, TextField, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl } from '@mui/material';
-import { Input } from '@mui/base';
+import { Grid, Button, TextField, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl, Input } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container } from 'reactstrap';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 
 const Profile = () => {
+
+  const fileInputRef = useRef(null);
 
   const theme = createTheme({
     palette: {
@@ -20,26 +21,22 @@ const Profile = () => {
   const redirection = useNavigate();
 
   //회원가입 요청 함수
-  const fetchJoin = async() => {
-
-    const $id = document.getElementById('id');
-    const $pw = document.getElementById('pw');
-    const $nickN = document.getElementById('nickN');
-    const $email = document.getElementById('email');
-
-    console.log($id.value);
-
+  const fetchJoin = async() => {    
+    console.log(userValue.password);
+    console.log(userValue.nickN);
+    console.log(userValue.email);
     const res = await fetch('http://localhost:8181/api/auth/signup', {
-        method: 'POST',
-        headers: {'content-type' : 'application/json'},
-        body: JSON.stringify({
-            id: $id.value,
-            pw: $pw.value,
-            nickN: $nickN.value,
-            email: $email.value
-        })
+      method: 'POST',
+      headers: {'content-type' : 'application/json'},
+      body: JSON.stringify({            
+        id: userValue.id,
+        pw: userValue.password,
+        nickN: userValue.nickN,
+        email: userValue.email
+      })
     });
-
+    
+    
     //잘못된 요청시 경고창 띄움
     if(res.status === 400) {
         const text = await res.text();
@@ -47,6 +44,8 @@ const Profile = () => {
         return;
     }
   }
+
+  
 
 
   //상태변수로 회원가입 입력값 관리
@@ -178,6 +177,71 @@ const Profile = () => {
 		setShowPassword(!showPassword);
 	};
 
+  // 이미지
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = e => {
+    const file = e.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    setSelectedImage(imageUrl);
+  };
+
+  const isValid = () => {
+
+    for(const key in correct) {
+        const flag = correct[key];
+        if(!flag) return false;
+    }
+    return true;
+  }
+
+  const fetchSignUpPost = () => {
+    const userJsonBlob = new Blob(
+        [JSON.stringify(userValue)],
+        {type: 'application/json'}
+    );
+
+    const userFormData = new FormData();
+    userFormData.append('user', userJsonBlob);
+    userFormData.append('profileImage', fileInputRef.current.files[0]);
+
+    fetch('API_BASE_URL', {
+        method: 'POST',
+        body: userFormData
+    })
+    .then(res => {
+        if(res.status === 200) {
+            alert('수정이 완료되었습니다');
+            redirection('/myPage');
+        } else {
+            alert('서버와의 통신이 원활하지 않습니다.');
+        }
+    })
+}
+
+  const handleFormSubmit = e => {
+    e.preventDefault();
+  
+    // password, nickN, email 값 가져오기
+    const passwordValue = document.getElementById('outlined-adornment-password').value;
+    const nickNValue = document.getElementById('nick').value;
+    const emailValue = document.getElementById('email').value;
+  
+    // 가져온 값 사용 또는 처리
+    console.log('Password:', passwordValue);
+    console.log('NickName:', nickNValue);
+    console.log('Email:', emailValue);
+
+    if(isValid()) {
+      fetchSignUpPost();
+      } else {
+          alert('입력란을 다시 확인해 주세요!');
+      }
+  
+  };
+
+  
+
 
   return (
     <>
@@ -186,13 +250,19 @@ const Profile = () => {
         <h1>프로필 수정</h1>
         <div className='prof-main'>
           <div className='image'>
-            <Grid item xs={8}>
+            {/* <Grid item xs={8}>
               <img
                 src={require("../../img/profileImage.png") }
                 alt="profile"
               />
-            </Grid>
-            <label className='image-change' htmlFor='profile-img'>프로필 이미지 설정</label>
+            </Grid> */}
+            <div>
+              <img src={selectedImage ? selectedImage : require("../../img/profileImage.png")} alt="" />
+              <label htmlFor="fileInput-hidden" className="file-label">
+                프로필 이미지 선택
+                <input id="fileInput-hidden" type="file" onChange={handleImageChange} accept="image/*" className="file-input" ref={fileInputRef} />
+              </label>
+            </div>
           </div>
           <div className='profile'>
             <div className="right">
@@ -266,13 +336,14 @@ const Profile = () => {
             </div>
               <div className='change'>
               <ThemeProvider theme={theme}>
-                <Button 
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                > 변경할래요
-                </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={handleFormSubmit}
+              > 변경할래요
+              </Button>
               </ThemeProvider>
               </div>
               <div className='no-change'>
