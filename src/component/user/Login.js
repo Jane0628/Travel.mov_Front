@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router';
 import { Input } from '@mui/base';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import '../../design/login.scss';
-import AuthContext from '../../utill/AuthContext';
-import { API_BASE_URL, USER } from '../../utill/host-utils';
+import AuthContext from '../../util/AuthContext';
+import { API_BASE_URL, USER } from '../../util/host-utils';
 
 const Login = () => {
 
@@ -42,8 +42,8 @@ const Login = () => {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify({
-				id: $id.ariaValueMax,
-				password: $pw.value
+				id: $id.value,
+				pw: $pw.value
 			})
 		});
 

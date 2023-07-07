@@ -9,26 +9,33 @@
 		display: none;
 	}
 
-	.carousel-item img.bottom-cut-off {
-		height: 100vh;
-		position: fixed;
-		bottom: 0;
-	}
-
 	.carousel-item img {
+		width: 100vw;
 		height: 100vh;
 		position: fixed;
 		top: 0;
+
+		transition: 0.5s ease-in-out;
+
+		&.bottom-cut-off {
+			bottom: 0;
+		}
+
+		&.login-opened {
+			top: 0;
+			left: 0;
+			transform: scale(0.71) translate(-20.4%, -20.4%);
+		}
 	}
 }
 
-// 버튼 위치 조절 및 디자인
+// '떠나볼까?' 버튼 위치 조절 및 디자인
 .position {
 	position: relative;
 	box-sizing: border-box;
 	overflow: hidden;
 
-	a {
+	#openLogin {
 		position: absolute;
 		left: 5%;
 		bottom: 10%;
@@ -43,11 +50,19 @@
 		height: 100px;
 		border-radius: 10px;
 		padding: 20px 0 0;
+
+		transition: 0.5s ease-in-out;
+
+		&.login-opened {
+			left: 2.5%;
+			bottom: 32%;
+			transform: scale(0.71) translate(-20.4%, -20.4%);
+		}
 	}
 }
 
+// 로그인 페이지
 #loginPage {
-	transform: translateX(100%);
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -59,10 +74,9 @@
 	height: 100%;
 
 	transition: 0.5s ease-in-out;
+	z-index: 50;
 
-	&.open {
-		transform: translateX(0%);
-		display: block;
-		z-index: 50;
+	&.close {
+		transform: translateX(100%);
 	}
 }
