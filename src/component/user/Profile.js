@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container } from 'reactstrap';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
+import { API_BASE_URL } from '../../util/host-utils';
 
 const Profile = () => {
 
@@ -20,30 +21,6 @@ const Profile = () => {
 
   const redirection = useNavigate();
 
-  //회원가입 요청 함수
-  const fetchJoin = async() => {    
-    console.log(userValue.password);
-    console.log(userValue.nickN);
-    console.log(userValue.email);
-    const res = await fetch('http://localhost:8181/api/auth/signup', {
-      method: 'POST',
-      headers: {'content-type' : 'application/json'},
-      body: JSON.stringify({            
-        id: userValue.id,
-        pw: userValue.password,
-        nickN: userValue.nickN,
-        email: userValue.email
-      })
-    });
-    
-    
-    //잘못된 요청시 경고창 띄움
-    if(res.status === 400) {
-        const text = await res.text();
-        alert(text);
-        return;
-    }
-  }
 
   
 
@@ -205,8 +182,8 @@ const Profile = () => {
     userFormData.append('user', userJsonBlob);
     userFormData.append('profileImage', fileInputRef.current.files[0]);
 
-    fetch('API_BASE_URL', {
-        method: 'POST',
+    fetch(`${API_BASE_URL}`, {
+        method: 'PUT',
         body: userFormData
     })
     .then(res => {
