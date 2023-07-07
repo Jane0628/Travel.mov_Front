@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 
-// 전역 Context 생성
-const AuthContext = createContext({
-	isLoggedIn: false, 	// 로그인 여부 추적
-	id: '',
-	onLogout: () => { },
+//새로운 전역 Context를 생성
+const AuthContext = React.createContext({
+	isLoggedIn: false, //로그인 했는지의 여부 추적
+	nick: '',
+	onLogout: () => { }, //더미 함수를 넣으면 자동완성 시 편함.
 	onLogin: (id, pw) => { },
 	setUserInfo: () => { }
 });
