@@ -58,16 +58,16 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Intro />
-        {/* <Header />
-        <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/join' element={<Join />} />
-          <Route path='/myPage' element={<MyPage />} />
-          <Route path='/profile' element={<Profile />} />
-        </Routes>
-        <Footer /> */}
+        {/* <Intro /> */}
+        <Header />
+          <Routes>
+            <Route path='/' element={<Main />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/join' element={<Join />} />
+            <Route path='/myPage' element={<MyPage />} />
+            <Route path='/profile' element={<Profile />} />
+          </Routes>
+        <Footer />
       </ThemeProvider>
     </>
   );
