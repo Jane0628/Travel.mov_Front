@@ -3,8 +3,8 @@ import '../../design/join.scss'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import AuthContext from '../../utill/AuthContext';
-import { API_BASE_URL, USER } from '../../utill/host-utils';
+import AuthContext from '../../util/AuthContext';
+import { API_BASE_URL, USER } from '../../util/host-utils';
 
 const Join = () => {
 
@@ -25,18 +25,18 @@ const Join = () => {
 
     const $id = document.getElementById('id');
     const $pw = document.getElementById('pw');
-    const $nickN = document.getElementById('nickN');
+    const $nick = document.getElementById('nick');
     const $email = document.getElementById('email');
 
     console.log($id.value);
 
-    const res = await fetch(`${REQUEST_URL}/signup`, {
+    const res = await fetch(REQUEST_URL, {
         method: 'POST',
         headers: {'content-type' : 'application/json'},
         body: JSON.stringify({
             id: $id.value,
             pw: $pw.value,
-            nickN: $nickN.value,
+            nick: $nick.value,
             email: $email.value
         })
     });
@@ -224,7 +224,7 @@ const Join = () => {
 
     const inputVal = e.target.value;
 
-    const emailRegex = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
+    const emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
     let msg, flag = false;
     if(!inputVal) {
@@ -279,7 +279,7 @@ const Join = () => {
   return (
     <>
       <Container>
-        <span>Join Page</span>
+        <h1>Join Page</h1>
         <form noValidate onSubmit={joinHandler}>
           <Grid>
             <Grid item xs={8}>
@@ -333,8 +333,8 @@ const Join = () => {
                 variant="outlined"
                 required
                 fullWidth
-                id="nickN"
-                name="nickN"
+                id="nick"
+                name="nick"
                 label="닉네임"
                 onChange={nameHandler}
               />
@@ -372,16 +372,14 @@ const Join = () => {
             <FormControlLabel control={<Checkbox />} label="SF" />
             <FormControlLabel control={<Checkbox />} label="애니메이션" />
           </Grid>
-          <Grid item xs={8}>
+          <div className="buttons">
             <Button
               type='submit'
               fullWidth
               variant='contained'
               color='primary'
             > 가입할래요
-            </Button>
-          </Grid>
-          <Grid item xs={8}>
+            </Button>       
             <Button href='/login'
               type='button'
               fullWidth
@@ -389,7 +387,7 @@ const Join = () => {
               color='primary'
             > 가입안할래요
             </Button>
-          </Grid>
+          </div>
         </form>
       </Container>
     </>

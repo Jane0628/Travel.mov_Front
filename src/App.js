@@ -9,6 +9,7 @@ import MyPage from './component/user/MyPage';
 import Profile from './component/user/Profile';
 import Footer from './component/layout/Footer';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { AuthContextProvider } from './util/AuthContext';
 
 function App() {
   const theme = createTheme({
@@ -57,9 +58,10 @@ function App() {
 
   return (
     <>
+    <AuthContextProvider>
       <ThemeProvider theme={theme}>
-        <Intro />
-        {/* <Header />
+        {/* <Intro /> */}
+        <Header />
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
@@ -67,8 +69,9 @@ function App() {
           <Route path='/myPage' element={<MyPage />} />
           <Route path='/profile' element={<Profile />} />
         </Routes>
-        <Footer /> */}
+        <Footer />
       </ThemeProvider>
+    </AuthContextProvider>
     </>
   );
 }

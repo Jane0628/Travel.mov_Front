@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 //새로운 전역 Context를 생성
 const AuthContext = React.createContext({
     isLoggedIn: false, //로그인 했는지의 여부 추적
-    userName: '',
+    nick: '',
     onLogout: () => {}, //더미 함수를 넣으면 자동완성 시 편함.
     onLogin: (id, pw) => {},
     setUserInfo: () => {}
