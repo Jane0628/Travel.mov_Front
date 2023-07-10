@@ -69,7 +69,7 @@ function App() {
 						<Route path='/join' element={<Join />} />
 						<Route path='/myPage' element={<MyPage />} />
 						<Route path='/profile' element={<Profile />} />
-            <Route path='/sights' element={<Sights />} />
+            			<Route path='/sights' element={<Sights />} />
 					</Routes>
 					<Footer />
 				</ThemeProvider>
