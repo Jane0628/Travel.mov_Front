@@ -1,4 +1,4 @@
-import { Checkbox, Link, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material';
+import { Avatar, Link, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import React from 'react'
 
 const ReservationItem = ({item}) => {

@@ -1,9 +1,10 @@
 import { Link } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { API_BASE_URL } from '../../util/host-utils';
 import { getLoginUserInfo } from '../../util/login-utils';
 import ReservationItem from './ReservationItem';
+import { useNavigate } from 'react-router-dom';
 
 const ReservationCheck = () => {
 
@@ -11,6 +12,8 @@ const ReservationCheck = () => {
     const token = getLoginUserInfo().token;
 
     const [reserveList, setReserveList] = useState([]);
+
+    const redirection = useNavigate();
 
     const requestHeader = {
         'content-type' : 'application/json',
@@ -21,7 +24,7 @@ const ReservationCheck = () => {
     useEffect(() => {
     
         //페이지가 렌더링 되면 예약목록 보여주기.
-        fetch(API_BASE_URL, {
+        fetch(`${API_BASE_URL}/reservation`, {
           method: 'GET',
           headers: requestHeader
         })
@@ -52,9 +55,9 @@ const ReservationCheck = () => {
         <ul className='todo-list'>
 
         {
-          reserveList.map(reserve => <ReservationItem
-                                  key={reserve.id}
-                                  item={reserve}
+          reserveList.map(reservation => <ReservationItem
+                                  key={reservation.id}
+                                  item={reservation}
                                   />)
         }
     </ul>
