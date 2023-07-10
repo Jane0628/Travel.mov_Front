@@ -11,7 +11,10 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Carousel } from 'react-bootstrap';
+import '../../../design/intro.scss';
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Copyright(props) {
   return (
@@ -36,6 +39,13 @@ export default function SignInSide() {
     });
   };
 
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  // 눈 클릭 시 비밀번호 보여주는/숨기는 메서드
+  const showPasswordHandler = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
@@ -51,8 +61,74 @@ export default function SignInSide() {
             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        }}
-      />
+        }}>
+
+        <Carousel fade>
+          <Carousel.Item>
+            <img
+              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/parasite.jpg")}
+              alt="기생충"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className={(close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/about_time.jpg")}
+              alt="어바웃 타임"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/train_to_busan.jpg")}
+              alt="부산행"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className={(close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/avatar.jpg")}
+              alt="아바타2 물의 길"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className={(close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/the_round_up.jpg")}
+              alt="범죄도시3"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/mission_impossible.jpg")}
+              alt="미션 임파서블"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/memories_of_murder.jpg")}
+              alt="살인의 추억"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className={(close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/lala.jpg")}
+              alt="라라랜드"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
+              src={require("../../../img/carousel_img/decision_to_leave.jpg")}
+              alt="헤어질 결심"
+            />
+          </Carousel.Item>
+        </Carousel>
+      </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <Box
           sx={{
@@ -67,32 +143,40 @@ export default function SignInSide() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            로그인
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
-              required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="id"
+              label="아이디"
+              name="id"
               autoFocus
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+            <FormControl fullWidth variant="outlined" size='small'>
+              <InputLabel>비밀번호</InputLabel>
+              <OutlinedInput
+                autoComplete="off"
+                id="pw"
+                type={showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={showPasswordHandler}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="아이디 저장"
             />
             <Button
               type="submit"
@@ -105,12 +189,12 @@ export default function SignInSide() {
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+                  비밀번호를 잊으셨나요?
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"회원가입"}
                 </Link>
               </Grid>
             </Grid>
