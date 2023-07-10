@@ -11,6 +11,7 @@ import Footer from './component/layout/Footer';
 import Sights from './component/layout/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { AuthContextProvider } from './util/AuthContext';
+import ReservationCheck from './component/reservation/ReservationCheck';
 import SignInSide from './component/layout/intro/SignInSide';
 
 function App() {
@@ -125,7 +126,8 @@ function App() {
 						<Route path='/join' element={<Join />} />
 						<Route path='/myPage' element={<MyPage />} />
 						<Route path='/profile' element={<Profile />} />
-						<Route path='/sights' element={<Sights />} />
+            <Route path='/sights' element={<Sights />} />
+            <Route path='/reservationCheck' element={<ReservationCheck />} />
 					</Routes>
 					<Footer />
 				</ThemeProvider>
