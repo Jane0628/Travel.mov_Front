@@ -323,12 +323,12 @@ const Join = () => {
                   onChange={idHandler}
                   autoFocus
                 />
-              <button type='button' onClick={fetchIdCheck} className='check-btn'>중복체크</button>
+                <button type='button' onClick={fetchIdCheck} className='check-btn'>중복체크</button>
+                <span style={
+                  correct.id ? { color: 'green' } : { color: 'red' }
+                  }>{message.id}
+                </span>
               </Grid>
-              <span style={
-                correct.id ? { color: 'green' } : { color: 'red' }
-                }>{message.id}
-              </span>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -339,11 +339,11 @@ const Join = () => {
                   autoComplete="nick"
                   onChange={nameHandler}
                 />
+                <span style={
+                  correct.nickN ? { color: 'green' } : { color: 'red' }
+                  }>{message.nickN}
+                </span>
               </Grid>
-              <span style={
-                correct.nickN ? { color: 'green' } : { color: 'red' }
-                }>{message.nickN}
-              </span>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -354,11 +354,11 @@ const Join = () => {
                   autoComplete="email"
                   onChange={emailHandler}
                 />
+                <span style={
+                  correct.email ? { color: 'green' } : { color: 'red' }
+                  }>{message.email}
+                </span>
               </Grid>
-              <span style={
-                correct.email ? { color: 'green' } : { color: 'red' }
-                }>{message.email}
-              </span>
               {/* <Grid item xs={12}>
 
                 <TextField
