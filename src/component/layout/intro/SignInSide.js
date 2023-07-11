@@ -16,18 +16,6 @@ import '../../../design/intro.scss';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 export default function SignInSide() {
   const handleSubmit = (event) => {
@@ -51,22 +39,14 @@ export default function SignInSide() {
       <CssBaseline />
       <Grid
         item
-        xs={false}
+        xs={12}
         sm={4}
-        md={7}
-        sx={{
-          backgroundImage: "../../../img/carousel_img/memories_of_murder.jpg",
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}>
+        md={7}>
 
         <Carousel fade>
           <Carousel.Item>
             <img
-              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
+              className={"bottom-cut-off" + (close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/parasite.jpg")}
               alt="기생충"
             />
