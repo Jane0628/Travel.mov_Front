@@ -127,9 +127,9 @@ function App() {
 						<Route path='/join' element={<Join />} />
 						<Route path='/myPage' element={<MyPage />} />-
 						<Route path='/profile' element={<Profile />} />
-            <Route path='/sights' element={<Sights />} />
+            			<Route path='/sights' element={<Sights />} />
             			<Route path='/checkout' element={<Checkout />} />
-            <Route path='/reservationCheck' element={<ReservationCheck />} />
+            			<Route path='/reservationCheck' element={<ReservationCheck />} />
 					</Routes>
 					<Footer />
 				</ThemeProvider>
