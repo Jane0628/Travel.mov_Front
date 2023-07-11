@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -46,63 +46,54 @@ export default function SignInSide() {
         <Carousel fade>
           <Carousel.Item>
             <img
-              className={"bottom-cut-off" + (close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/parasite.jpg")}
               alt="기생충"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className={(close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/about_time.jpg")}
               alt="어바웃 타임"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/train_to_busan.jpg")}
               alt="부산행"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className={(close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/avatar.jpg")}
               alt="아바타2 물의 길"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className={(close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/the_round_up.jpg")}
               alt="범죄도시3"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/mission_impossible.jpg")}
               alt="미션 임파서블"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/memories_of_murder.jpg")}
               alt="살인의 추억"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className={(close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/lala.jpg")}
               alt="라라랜드"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className={"bottom-cut-off " + (close ? 'login-opened' : '')}
               src={require("../../../img/carousel_img/decision_to_leave.jpg")}
               alt="헤어질 결심"
             />
@@ -173,7 +164,7 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/join" variant="body2">
                   {"회원가입"}
                 </Link>
               </Grid>
