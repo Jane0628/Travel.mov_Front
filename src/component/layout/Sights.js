@@ -15,7 +15,46 @@ import Container from '@mui/material/Container';
 
 
 
-const cards = [1, 2, 3, 4, 5, 6];
+// const cards = [1, 2, 3, 4, 5, 6];
+const cards = [
+  {
+    id: 1,
+    image : 'https://source.unsplash.com/random?wallpapers',
+    place : 'place',
+    placeDetail : 'placeDetail'
+  },
+  {
+    id: 2,
+    image : 'https://source.unsplash.com/random?nature',
+    place : 'place2',
+    placeDetail : 'placeDetail2'
+  },
+  {
+    id: 3,
+    image : 'https://source.unsplash.com/random?film',
+    place : 'place3',
+    placeDetail : 'placeDetail3'
+  },
+  {
+    id: 4,
+    image : 'https://source.unsplash.com/random?street',
+    place : 'place4',
+    placeDetail : 'placeDetail4'
+  },
+  {
+    id: 5,
+    image : 'https://source.unsplash.com/random?person',
+    place : 'place5',
+    placeDetail : 'placeDetail5'
+  },
+  {
+    id: 6,
+    image : 'https://source.unsplash.com/random?travel',
+    place : 'place6',
+    placeDetail : 'placeDetail6'
+  }
+
+];
 
 
 export default function Sights() {
@@ -53,8 +92,8 @@ export default function Sights() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
+              <Button variant="contained">1 action</Button>
+              <Button variant="outlined">2 action</Button>
             </Stack>
           </Container>
         </Box>
@@ -62,7 +101,7 @@ export default function Sights() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card.id} image={card.image} place={card.place} placeDetail={card.placeDetail} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -72,15 +111,14 @@ export default function Sights() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image="https://source.unsplash.com/random?wallpapers"
+                    image={card.image}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                    <Typography variant="h5" component="h2">
+                      {card.place}
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
+                      {card.placeDetail}
                     </Typography>
                   </CardContent>
                   <CardActions>
