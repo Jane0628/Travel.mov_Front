@@ -12,6 +12,7 @@ import Sights from './component/layout/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { AuthContextProvider } from './util/AuthContext';
 import ReservationCheck from './component/reservation/ReservationCheck';
+import Checkout from './component/reservation/Checkout';
 
 function App() {
 	const theme = createTheme({
@@ -68,9 +69,10 @@ function App() {
 						<Route path='/' element={<Main />} />
 						<Route path='/login' element={<Login />} />
 						<Route path='/join' element={<Join />} />
-						<Route path='/myPage' element={<MyPage />} />
+						<Route path='/myPage' element={<MyPage />} />-
 						<Route path='/profile' element={<Profile />} />
             			<Route path='/sights' element={<Sights />} />
+            			<Route path='/checkout' element={<Checkout />} />
             			<Route path='/reservationCheck' element={<ReservationCheck />} />
 					</Routes>
 					<Footer />
