@@ -22,7 +22,7 @@ export default function SignInSide() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      id: data.get('id'),
       password: data.get('password'),
     });
   };

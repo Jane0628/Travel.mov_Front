@@ -57,7 +57,7 @@ const Join = () => {
     });
 
     //잘못된 요청시 경고창 띄움
-    if (res.status === 400) {
+    if (res.status !== 200) {
       const text = await res.text();
       alert(text);
       return;
