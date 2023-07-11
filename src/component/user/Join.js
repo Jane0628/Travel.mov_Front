@@ -57,7 +57,7 @@ const Join = () => {
     });
 
     //잘못된 요청시 경고창 띄움
-    if (res.status === 400) {
+    if (res.status !== 200) {
       const text = await res.text();
       alert(text);
       return;
@@ -293,7 +293,7 @@ const Join = () => {
 
   return (
     <>
-      
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -326,7 +326,7 @@ const Join = () => {
                 <button type='button' onClick={fetchIdCheck} className='check-btn'>중복체크</button>
                 <span style={
                   correct.id ? { color: 'green' } : { color: 'red' }
-                  }>{message.id}
+                }>{message.id}
                 </span>
               </Grid>
               <Grid item xs={12}>
@@ -341,7 +341,7 @@ const Join = () => {
                 />
                 <span style={
                   correct.nickN ? { color: 'green' } : { color: 'red' }
-                  }>{message.nickN}
+                }>{message.nickN}
                 </span>
               </Grid>
               <Grid item xs={12}>
@@ -356,7 +356,7 @@ const Join = () => {
                 />
                 <span style={
                   correct.email ? { color: 'green' } : { color: 'red' }
-                  }>{message.email}
+                }>{message.email}
                 </span>
               </Grid>
               {/* <Grid item xs={12}>
@@ -372,36 +372,36 @@ const Join = () => {
                 />
               </Grid> */}
               <Grid item xs={12}>
-              <FormControl sx={{ width: '500px' }} variant="outlined" required size='Large'>
-              <InputLabel>비밀번호</InputLabel>
-              <OutlinedInput
-                  autoComplete="off"
-                  id="pw"
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={showPasswordHandler}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                 }
-                  label="비밀번호"
-                  onChange={passwordHandler}
-                  name="pw"
-                />
-              </FormControl>
-              <span style={
-                correct.password ? { color: 'green' } : { color: 'red' }
+                <FormControl sx={{ width: '500px' }} variant="outlined" required size='Large'>
+                  <InputLabel>비밀번호</InputLabel>
+                  <OutlinedInput
+                    autoComplete="off"
+                    id="pw"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={showPasswordHandler}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="비밀번호"
+                    onChange={passwordHandler}
+                    name="pw"
+                  />
+                </FormControl>
+                <span style={
+                  correct.password ? { color: 'green' } : { color: 'red' }
                 }>{message.password}
-              </span>
+                </span>
               </Grid>
-              
+
               <Grid>
-              <h2>선호하는 영화 장르</h2>
+                <h2>선호하는 영화 장르</h2>
                 <FormControlLabel control={<Checkbox />} label="액션" />
                 <FormControlLabel control={<Checkbox />} label="공포" />
                 <FormControlLabel control={<Checkbox />} label="로맨스" />
@@ -411,25 +411,25 @@ const Join = () => {
                 <FormControlLabel control={<Checkbox />} label="모험" />
                 <FormControlLabel control={<Checkbox />} label="SF" />
                 <FormControlLabel control={<Checkbox />} label="애니메이션" />
-              </Grid>          
+              </Grid>
             </Grid>
             <div className="buttons">
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              가입할래요
-            </Button>
-            <Button href='/login'
-              type="button"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              가입안할래요
-            </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                가입할래요
+              </Button>
+              <Button href='/login'
+                type="button"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                가입안할래요
+              </Button>
             </div>
             <Grid container justifyContent="flex-end">
               <Grid item>
@@ -443,7 +443,7 @@ const Join = () => {
         <Copyright sx={{ mt: 5 }} />
       </Container>
 
-  
+
     </>
   );
 };
