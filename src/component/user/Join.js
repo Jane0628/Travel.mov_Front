@@ -15,22 +15,9 @@ const Join = () => {
 
   const REQUEST_URL = API_BASE_URL + USER;
 
-  //mui Copyright
-  function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://Tramovel.com/">
-          Tramovel.com
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-
   useEffect(() => {
     if (isLoggedIn) {
+      alert('이미 로그인 중이십니다.');
       redirection('/');
     }
   });
@@ -440,7 +427,6 @@ const Join = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
 
 

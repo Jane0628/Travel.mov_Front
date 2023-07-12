@@ -7,6 +7,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import '../../design/login.scss';
 import AuthContext from '../../util/AuthContext';
 import { API_BASE_URL, USER } from '../../util/host-utils';
+import { isLogin } from '../../util/login-utils';
 
 const Login = () => {
 
@@ -18,7 +19,7 @@ const Login = () => {
 
 	//로그인 중일시 메인으로
 	useEffect(() => {
-		if (isLoggedIn) {
+		if (isLogin) {
 			redirection('/');
 		}
 	});

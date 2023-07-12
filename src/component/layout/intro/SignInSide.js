@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,16 +15,67 @@ import { Carousel } from 'react-bootstrap';
 import '../../../design/intro.scss';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../../util/AuthContext';
+import { API_BASE_URL, USER } from '../../../util/host-utils';
 
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      id: data.get('id'),
-      password: data.get('password'),
+  const redirection = useNavigate();
+
+  const { onLogin, isLoggedIn } = useContext(AuthContext);
+
+  const REQUEST_URL = API_BASE_URL + USER;
+
+  //로그인 중일시 메인으로
+  useEffect(() => {
+    if (isLoggedIn) {
+      redirection('/');
+    }
+  });
+
+  // 로그인 요청 함수
+  const fetchLogin = async () => {
+
+    const $id = document.getElementById('id');
+    const $pw = document.getElementById('pw');
+    if (!$id.value) {
+      alert('아이디를 입력하세요');
+      return;
+    }
+    if (!$pw.value) {
+      alert('비밀번호를 입력하세요!')
+      return;
+    }
+    console.log($id.value);
+
+    const res = await fetch(`${REQUEST_URL}/signin`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        id: $id.value,
+        pw: $pw.value
+      })
     });
+
+    if (res.status === 400) {
+      const text = await res.text();
+      alert(text);
+      return;
+    }
+
+    const { token, userName } = await res.json();
+    // console.log(res.json);
+
+    onLogin(token, $id);
+    redirection('/');
+
+  };
+
+  // 로그인 버튼 클릭 이벤트
+  const loginHandler = e => {
+    e.preventDefault();
+    fetchLogin();
   };
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -116,7 +167,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             로그인
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" noValidate onSubmit={loginHandler} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               fullWidth
@@ -165,7 +216,7 @@ export default function SignInSide() {
               </Grid>
               <Grid item>
                 <Link href="/join" variant="body2">
-                  {"회원가입"}
+                  회원가입
                 </Link>
               </Grid>
             </Grid>
