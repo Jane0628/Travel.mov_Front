@@ -15,6 +15,7 @@ import ReservationCheck from './component/reservation/ReservationCheck';
 import SignInSide from './component/layout/intro/SignInSide';
 import Checkout from './component/reservation/Checkout';
 import { useContext, useEffect } from 'react';
+import { isLogin } from './util/login-utils';
 
 function App() {
 	const theme = createTheme({
@@ -53,15 +54,11 @@ function App() {
 		},
 	});
 
-	useEffect(() => {
-		console.log("location.pathname = " + location.pathname);
-	});
-
 	return (
 		<>
 			<AuthContextProvider>
 				<ThemeProvider theme={theme}>
-					{location.pathname !== '/login' && <Header />}
+					{isLogin() ? (<Header />) : (<></>)}
 					<Routes>
 						<Route path='/' element={<Main />} />
 						<Route path='/login' element={<SignInSide />} />
@@ -72,7 +69,7 @@ function App() {
 						<Route path='/checkout' element={<Checkout />} />
 						<Route path='/reservationCheck' element={<ReservationCheck />} />
 					</Routes>
-					{location.pathname !== '/login' && <Footer />}
+					{isLogin() ? (<Footer />) : (<></>)}
 				</ThemeProvider>
 			</AuthContextProvider>
 		</>
