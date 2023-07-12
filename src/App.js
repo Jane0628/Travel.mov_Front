@@ -58,7 +58,7 @@ function App() {
 		<>
 			<AuthContextProvider>
 				<ThemeProvider theme={theme}>
-					{isLogin() ? (<Header />) : (<></>)}
+					{isLogin() ? (<Header />) : (<Header />)}
 					<Routes>
 						<Route path='/' element={<Main />} />
 						<Route path='/login' element={<SignInSide />} />
