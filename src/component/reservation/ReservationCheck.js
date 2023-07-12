@@ -3,8 +3,13 @@ import React, { useEffect, useState } from 'react'
 
 import { API_BASE_URL } from '../../util/host-utils';
 import { getLoginUserInfo } from '../../util/login-utils';
-import ReservationItem from './ReservationItem';
 import { useNavigate } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { Title } from '@mui/icons-material';
 
 const ReservationCheck = () => {
 
@@ -48,20 +53,39 @@ const ReservationCheck = () => {
         });
     
       }, []);
-    return (
-    <>
-    <Link to='/reservation'>예매하러 가기</Link>
-        <h1>예약 정보 확인</h1>
-        <ul className='todo-list'>
 
-        {
-          reserveList.map(reservation => <ReservationItem
-                                  key={reservation.id}
-                                  item={reservation}
-                                  />)
-        }
-    </ul>
-    </>
+      function preventDefault(event) {
+        event.preventDefault();
+      }
+    return (
+    <React.Fragment>
+      <Title>예약 내역</Title>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>날짜</TableCell>
+            <TableCell>이름</TableCell>
+            <TableCell>숙소 이름</TableCell>
+            <TableCell>결재 방식</TableCell>
+            <TableCell align="right">가격</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {reserveList.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell>{row.date}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.shipTo}</TableCell>
+              <TableCell>{row.paymentMethod}</TableCell>
+              <TableCell align="right">{`$${row.amount}`}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+        See more orders
+      </Link>
+    </React.Fragment>
   
 )};
 

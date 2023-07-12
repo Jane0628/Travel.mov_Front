@@ -10,14 +10,10 @@ import Profile from './component/user/Profile';
 import Footer from './component/layout/Footer';
 import Sights from './component/layout/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import AuthContext, { AuthContextProvider } from './util/AuthContext';
+import { AuthContextProvider } from './util/AuthContext';
 import ReservationCheck from './component/reservation/ReservationCheck';
 import SignInSide from './component/layout/intro/SignInSide';
 import Checkout from './component/reservation/Checkout';
-import { useContext, useEffect } from 'react';
-import { isLogin } from './util/login-utils';
-import Hotels from './component/veiw/Hotels';
-
 
 function App() {
 	const theme = createTheme({
@@ -56,11 +52,12 @@ function App() {
 		},
 	});
 
+
 	return (
 		<>
 			<AuthContextProvider>
 				<ThemeProvider theme={theme}>
-					{isLogin() ? (<Header />) : (<Header />)}
+					<Header />
 					<Routes>
 						<Route path='/' element={<Main />} />
 						<Route path='/login' element={<SignInSide />} />
@@ -70,9 +67,8 @@ function App() {
 						<Route path='/sights' element={<Sights />} />
 						<Route path='/checkout' element={<Checkout />} />
 						<Route path='/reservationCheck' element={<ReservationCheck />} />
-						<Route path='/hotels' element={<Hotels />} />
 					</Routes>
-					{isLogin() ? (<Footer />) : (<></>)}
+					<Footer />
 				</ThemeProvider>
 			</AuthContextProvider>
 		</>
