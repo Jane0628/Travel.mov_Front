@@ -10,7 +10,7 @@ import Profile from './component/user/Profile';
 import Footer from './component/layout/Footer';
 import Sights from './component/layout/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import AuthContext, { AuthContextProvider } from './util/AuthContext';
+import { AuthContextProvider } from './util/AuthContext';
 import ReservationCheck from './component/reservation/ReservationCheck';
 import SignInSide from './component/layout/intro/SignInSide';
 import Checkout from './component/reservation/Checkout';
@@ -56,6 +56,7 @@ function App() {
 		},
 	});
 
+
 	return (
 		<>
 			<AuthContextProvider>
@@ -70,7 +71,6 @@ function App() {
 						<Route path='/sights' element={<Sights />} />
 						<Route path='/checkout' element={<Checkout />} />
 						<Route path='/reservationCheck' element={<ReservationCheck />} />
-						<Route path='/hotels' element={<Hotels />} />
 					</Routes>
 					<Footer />
 				</ThemeProvider>
