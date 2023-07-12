@@ -26,10 +26,7 @@ const Header = () => {
 					<>
 						{isLogin() ?
 							(<>
-								<div className='logout-btn' onClick={logoutHandler}
-									id='logout'>
-									로그아웃
-								</div>
+								<Link to="/" onClick={logoutHandler} >로그아웃</Link>
 								<Link to="/myPage">마이페이지</Link>
 								<Link to="/profile">프로필 수정</Link>
 							</>)

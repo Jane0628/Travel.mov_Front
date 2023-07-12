@@ -10,10 +10,11 @@ import Profile from './component/user/Profile';
 import Footer from './component/layout/Footer';
 import Sights from './component/layout/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { AuthContextProvider } from './util/AuthContext';
+import AuthContext, { AuthContextProvider } from './util/AuthContext';
 import ReservationCheck from './component/reservation/ReservationCheck';
 import SignInSide from './component/layout/intro/SignInSide';
 import Checkout from './component/reservation/Checkout';
+import { useContext, useEffect } from 'react';
 
 function App() {
 	const theme = createTheme({
@@ -52,22 +53,26 @@ function App() {
 		},
 	});
 
+	useEffect(() => {
+		console.log("location.pathname = " + location.pathname);
+	});
+
 	return (
 		<>
 			<AuthContextProvider>
 				<ThemeProvider theme={theme}>
-					<Header />
+					{location.pathname !== '/login' && <Header />}
 					<Routes>
 						<Route path='/' element={<Main />} />
 						<Route path='/login' element={<SignInSide />} />
 						<Route path='/join' element={<Join />} />
-						<Route path='/myPage' element={<MyPage />} />-
+						<Route path='/myPage' element={<MyPage />} />
 						<Route path='/profile' element={<Profile />} />
-            <Route path='/sights' element={<Sights />} />
-            <Route path='/checkout' element={<Checkout />} />
-            <Route path='/reservationCheck' element={<ReservationCheck />} />
+						<Route path='/sights' element={<Sights />} />
+						<Route path='/checkout' element={<Checkout />} />
+						<Route path='/reservationCheck' element={<ReservationCheck />} />
 					</Routes>
-					<Footer />
+					{location.pathname !== '/login' && <Footer />}
 				</ThemeProvider>
 			</AuthContextProvider>
 		</>
