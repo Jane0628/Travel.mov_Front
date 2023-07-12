@@ -15,6 +15,7 @@ import { Carousel } from 'react-bootstrap';
 import '../../../design/intro.scss';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import KakaoSignin from '../../../util/KakaoSignin';
 
 
 export default function SignInSide() {
@@ -157,6 +158,7 @@ export default function SignInSide() {
             >
               로그인
             </Button>
+            <KakaoSignin />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -169,6 +171,7 @@ export default function SignInSide() {
                 </Link>
               </Grid>
             </Grid>
+            
           </Box>
         </Box>
       </Grid>
