@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { Copyright, Visibility, VisibilityOff } from '@mui/icons-material';
 import AuthContext from '../../util/AuthContext';
 import { API_BASE_URL, USER } from '../../util/host-utils';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const Join = () => {
 
@@ -280,7 +280,6 @@ const Join = () => {
 
   return (
     <>
-
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -292,7 +291,7 @@ const Join = () => {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <AssignmentIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             회원가입

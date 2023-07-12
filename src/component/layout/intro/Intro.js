@@ -89,7 +89,7 @@ const Intro = () => {
           <Carousel.Item>
             <img
               className={(close ? 'login-opened' : '')}
-              src={require("../../../img/carousel_img/lala.jpg")}
+              src={require("../../../img/carousel_img/lala_land.jpg")}
               alt="라라랜드"
             />
           </Carousel.Item>

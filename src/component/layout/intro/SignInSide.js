@@ -27,7 +27,7 @@ export default function SignInSide() {
 
   const REQUEST_URL = API_BASE_URL + USER;
 
-  //로그인 중일시 메인으로
+  // 로그인 중일 시 메인으로
   useEffect(() => {
     if (isLoggedIn) {
       redirection('/');
@@ -47,7 +47,6 @@ export default function SignInSide() {
       alert('비밀번호를 입력하세요!')
       return;
     }
-    console.log($id.value);
 
     const res = await fetch(`${REQUEST_URL}/signin`, {
       method: 'POST',
@@ -100,54 +99,74 @@ export default function SignInSide() {
               src={require("../../../img/carousel_img/parasite.jpg")}
               alt="기생충"
             />
+            <Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/parasite.png")} alt="기생충" />
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/about_time.jpg")}
               alt="어바웃 타임"
-            />
+            /><Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/about_time.png")} alt="어바웃 타임" />
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/train_to_busan.jpg")}
               alt="부산행"
-            />
+            /><Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/train_to_busan.png")} alt="부산행" />
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/avatar.jpg")}
               alt="아바타2 물의 길"
-            />
+            /><Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/avatar.png")} alt="아바타" />
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
+              className='align_right'
               src={require("../../../img/carousel_img/the_round_up.jpg")}
               alt="범죄도시3"
-            />
+            /><Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/the_round_up.png")} alt="범죄도시3" />
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/mission_impossible.jpg")}
               alt="미션 임파서블"
-            />
+            /><Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/mission_impossible.png")} alt="미션 임파서블" />
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/memories_of_murder.jpg")}
               alt="살인의 추억"
-            />
+            /><Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/memories_of_murder.png")} alt="살인의 추억" />
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/lala.jpg")}
+              src={require("../../../img/carousel_img/lala_land.jpg")}
               alt="라라랜드"
-            />
+            /><Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/lala_land.png")} alt="라라랜드" />
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/decision_to_leave.jpg")}
               alt="헤어질 결심"
-            />
+            /><Carousel.Caption>
+              <img className='logo' src={require("../../../img/carousel_logo/decision_to_leave.png")} alt="헤어질 결심" />
+            </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       </Grid>

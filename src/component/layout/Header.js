@@ -11,6 +11,10 @@ const Header = () => {
 
 	const redirection = useNavigate();
 
+	const moveToMainPage = () => {
+		redirection('/');
+	}
+
 	const logoutHandler = e => {
 		e.preventDefault();
 		alert('로그아웃 되었습니다');
@@ -21,14 +25,13 @@ const Header = () => {
 	return (
 		<>
 			<header>
-				<img src={logo} alt="logo" />
+				<img src={logo} alt="logo" onClick={moveToMainPage} />
 				<div className="spans">
 					<>
-						{isLogin() ?
+						{isLoggedIn ?
 							(<>
 								<Link to="/" onClick={logoutHandler} >로그아웃</Link>
 								<Link to="/myPage">마이페이지</Link>
-								<Link to="/profile">프로필 수정</Link>
 							</>)
 							:
 							(<>
