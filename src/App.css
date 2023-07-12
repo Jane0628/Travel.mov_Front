@@ -85,7 +85,12 @@ a.MuiTypography-root:hover {
   font-weight: 600;
 }
 
-h1 {
+/* 제목 글씨 굵게 */
+h1.css-r768za-MuiTypography-root {
+  font-weight: 600;
+}
+
+html body h1 {
   font-size: 40px;
   font-weight: 700;
   margin: 50px 0;

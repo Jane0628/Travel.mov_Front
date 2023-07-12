@@ -16,7 +16,7 @@ import SignInSide from './component/layout/intro/SignInSide';
 import Checkout from './component/reservation/Checkout';
 import { useContext, useEffect } from 'react';
 import { isLogin } from './util/login-utils';
-import Hotels from './component/veiw/Hotels';
+import Hotels from './component/view/Hotels';
 
 
 function App() {
@@ -60,11 +60,11 @@ function App() {
 		<>
 			<AuthContextProvider>
 				<ThemeProvider theme={theme}>
-					{isLogin() ? (<Header />) : (<Header />)}
+					<Header />
 					<Routes>
 						<Route path='/' element={<Main />} />
-						<Route path='/login' element={<SignInSide />} />
 						<Route path='/join' element={<Join />} />
+						<Route path='/login' element={<SignInSide />} />
 						<Route path='/myPage' element={<MyPage />} />
 						<Route path='/profile' element={<Profile />} />
 						<Route path='/sights' element={<Sights />} />
@@ -72,7 +72,7 @@ function App() {
 						<Route path='/reservationCheck' element={<ReservationCheck />} />
 						<Route path='/hotels' element={<Hotels />} />
 					</Routes>
-					{isLogin() ? (<Footer />) : (<></>)}
+					<Footer />
 				</ThemeProvider>
 			</AuthContextProvider>
 		</>
