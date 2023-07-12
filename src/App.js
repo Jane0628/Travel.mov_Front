@@ -11,6 +11,8 @@ import Footer from './component/layout/Footer';
 import Sights from './component/layout/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { AuthContextProvider } from './util/AuthContext';
+import Hotels from './component/veiw/Hotels';
+
 
 function App() {
 	const theme = createTheme({
@@ -69,7 +71,7 @@ function App() {
 						<Route path='/join' element={<Join />} />
 						<Route path='/myPage' element={<MyPage />} />
 						<Route path='/profile' element={<Profile />} />
-            <Route path='/sights' element={<Sights />} />
+						<Route path='/hotels' element={<Hotels />} />
 					</Routes>
 					<Footer />
 				</ThemeProvider>
