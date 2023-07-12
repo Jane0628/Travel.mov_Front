@@ -21,10 +21,6 @@ const Profile = () => {
 
   const redirection = useNavigate();
 
-
-  
-
-
   //상태변수로 회원가입 입력값 관리
   const [userValue, setUserValue] = useState({
     password: '',
@@ -226,13 +222,7 @@ const Profile = () => {
         <form>
         <h1>프로필 수정</h1>
         <div className='prof-main'>
-          <div className='image'>
-            {/* <Grid item xs={8}>
-              <img
-                src={require("../../img/profileImage.png") }
-                alt="profile"
-              />
-            </Grid> */}
+          <div className='image'>            
             <div>
               <img src={selectedImage ? selectedImage : require("../../img/profileImage.png")} alt="" />
               <label htmlFor="fileInput-hidden" className="file-label">

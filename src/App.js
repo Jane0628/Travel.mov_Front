@@ -16,6 +16,8 @@ import SignInSide from './component/layout/intro/SignInSide';
 import Checkout from './component/reservation/Checkout';
 import { useContext, useEffect } from 'react';
 import { isLogin } from './util/login-utils';
+import Hotels from './component/veiw/Hotels';
+
 
 function App() {
 	const theme = createTheme({
@@ -68,6 +70,7 @@ function App() {
 						<Route path='/sights' element={<Sights />} />
 						<Route path='/checkout' element={<Checkout />} />
 						<Route path='/reservationCheck' element={<ReservationCheck />} />
+						<Route path='/hotels' element={<Hotels />} />
 					</Routes>
 					{isLogin() ? (<Footer />) : (<></>)}
 				</ThemeProvider>
