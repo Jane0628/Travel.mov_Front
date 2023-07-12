@@ -1,5 +1,5 @@
 import './App.css';
-import Intro from './component/layout/Intro';
+import Intro from './component/layout/intro/Intro';
 import Header from './component/layout/Header';
 import { Route, Routes } from 'react-router-dom';
 import Main from './component/layout/Main';
@@ -10,9 +10,12 @@ import Profile from './component/user/Profile';
 import Footer from './component/layout/Footer';
 import Sights from './component/layout/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { AuthContextProvider } from './util/AuthContext';
-import Hotels from './component/veiw/Hotels';
-
+import AuthContext, { AuthContextProvider } from './util/AuthContext';
+import ReservationCheck from './component/reservation/ReservationCheck';
+import SignInSide from './component/layout/intro/SignInSide';
+import Checkout from './component/reservation/Checkout';
+import { useContext, useEffect } from 'react';
+import { isLogin } from './util/login-utils';
 
 function App() {
 	const theme = createTheme({
@@ -34,26 +37,18 @@ function App() {
 			borderRadius: 5,
 		},
 		typography: {
-			fontFamily: 'GangwonEdu',
+			fontFamily: 'S-CoreDream',
 			fontSize: 20
 		},
 		components: {
 			MuiCssBaseline: {
 				styleOverrides: `
         @font-face {
-          font-family: 'GangwonEdu';
-          src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFLightA.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
-        }
-        `,
-				styleOverrides: `
-        @font-face {
-          font-family: 'GangwonEdu';
-          src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
-          font-weight: bold;
-          font-style: normal;
-        }
+					font-family: 'S-CoreDream';
+					src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+					font-weight: 600;
+					font-style: normal;
+				}
         `
 			},
 		},
@@ -63,17 +58,18 @@ function App() {
 		<>
 			<AuthContextProvider>
 				<ThemeProvider theme={theme}>
-					{/* <Intro /> */}
-					<Header />
+					{isLogin() ? (<Header />) : (<></>)}
 					<Routes>
 						<Route path='/' element={<Main />} />
-						<Route path='/login' element={<Login />} />
+						<Route path='/login' element={<SignInSide />} />
 						<Route path='/join' element={<Join />} />
 						<Route path='/myPage' element={<MyPage />} />
 						<Route path='/profile' element={<Profile />} />
-						<Route path='/hotels' element={<Hotels />} />
+						<Route path='/sights' element={<Sights />} />
+						<Route path='/checkout' element={<Checkout />} />
+						<Route path='/reservationCheck' element={<ReservationCheck />} />
 					</Routes>
-					<Footer />
+					{isLogin() ? (<Footer />) : (<></>)}
 				</ThemeProvider>
 			</AuthContextProvider>
 		</>

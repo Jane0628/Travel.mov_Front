@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 //새로운 전역 Context를 생성
 const AuthContext = React.createContext({
     isLoggedIn: false, //로그인 했는지의 여부 추적
     userName: '',
-    onLogout: () => {},
-    onLogin: (id, pw) => {},
-    setUserInfo: () => {}
+    onLogout: () => { },
+    onLogin: (id, pw) => { },
+    setUserInfo: () => { }
 });
 
 // 위에서 생성한 Context를 제공할 수 있는 provider
@@ -18,12 +18,11 @@ export const AuthContextProvider = props => {
 
     //컴포넌트가 렌더링 될 때 localStorage에서 로그인 정보를 가지고 와서 상태를 설정.
     useEffect(() => {
-        if(localStorage.getItem('isLoggedIn') === '1') {
+        if (localStorage.getItem('isLoggedIn') === '1') {
             setIsLoggedIn(true);
             setNick(localStorage.getItem('LOGIN_USERNICK'));
         }
     }, []);
-
 
     //로그아웃 핸들러
     const logoutHandler = () => {

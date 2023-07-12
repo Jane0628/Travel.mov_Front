@@ -1,10 +1,11 @@
-import { Button, Checkbox, Container, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, TextField, ThemeProvider, Typography, createTheme } from '@mui/material';
 import '../../design/join.scss'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Copyright, Visibility, VisibilityOff } from '@mui/icons-material';
 import AuthContext from '../../util/AuthContext';
 import { API_BASE_URL, USER } from '../../util/host-utils';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const Join = () => {
 
@@ -16,6 +17,7 @@ const Join = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
+      alert('이미 로그인 중이십니다.');
       redirection('/');
     }
   });
@@ -42,7 +44,7 @@ const Join = () => {
     });
 
     //잘못된 요청시 경고창 띄움
-    if (res.status === 400) {
+    if (res.status !== 200) {
       const text = await res.text();
       alert(text);
       return;
@@ -278,120 +280,160 @@ const Join = () => {
 
   return (
     <>
-      <Container>
-        <h1>Join Page</h1>
-        <form noValidate onSubmit={joinHandler}>
-          <Grid>
-            <Grid item xs={8}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="id"
-                name="id"
-                label="아이디"
-                onChange={idHandler}
-              />
+
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            회원가입
+          </Typography>
+          <Box component="form" noValidate onSubmit={joinHandler} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="id"
+                  name="id"
+                  required
+                  fullWidth
+                  id="id"
+                  label="아이디"
+                  onChange={idHandler}
+                  autoFocus
+                />
+                <button type='button' onClick={fetchIdCheck} className='check-btn'>중복체크</button>
+                <span style={
+                  correct.id ? { color: 'green' } : { color: 'red' }
+                }>{message.id}
+                </span>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="nick"
+                  label="닉네임"
+                  name="nick"
+                  autoComplete="nick"
+                  onChange={nameHandler}
+                />
+                <span style={
+                  correct.nickN ? { color: 'green' } : { color: 'red' }
+                }>{message.nickN}
+                </span>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="이메일 주소"
+                  name="email"
+                  autoComplete="email"
+                  onChange={emailHandler}
+                />
+                <span style={
+                  correct.email ? { color: 'green' } : { color: 'red' }
+                }>{message.email}
+                </span>
+              </Grid>
+              {/* <Grid item xs={12}>
+
+                <TextField
+                  required
+                  fullWidth
+                  name="pw"
+                  label="비밀번호"
+                  type="password"
+                  id="pw"
+                  autoComplete="new-password"
+                />
+              </Grid> */}
+              <Grid item xs={12}>
+                <FormControl sx={{ width: '500px' }} variant="outlined" required size='Large'>
+                  <InputLabel>비밀번호</InputLabel>
+                  <OutlinedInput
+                    autoComplete="off"
+                    id="pw"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={showPasswordHandler}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="비밀번호"
+                    onChange={passwordHandler}
+                    name="pw"
+                  />
+                </FormControl>
+                <span style={
+                  correct.password ? { color: 'green' } : { color: 'red' }
+                }>{message.password}
+                </span>
+              </Grid>
+
+              <Grid>
+                <h2>선호하는 영화 장르</h2>
+                <FormControlLabel control={<Checkbox />} label="액션" />
+                <FormControlLabel control={<Checkbox />} label="공포" />
+                <FormControlLabel control={<Checkbox />} label="로맨스" />
+                <FormControlLabel control={<Checkbox />} label="코미디" />
+                <FormControlLabel control={<Checkbox />} label="뮤지컬" />
+                <FormControlLabel control={<Checkbox />} label="판타지" />
+                <FormControlLabel control={<Checkbox />} label="모험" />
+                <FormControlLabel control={<Checkbox />} label="SF" />
+                <FormControlLabel control={<Checkbox />} label="애니메이션" />
+              </Grid>
             </Grid>
-            <button type='button' onClick={fetchIdCheck}>중복체크</button>
-            <span style={
-              correct.id ? { color: 'green' } : { color: 'red' }
-            }>{message.id}</span>
-          </Grid>
-          <Grid>
-            <FormControl sx={{ width: '288px' }} variant="outlined" required size='small'>
-              <InputLabel>비밀번호</InputLabel>
-              <OutlinedInput
-                autoComplete="off"
-                id="pw"
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={showPasswordHandler}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="비밀번호"
-                onChange={passwordHandler}
-                name="pw"
-              />
-            </FormControl>
-          </Grid>
-          <Grid>
-            <span style={
-              correct.password ? { color: 'green' } : { color: 'red' }
-            }>{message.password}</span>
-          </Grid>
-          <Grid>
-            <Grid item xs={8}>
-              <TextField
-                variant="outlined"
-                required
+            <div className="buttons">
+              <Button
+                type="submit"
                 fullWidth
-                id="nick"
-                name="nick"
-                label="닉네임"
-                onChange={nameHandler}
-              />
-            </Grid>
-            <span style={
-              correct.nickN ? { color: 'green' } : { color: 'red' }
-            }>{message.nickN}</span>
-          </Grid>
-          <Grid>
-            <Grid item xs={8}>
-              <TextField
-                variant="outlined"
-                required
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                가입할래요
+              </Button>
+              <Button href='/login'
+                type="button"
                 fullWidth
-                id="email"
-                name="email"
-                autoComplete="email"
-                label="이메일"
-                onChange={emailHandler}
-              />
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                가입안할래요
+              </Button>
+            </div>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
             </Grid>
-            <span style={
-              correct.email ? { color: 'green' } : { color: 'red' }
-            }>{message.email}</span>
-          </Grid>
-          <Grid>
-            <h2>선호하는 영화 장르</h2>
-            <FormControlLabel control={<Checkbox />} label="액션" />
-            <FormControlLabel control={<Checkbox />} label="공포" />
-            <FormControlLabel control={<Checkbox />} label="로맨스" />
-            <FormControlLabel control={<Checkbox />} label="코미디" />
-            <FormControlLabel control={<Checkbox />} label="뮤지컬" />
-            <FormControlLabel control={<Checkbox />} label="판타지" />
-            <FormControlLabel control={<Checkbox />} label="모험" />
-            <FormControlLabel control={<Checkbox />} label="SF" />
-            <FormControlLabel control={<Checkbox />} label="애니메이션" />
-          </Grid>
-          <div className="buttons">
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              color='primary'
-            > 가입할래요! :D
-            </Button>
-            <Button href='/login'
-              type='button'
-              fullWidth
-              variant='contained'
-              color='primary'
-            > 가입안할래요 :(
-            </Button>
-          </div>
-        </form>
+          </Box>
+        </Box>
       </Container>
+
+
     </>
   );
 };
+
+
 
 export default Join;

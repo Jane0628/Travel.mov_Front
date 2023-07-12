@@ -1,31 +1,8 @@
 // 캐러셀 디자인
-.carousel {
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-
-	.carousel-indicators,
-	a {
-		display: none;
-	}
-
+.css-o4fv81-MuiGrid-root {
 	.carousel-item img {
-		width: 100vw;
 		height: 100vh;
-		position: fixed;
-		top: 0;
-
 		transition: 0.5s ease-in-out;
-
-		&.bottom-cut-off {
-			bottom: 0;
-		}
-
-		&.login-opened {
-			top: 0;
-			left: 0;
-			transform: scale(0.71) translate(-20.4%, -20.4%);
-		}
 	}
 }
 
@@ -61,22 +38,58 @@
 	}
 }
 
+// // 로그인 페이지
+// #loginPage {
+// 	position: absolute;
+// 	top: 0;
+// 	right: 0;
+// 	padding-top: 100px;
+
+// 	background-color: white;
+// 	border-left: 3px solid #424180;
+// 	width: 500px;
+// 	height: 100%;
+
+// 	transition: 0.5s ease-in-out;
+// 	z-index: 50;
+
+// 	&.close {
+// 		transform: translateX(100%);
+// 	}
+// }
+
 // 로그인 페이지
-#loginPage {
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding-top: 100px;
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-	background-color: white;
-	border-left: 3px solid #424180;
-	width: 500px;
-	height: 100%;
-
-	transition: 0.5s ease-in-out;
-	z-index: 50;
-
-	&.close {
-		transform: translateX(100%);
+	// 아이디 크기 조절
+	div.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+		margin-bottom: 50px;
 	}
+
+	// 인풋 정렬
+	div {
+		label.css-17fgrut-MuiFormLabel-root-MuiInputLabel-root {
+			margin-top: 20px;
+		}
+	}
+
+	// 눈 크기 조절
+	button {
+		svg.css-1v8usww-MuiSvgIcon-root {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	// 	// 버튼 크기 조절 및 정렬
+	// 	.buttons {
+	// 		width: 250px;
+	// 		display: flex;
+	// 		justify-content: space-between;
+	// 		margin-top: 30px;
+	// 	}
+
 }
