@@ -1,9 +1,7 @@
 import './App.css';
-import Intro from './component/layout/intro/Intro';
 import Header from './component/layout/Header';
 import { Route, Routes } from 'react-router-dom';
 import Main from './component/layout/Main';
-import Login from './component/user/Login';
 import Join from './component/user/Join';
 import MyPage from './component/user/MyPage';
 import Profile from './component/user/Profile';
@@ -16,7 +14,7 @@ import SignInSide from './component/layout/intro/SignInSide';
 import Checkout from './component/reservation/Checkout';
 import { useContext, useEffect } from 'react';
 import { isLogin } from './util/login-utils';
-import Hotels from './component/view/Hotels';
+import Hotels from './component/veiw/Hotels'
 
 
 function App() {
@@ -65,12 +63,13 @@ function App() {
 					<Routes>
 						<Route path='/' element={<Main />} />
 						<Route path='/join' element={<Join />} />
-						<Route path='/login' element={<SignInSide />} />
+						<Route path='/login' element={ <SignInSide/> } />
 						<Route path='/myPage' element={<MyPage />} />
 						<Route path='/profile' element={<Profile />} />
 						<Route path='/sights' element={<Sights />} />
 						<Route path='/checkout' element={<Checkout />} />
 						<Route path='/reservationCheck' element={<ReservationCheck />} />
+						<Route path='/hotels' element={<Hotels />} />
 					</Routes>
 					<Footer />
 				</ThemeProvider>
