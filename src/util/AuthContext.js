@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 //새로운 전역 Context를 생성
 const AuthContext = React.createContext({
     isLoggedIn: false, //로그인 했는지의 여부 추적
-    userName: '',
+    nick: '',
     onLogout: () => { },
     onLogin: (id, pw) => { },
     setUserInfo: () => { }
@@ -47,7 +47,6 @@ export const AuthContextProvider = props => {
         localStorage.setItem('ACCESS_TOKEN', token);
         localStorage.setItem('LOGIN_USERNICK', nick);
     }
-
     return (
         <AuthContext.Provider value={{
             isLoggedIn,
@@ -59,6 +58,7 @@ export const AuthContextProvider = props => {
             {props.children}
         </AuthContext.Provider>
     );
+    console.log(nick);
 
 };
 
