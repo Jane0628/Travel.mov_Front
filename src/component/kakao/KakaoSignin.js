@@ -84,7 +84,7 @@ const KakaoSignin = () => {
         </div>
       ) : (
         <img
-          src={require("../img/kakao_login_medium_wide.png")}
+          src={require("../../img/kakao_login_medium_wide.png")}
           width="326"
           height="47"
           alt="카카오 로그인 버튼"

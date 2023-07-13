@@ -8,7 +8,7 @@ const KakaoMap = () => {
   const [map, setMap] = useState();
 
   const [position, setPosittion] = useState(
-    new kakao.maps.LatLng(37.560826, 126.9706567)
+    new kakao.maps.LatLng(37.5592, 126.9427)
   );
 
   useEffect(() => {
@@ -52,8 +52,8 @@ const KakaoMap = () => {
   return (
     <Map // 로드뷰를 표시할 Container
       center={{
-        lat: 37.560826,
-        lng: 126.9706567,
+        lat: 37.5592,
+        lng: 126.9427,
       }}
       style={{
         width: "100%",
