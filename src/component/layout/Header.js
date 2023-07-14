@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import logo from '../../img/logo.png';
-import "../../design/header.scss";
+import "../../design/layout/header.scss";
 import { Link, Router, useNavigate } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
-import { isLogin } from '../../util/login-utils';
 
 const Header = () => {
 

@@ -11,13 +11,19 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { Carousel } from 'react-bootstrap';
-import '../../../design/intro.scss';
+import '../../design/login.scss';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../../util/AuthContext';
-import { API_BASE_URL, USER } from '../../../util/host-utils';
+import AuthContext from '../../util/AuthContext';
+import { API_BASE_URL, USER } from '../../util/host-utils';
+import KakaoSignin from '../kakao/KakaoSignin';
+import { isLogin } from '../../util/login-utils';
+
+// 캐러셀에 꼭 필요합니다. 지우지 말아주세요!
+import { Carousel } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { createTheme } from '@mui/material/styles';
 
 
 export default function SignInSide() {
@@ -30,6 +36,7 @@ export default function SignInSide() {
   // 로그인 중일 시 메인으로
   useEffect(() => {
     if (isLoggedIn) {
+      alert('이미 로그인 중입니다.');
       redirection('/');
     }
   });
@@ -39,6 +46,7 @@ export default function SignInSide() {
 
     const $id = document.getElementById('id');
     const $pw = document.getElementById('pw');
+
     if (!$id.value) {
       alert('아이디를 입력하세요');
       return;
@@ -64,11 +72,9 @@ export default function SignInSide() {
     }
 
     const { token, nick } = await res.json();
-    // console.log(res.json);
 
     onLogin(token, nick);
     redirection('/');
-
   };
 
   // 로그인 버튼 클릭 이벤트
@@ -84,6 +90,19 @@ export default function SignInSide() {
     setShowPassword(!showPassword);
   };
 
+  // 반응형
+  const theme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1200,
+        xl: 1536,
+      }
+    }
+  })
+
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
@@ -96,76 +115,76 @@ export default function SignInSide() {
         <Carousel fade>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/parasite.jpg")}
+              src={require("../../img/carousel_img/parasite.jpg")}
               alt="기생충"
             />
             <Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/parasite.png")} alt="기생충" />
+              <img className='logo' src={require("../../img/carousel_logo/parasite.png")} alt="기생충" />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/about_time.jpg")}
+              src={require("../../img/carousel_img/about_time.jpg")}
               alt="어바웃 타임"
             /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/about_time.png")} alt="어바웃 타임" />
+              <img className='logo' src={require("../../img/carousel_logo/about_time.png")} alt="어바웃 타임" />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/train_to_busan.jpg")}
+              src={require("../../img/carousel_img/train_to_busan.jpg")}
               alt="부산행"
             /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/train_to_busan.png")} alt="부산행" />
+              <img className='logo' src={require("../../img/carousel_logo/train_to_busan.png")} alt="부산행" />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/avatar.jpg")}
+              src={require("../../img/carousel_img/avatar.jpg")}
               alt="아바타2 물의 길"
             /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/avatar.png")} alt="아바타" />
+              <img className='logo' src={require("../../img/carousel_logo/avatar.png")} alt="아바타" />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               className='align_right'
-              src={require("../../../img/carousel_img/the_round_up.jpg")}
+              src={require("../../img/carousel_img/the_round_up.jpg")}
               alt="범죄도시3"
             /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/the_round_up.png")} alt="범죄도시3" />
+              <img className='logo' src={require("../../img/carousel_logo/the_round_up.png")} alt="범죄도시3" />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/mission_impossible.jpg")}
+              src={require("../../img/carousel_img/mission_impossible.jpg")}
               alt="미션 임파서블"
             /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/mission_impossible.png")} alt="미션 임파서블" />
+              <img className='logo' src={require("../../img/carousel_logo/mission_impossible.png")} alt="미션 임파서블" />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/memories_of_murder.jpg")}
+              src={require("../../img/carousel_img/memories_of_murder.jpg")}
               alt="살인의 추억"
             /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/memories_of_murder.png")} alt="살인의 추억" />
+              <img className='logo' src={require("../../img/carousel_logo/memories_of_murder.png")} alt="살인의 추억" />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/lala_land.jpg")}
+              src={require("../../img/carousel_img/lala_land.jpg")}
               alt="라라랜드"
             /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/lala_land.png")} alt="라라랜드" />
+              <img className='logo' src={require("../../img/carousel_logo/lala_land.png")} alt="라라랜드" />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              src={require("../../../img/carousel_img/decision_to_leave.jpg")}
+              src={require("../../img/carousel_img/decision_to_leave.jpg")}
               alt="헤어질 결심"
             /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/decision_to_leave.png")} alt="헤어질 결심" />
+              <img className='logo' src={require("../../img/carousel_logo/decision_to_leave.png")} alt="헤어질 결심" />
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
@@ -227,6 +246,7 @@ export default function SignInSide() {
             >
               로그인
             </Button>
+            <KakaoSignin />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

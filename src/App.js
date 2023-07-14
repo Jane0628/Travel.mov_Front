@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './component/layout/Header';
 import { Route, Routes } from 'react-router-dom';
-import Main from './component/layout/Main';
+import Main from './component/layout/main/Main';
 import Join from './component/user/Join';
 import MyPage from './component/user/MyPage';
 import Profile from './component/user/Profile';
@@ -10,11 +10,13 @@ import Sights from './component/layout/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { AuthContextProvider } from './util/AuthContext';
 import ReservationCheck from './component/reservation/ReservationCheck';
-import SignInSide from './component/layout/intro/SignInSide';
+import Login from './component/user/Login';
 import Checkout from './component/reservation/Checkout';
 import { useContext, useEffect } from 'react';
 import { isLogin } from './util/login-utils';
-import Hotels from './component/veiw/Hotels'
+import Hotels from './component/view/Hotels';
+import MovieSearch from './component/movie/MovieSearch';
+import GooMap from './component/google/GooMap';
 
 
 function App() {
@@ -59,19 +61,19 @@ function App() {
 		<>
 			<AuthContextProvider>
 				<ThemeProvider theme={theme}>
-					<Header />
 					<Routes>
 						<Route path='/' element={<Main />} />
 						<Route path='/join' element={<Join />} />
-						<Route path='/login' element={ <SignInSide/> } />
+						<Route path='/login' element={<Login />} />
 						<Route path='/myPage' element={<MyPage />} />
 						<Route path='/profile' element={<Profile />} />
 						<Route path='/sights' element={<Sights />} />
 						<Route path='/checkout' element={<Checkout />} />
 						<Route path='/reservationCheck' element={<ReservationCheck />} />
+						<Route path='/search' element={<MovieSearch />} />
+						<Route path='/map' element={<GooMap />} />
 						<Route path='/hotels' element={<Hotels />} />
 					</Routes>
-					<Footer />
 				</ThemeProvider>
 			</AuthContextProvider>
 		</>
