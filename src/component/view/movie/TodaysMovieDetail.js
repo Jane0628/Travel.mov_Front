@@ -11,7 +11,7 @@ import Navbar from "./component/Navbar";
 function TodaysMovieDetail() {
   return (
     <>
-      <BrowserRouter basename="/react-movie-app">
+      <BrowserRouter basename="/TodaysMovieDetail">
         <MovieStateProvider>
           <Navbar />
           <Routes>
