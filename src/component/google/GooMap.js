@@ -6,6 +6,8 @@ const GooMap = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [marker, setMarker] = useState(null);
+  const [hotelMarkers, setHotelMarkers] = useState([]);
 
   useEffect(() => {
     const loadMap = () => {
@@ -30,8 +32,8 @@ const GooMap = () => {
     }
   }, []);
 
-  const handleSearchInputChange = (event) => {
-    setSearchInput(event.target.value);
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
   };
 
   const handleSearch = () => {
@@ -48,6 +50,8 @@ const GooMap = () => {
           setSearchResults(results);
           setSelectedPlace(results[0]);
           fitMapBounds(results);
+          createMarker(results[0]);
+          searchHotelsWithinRadius(results[0].geometry.location);
         }
       }
     );
@@ -61,10 +65,70 @@ const GooMap = () => {
     });
 
     map.fitBounds(bounds);
+    map.setZoom(13);
   };
 
-  const handleMarkerClick = (place) => {
-    setSelectedPlace(place);
+  const createMarker = (place) => {
+    if (marker) {
+      marker.setMap(null);
+    }
+
+    const newMarker = new window.google.maps.Marker({
+      position: place.geometry.location,
+      icon: 'http://maps.google.com/mapfiles/kml/paddle/red-stars.png',
+      map: map
+    });
+
+    setMarker(newMarker);
+  };
+
+  const createHotelMarkers = (hotels) => {
+    clearHotelMarkers();
+
+    const newHotelMarkers = hotels.map((hotel) => {
+      const hotelMarker = new window.google.maps.Marker({
+        position: hotel.geometry.location,
+        map: map,
+        title: hotel.name
+      });
+
+      window.google.maps.event.addListener(hotelMarker, 'mouseover', () => {
+        hotelMarker.setLabel(hotel.name);
+      });
+
+      window.google.maps.event.addListener(hotelMarker, 'mouseout', () => {
+        hotelMarker.setLabel('');
+      });
+
+      return hotelMarker;
+    });
+
+    setHotelMarkers(newHotelMarkers);
+  };
+
+  const clearHotelMarkers = () => {
+    hotelMarkers.forEach((marker) => {
+      marker.setMap(null);
+    });
+
+    setHotelMarkers([]);
+  };
+
+  const searchHotelsWithinRadius = (location) => {
+    const service = new window.google.maps.places.PlacesService(map);
+
+    service.nearbySearch(
+      {
+        location: location,
+        radius: 5000,
+        type: 'lodging'
+      },
+      (results, status) => {
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          createHotelMarkers(results);
+        }
+      }
+    );
   };
 
   return (
@@ -78,16 +142,16 @@ const GooMap = () => {
         />
         <button onClick={handleSearch}>Search</button>
       </div>
-      <div id="map" style={{ width: '400px', height: '400px' }}></div>
+      <div id="map" style={{ width: '1500px', height: '600px' }}></div>
       {selectedPlace && (
         <div>
-          <img src={selectedPlace.photos && selectedPlace.photos[0].getUrl()} alt={selectedPlace.name} style={{ maxWidth: '200px', maxHeight: '150px' }} />
+          <img src={selectedPlace.photos && selectedPlace.photos[0].getUrl()} alt={selectedPlace.name} style={{ maxWidth: '1000px', maxHeight: '750px' }} />
           <h3>{selectedPlace.name}</h3>
           <p>{selectedPlace.formatted_address}</p>
         </div>
       )}
     </div>
   );
-}
+};
 
 export default GooMap
