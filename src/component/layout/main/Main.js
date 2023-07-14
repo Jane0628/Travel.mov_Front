@@ -5,6 +5,7 @@ import Recommandation from './Recommandation';
 import TodaysMovie from './TodaysMovie';
 import Header from '../Header';
 import Footer from '../Footer';
+import { Link } from 'react-router-dom';
 
 const Main = () => {
   return (
