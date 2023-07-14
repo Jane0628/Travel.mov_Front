@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const hotels = [
   {
@@ -131,7 +132,7 @@ const HotelCarousel = () => {
                 borderRadius: '7px',
               }}
             >
-              예약하기
+              <Link to="/checkOut" className='out'>예약하기</Link>
             </button>
           </div>
         ))}
