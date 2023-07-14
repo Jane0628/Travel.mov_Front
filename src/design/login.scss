@@ -1,0 +1,199 @@
+@mixin flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+// 반응형
+@media (min-width: 1536px) {
+
+	// 캐러셀 너비
+	div.css-o4fv81-MuiGrid-root {
+		width: 70%;
+		-webkit-flex-basis: 70%;
+		flex-basis: 70%;
+		flex-grow: 0;
+		max-width: 70%;
+	}
+
+	// 로그인 페이지 너비
+	div.css-12of9un-MuiPaper-root-MuiGrid-root {
+		width: 30%;
+		flex-basis: 30%;
+		flex-grow: 0;
+	}
+
+}
+
+@media (min-width: 1200px) {
+
+	// 캐러셀 너비
+	div.css-o4fv81-MuiGrid-root {
+		width: 70%;
+		-webkit-flex-basis: 70%;
+		flex-basis: 70%;
+		flex-grow: 0;
+		max-width: 70%;
+	}
+
+	// 로그인 페이지 너비
+	div.css-12of9un-MuiPaper-root-MuiGrid-root {
+		width: 30%;
+		flex-basis: 30%;
+		flex-grow: 0;
+	}
+
+}
+
+@media (min-width: 900px) {
+
+	// 캐러셀 너비
+	div.css-o4fv81-MuiGrid-root {
+		width: 70%;
+		-webkit-flex-basis: 70%;
+		flex-basis: 70%;
+		flex-grow: 0;
+		max-width: 70%;
+	}
+
+	// 로그인 페이지 너비
+	div.css-12of9un-MuiPaper-root-MuiGrid-root {
+		width: 30%;
+		flex-basis: 30%;
+		flex-grow: 0;
+	}
+
+}
+
+@media (min-width: 600px) {
+
+	// 캐러셀 너비
+	div.css-o4fv81-MuiGrid-root {
+		width: 70%;
+		-webkit-flex-basis: 70%;
+		flex-basis: 70%;
+		flex-grow: 0;
+		max-width: 70%;
+	}
+
+	// 로그인 페이지 너비
+	div.css-12of9un-MuiPaper-root-MuiGrid-root {
+		width: 30%;
+		flex-basis: 30%;
+		flex-grow: 0;
+	}
+
+}
+
+// 캐러셀 디자인
+.css-o4fv81-MuiGrid-root {
+
+	.carousel-item,
+	.active.carousel-item {
+		@include flex-center();
+		overflow: hidden;
+
+		img {
+			height: 100vh;
+			transition: 0.5s ease-in-out;
+
+			&.logo {
+				width: 100%;
+				height: auto;
+				margin-bottom: 20px;
+			}
+		}
+	}
+}
+
+// // 로그인 페이지
+// #loginPage {
+// 	position: absolute;
+// 	top: 0;
+// 	right: 0;
+// 	padding-top: 100px;
+
+// 	background-color: white;
+// 	border-left: 3px solid #424180;
+// 	width: 500px;
+// 	height: 100%;
+
+// 	transition: 0.5s ease-in-out;
+// 	z-index: 50;
+
+// 	&.close {
+// 		transform: translateX(100%);
+// 	}
+// }
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+
+	// 아이디 크기 조절
+	div.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+		margin-bottom: 50px;
+	}
+
+	// 비밀번호 크기 조절
+	.css-q8hpuo-MuiFormControl-root {
+
+		label.css-1in8cpm-MuiFormLabel-root-MuiInputLabel-root {
+			margin-top: 6px;
+		}
+
+		#pw {
+			padding: 16.5px 14px;
+		}
+	}
+
+	// 인풋 정렬
+	div {
+		label.css-17fgrut-MuiFormLabel-root-MuiInputLabel-root {
+			margin-top: 20px;
+		}
+	}
+
+	// 눈 크기 조절
+	button {
+		svg.css-1v8usww-MuiSvgIcon-root {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	// 아이디 저장
+	label.css-j204z7-MuiFormControlLabel-root {
+		margin-left: 2px;
+		justify-content: left;
+
+		input {
+			padding: 2px;
+		}
+
+		span {
+			font-size: 17px;
+
+			svg {
+				width: 22px;
+			}
+		}
+	}
+
+	// 로그인 버튼
+	button.css-kwgvyz-MuiButtonBase-root-MuiButton-root {
+		margin-top: 10px;
+	}
+
+	// 카카오 로그인 버튼
+	img {
+		width: 100%;
+		margin-bottom: 30px;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+}

@@ -66,6 +66,10 @@
   font-style: normal;
 }
 
+html body {
+  min-width: 600px;
+}
+
 html body * {
   font-family: 'S-CoreDream';
   font-size: 20px;
@@ -88,6 +92,12 @@ a.MuiTypography-root:hover {
 /* 제목 글씨 굵게 */
 h1.css-r768za-MuiTypography-root {
   font-weight: 600;
+}
+
+/* 체크 박스 */
+.css-j204z7-MuiFormControlLabel-root span svg {
+  width: 22px;
+  color: #424180;
 }
 
 html body h1 {

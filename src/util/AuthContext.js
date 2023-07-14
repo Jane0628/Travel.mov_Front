@@ -58,7 +58,6 @@ export const AuthContextProvider = props => {
             {props.children}
         </AuthContext.Provider>
     );
-    console.log(nick);
 
 };
 

@@ -3,12 +3,14 @@ import React from 'react'
 import MainPagination from './MainPagination';
 import Recommandation from './Recommandation';
 import TodaysMovie from './TodaysMovie';
+import Header from '../Header';
+import Footer from '../Footer';
 
 const Main = () => {
   return (
     <>
+      <Header />
       <Container>
-        <h1>오늘의 영화</h1>
         <TodaysMovie />
         <Recommandation />
 
@@ -19,28 +21,29 @@ const Main = () => {
             <div>icon</div>
           </div>
           <Grid item xs={2}>
-            <img src={require("../../img/elemental.jpg")} alt="엘리멘탈" style={{ width: '110px' }} />
+            <img src={require("../../../img/elemental.jpg")} alt="엘리멘탈" style={{ width: '110px' }} />
             <a href="#">어디어디 좋았어요</a>
             <span>닉네임:누구누구</span>
           </Grid>
           <Grid item xs={2}>
-            <img src={require("../../img/elemental.jpg")} alt="엘리멘탈" style={{ width: '110px' }} />
+            <img src={require("../../../img/elemental.jpg")} alt="엘리멘탈" style={{ width: '110px' }} />
             <a href="#">어디어디 좋았어요</a>
             <span>닉네임:누구누구</span>
           </Grid>
           <Grid item xs={2}>
-            <img src={require("../../img/elemental.jpg")} alt="엘리멘탈" style={{ width: '110px' }} />
+            <img src={require("../../../img/elemental.jpg")} alt="엘리멘탈" style={{ width: '110px' }} />
             <a href="#">어디어디 좋았어요</a>
             <span>닉네임:누구누구</span>
           </Grid>
           <Grid item xs={2}>
-            <img src={require("../../img/elemental.jpg")} alt="엘리멘탈" style={{ width: '110px' }} />
+            <img src={require("../../../img/elemental.jpg")} alt="엘리멘탈" style={{ width: '110px' }} />
             <a href="#">어디어디 좋았어요</a>
             <span>닉네임:누구누구</span>
           </Grid>
           <MainPagination />
         </div>
       </Container>
+      <Footer />
     </>
   );
 }

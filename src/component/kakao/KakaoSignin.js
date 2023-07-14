@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
+
 const KakaoSignin = () => {
   const [user, setUser] = useState(null);
-  const [isLogin, setIsLogin] = useState(false);
+  const [loggedin, setLoggedIn] = useState(false);
   const { Kakao } = window;
+
   const initKakao = async () => {
     const jsKey = `${process.env.REACT_APP_KAKAOMAP_API_KEY}`;
     if (Kakao && !Kakao.isInitialized()) {
@@ -11,6 +13,7 @@ const KakaoSignin = () => {
       console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
     }
   };
+
   const kakaoLogin = async () => {
     await Kakao.Auth.login({
       success(res) {
@@ -22,7 +25,7 @@ const KakaoSignin = () => {
           url: "/v2/user/me",
           success(res) {
             console.log("카카오 인가 요청 성공");
-            setIsLogin(true);
+            setLoggedIn(true);
             const kakaoAccount = res.kakao_account;
             localStorage.setItem("email", kakaoAccount.email);
             localStorage.setItem(
@@ -55,19 +58,19 @@ const KakaoSignin = () => {
 
   useEffect(() => {
     initKakao();
-    Kakao.Auth.getAccessToken() ? setIsLogin(true) : setIsLogin(false);
+    Kakao.Auth.getAccessToken() ? setLoggedIn(true) : setLoggedIn(false);
   }, []);
 
   useEffect(() => {
-    console.log(isLogin);
-    if (isLogin) {
+    console.log(loggedin);
+    if (loggedin) {
       setUser({
         email: localStorage.getItem("email"),
         profileImg: localStorage.getItem("profileImg"),
         nickname: localStorage.getItem("nickname"),
       });
     }
-  }, [isLogin]);
+  }, [loggedin]);
 
   return (
     <>
