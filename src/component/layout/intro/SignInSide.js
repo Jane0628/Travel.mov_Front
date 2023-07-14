@@ -65,7 +65,7 @@ export default function SignInSide() {
     }
 
     const { token, nick } = await res.json();
-    console.log(res.json);
+    // console.log(res.json);
 
     onLogin(token, nick);
     redirection('/');

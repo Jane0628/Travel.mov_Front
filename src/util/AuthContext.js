@@ -47,7 +47,6 @@ export const AuthContextProvider = props => {
         localStorage.setItem('ACCESS_TOKEN', token);
         localStorage.setItem('LOGIN_USERNICK', nick);
     }
-
     return (
         <AuthContext.Provider value={{
             isLoggedIn,
@@ -59,6 +58,7 @@ export const AuthContextProvider = props => {
             {props.children}
         </AuthContext.Provider>
     );
+    console.log(nick);
 
 };
 

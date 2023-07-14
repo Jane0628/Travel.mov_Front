@@ -1,9 +1,7 @@
 import './App.css';
-import Intro from './component/layout/intro/Intro';
 import Header from './component/layout/Header';
 import { Route, Routes } from 'react-router-dom';
 import Main from './component/layout/Main';
-import Login from './component/user/Login';
 import Join from './component/user/Join';
 import MyPage from './component/user/MyPage';
 import Profile from './component/user/Profile';
@@ -76,6 +74,7 @@ function App() {
 						<Route path='/reservationCheck' element={<ReservationCheck />} />
 						<Route path='/search' element={<MovieSearch />} />
 						<Route path='/map' element={<GooMap />} />
+						<Route path='/hotels' element={<Hotels />} />
 					</Routes>
 					<Footer />
 				</ThemeProvider>
