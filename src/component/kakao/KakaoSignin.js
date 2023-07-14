@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@mui/private-theming";
 import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 const KakaoSignin = () => {
@@ -74,6 +74,36 @@ const KakaoSignin = () => {
     }
   }, [loggedin]);
 
+  // 버튼 디자인
+  const theme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#FEE500',
+        contrastText: '#000000',
+      },
+    },
+    shape: {
+      borderRadius: 5,
+    },
+    typography: {
+      fontFamily: 'S-CoreDream',
+      fontSize: 20
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: `
+        @font-face {
+					font-family: 'S-CoreDream';
+					src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+					font-weight: 600;
+					font-style: normal;
+				}
+        `
+      },
+    },
+  });
+
   return (
     <>
       {user ? (
@@ -88,15 +118,17 @@ const KakaoSignin = () => {
           <h4>{user.email}</h4> */}
         </div>
       ) : (
-        <Button
-          type="button"
-          id="kakaoLogin"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}>
-          <img src={require("../../img/kakao_symbol.png")} alt="카카오 심볼" />
-          <span>카카오 로그인</span>
-        </Button>
+        <ThemeProvider theme={theme}>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={kakaoLogin}>
+            <img id="kakaoSymbol" src={require("../../img/kakao_symbol.png")} alt="카카오 심볼" />
+            카카오 로그인
+          </Button>
+        </ThemeProvider>
       )
       }
     </>

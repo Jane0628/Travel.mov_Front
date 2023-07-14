@@ -106,26 +106,6 @@
 	}
 }
 
-// // 로그인 페이지
-// #loginPage {
-// 	position: absolute;
-// 	top: 0;
-// 	right: 0;
-// 	padding-top: 100px;
-
-// 	background-color: white;
-// 	border-left: 3px solid #424180;
-// 	width: 500px;
-// 	height: 100%;
-
-// 	transition: 0.5s ease-in-out;
-// 	z-index: 50;
-
-// 	&.close {
-// 		transform: translateX(100%);
-// 	}
-// }
-
 form {
 	display: flex;
 	flex-direction: column;
@@ -184,6 +164,12 @@ form {
 	// 로그인 버튼
 	button.css-kwgvyz-MuiButtonBase-root-MuiButton-root {
 		margin-top: 10px;
+	}
+
+	// 카카오 로그인 버튼
+	#kakaoSymbol {
+		width: 20px;
+		margin-right: 10px;
 	}
 
 }
