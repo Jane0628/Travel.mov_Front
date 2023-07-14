@@ -1,4 +1,6 @@
+import { ThemeProvider } from "@mui/private-theming";
 import { useEffect, useState } from "react";
+import Button from '@mui/material/Button';
 
 
 const KakaoSignin = () => {
@@ -86,16 +88,19 @@ const KakaoSignin = () => {
           <h4>{user.email}</h4> */}
         </div>
       ) : (
-        <img
-          src={require("../../img/kakao_login_medium_wide.png")}
-          width="326"
-          height="47"
-          alt="카카오 로그인 버튼"
-          onClick={kakaoLogin}
-        />
-      )}
+        <Button
+          type="button"
+          id="kakaoLogin"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}>
+          <img src={require("../../img/kakao_symbol.png")} alt="카카오 심볼" />
+          <span>카카오 로그인</span>
+        </Button>
+      )
+      }
     </>
   );
-};
+}
 
 export default KakaoSignin;

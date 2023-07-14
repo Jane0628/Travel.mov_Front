@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 const GooMap = () => {
-
   const [map, setMap] = useState(null);
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [marker, setMarker] = useState(null);
   const [hotelMarkers, setHotelMarkers] = useState([]);
+  const [selectedHotel, setSelectedHotel] = useState(null);
 
   useEffect(() => {
     const loadMap = () => {
@@ -100,6 +100,10 @@ const GooMap = () => {
         hotelMarker.setLabel('');
       });
 
+      window.google.maps.event.addListener(hotelMarker, 'click', () => {
+        setSelectedHotel(hotel);
+      });
+
       return hotelMarker;
     });
 
@@ -150,8 +154,22 @@ const GooMap = () => {
           <p>{selectedPlace.formatted_address}</p>
         </div>
       )}
+      {selectedHotel && (
+        <div>
+          <img src={selectedHotel.photos && selectedHotel.photos[0].getUrl()} alt={selectedHotel.name} style={{ maxWidth: '500px', maxHeight: '375px' }} />
+          <h3>{selectedHotel.name}</h3>
+          <p>{selectedHotel.formatted_address}</p> {/* 주소친구가 안나옴.. */}
+          {/* {selectedHotel.website && (
+            <p>
+              <a href={selectedHotel.website} target="_blank" rel="noopener noreferrer">
+                {selectedHotel.website}
+              </a>
+            </p>
+          )} */}
+        </div>
+      )}
     </div>
   );
 };
 
-export default GooMap
+export default GooMap;
