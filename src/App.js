@@ -74,7 +74,7 @@ function App() {
 						<Route path='/search' element={<MovieSearch />} />
 						<Route path='/map' element={<GooMap />} />
 						<Route path='/hotels' element={<Hotels />} />
-						<Route path='/TodaysMovieDetail' element={<TodaysMovieDetail />} />
+						{/* <Route path='/TodaysMovieDetail' element={<TodaysMovieDetail />} /> */}
 					</Routes>
 				</ThemeProvider>
 			</AuthContextProvider>
