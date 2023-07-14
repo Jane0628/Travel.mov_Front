@@ -1,28 +1,28 @@
-import * as React from 'react'
-import { useNavigate } from 'react-router';
-import '../../design/sights.scss';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+import * as React from "react";
+import { useNavigate } from "react-router";
+import "../../design/sights.scss";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://Tramovle.com/">
-        Tramovle.com
-      </Link>{' '}
+      {"Copyright © "}
+      <Link color="inherit" href="https://Tramovel.com/">
+        Tramovel.com
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -31,46 +31,43 @@ function Copyright() {
 const cards = [
   {
     id: 1,
-    image : 'https://source.unsplash.com/random?wallpapers',
-    place : 'place',
-    placeDetail : 'placeDetail'
+    image: "https://source.unsplash.com/random?wallpapers",
+    place: "place",
+    placeDetail: "placeDetail",
   },
   {
     id: 2,
-    image : 'https://source.unsplash.com/random?nature',
-    place : 'place2',
-    placeDetail : 'placeDetail2'
+    image: "https://source.unsplash.com/random?nature",
+    place: "place2",
+    placeDetail: "placeDetail2",
   },
   {
     id: 3,
-    image : 'https://source.unsplash.com/random?film',
-    place : 'place3',
-    placeDetail : 'placeDetail3'
+    image: "https://source.unsplash.com/random?film",
+    place: "place3",
+    placeDetail: "placeDetail3",
   },
   {
     id: 4,
-    image : 'https://source.unsplash.com/random?street',
-    place : 'place4',
-    placeDetail : 'placeDetail4'
+    image: "https://source.unsplash.com/random?street",
+    place: "place4",
+    placeDetail: "placeDetail4",
   },
   {
     id: 5,
-    image : 'https://source.unsplash.com/random?person',
-    place : 'place5',
-    placeDetail : 'placeDetail5'
+    image: "https://source.unsplash.com/random?person",
+    place: "place5",
+    placeDetail: "placeDetail5",
   },
   {
     id: 6,
-    image : 'https://source.unsplash.com/random?travel',
-    place : 'place6',
-    placeDetail : 'placeDetail6'
-  }
-
+    image: "https://source.unsplash.com/random?travel",
+    place: "place6",
+    placeDetail: "placeDetail6",
+  },
 ];
 
-
 export default function Sights() {
-
   const redirection = useNavigate();
 
   return (
@@ -80,7 +77,7 @@ export default function Sights() {
         {/* Hero unit */}
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            bgcolor: "background.paper",
             pt: 8,
             pb: 6,
           }}
@@ -95,7 +92,12 @@ export default function Sights() {
             >
               영화 촬영지 추천
             </Typography>
-            <Typography variant="h6" align="center" color="text.secondary" paragraph>
+            <Typography
+              variant="h6"
+              align="center"
+              color="text.secondary"
+              paragraph
+            >
               실제 영화 촬영지를 방문해보세요~!
             </Typography>
             <Stack
@@ -113,15 +115,28 @@ export default function Sights() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => (
-              <Grid item key={card.id} image={card.image} place={card.place} placeDetail={card.placeDetail} xs={12} sm={6} md={4}>
+              <Grid
+                item
+                key={card.id}
+                image={card.image}
+                place={card.place}
+                placeDetail={card.placeDetail}
+                xs={12}
+                sm={6}
+                md={4}
+              >
                 <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
                 >
                   <CardMedia
                     component="div"
                     sx={{
                       // 16:9
-                      pt: '56.25%',
+                      pt: "56.25%",
                     }}
                     image={card.image}
                   />
@@ -129,9 +144,7 @@ export default function Sights() {
                     <Typography variant="h5" component="h2">
                       {card.place}
                     </Typography>
-                    <Typography>
-                      {card.placeDetail}
-                    </Typography>
+                    <Typography>{card.placeDetail}</Typography>
                   </CardContent>
                   <CardActions>
                     <Button size="small">View</Button>
@@ -141,8 +154,8 @@ export default function Sights() {
               </Grid>
             ))}
           </Grid>
-          <br/>
-        <Copyright />
+          <br />
+          <Copyright />
         </Container>
       </main>
     </>
