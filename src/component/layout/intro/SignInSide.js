@@ -18,6 +18,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../../util/AuthContext';
 import { API_BASE_URL, USER } from '../../../util/host-utils';
+import KakaoSignin from '../../kakao/KakaoSignin';
 
 
 export default function SignInSide() {
@@ -63,10 +64,10 @@ export default function SignInSide() {
       return;
     }
 
-    const { token, userName } = await res.json();
-    // console.log(res.json);
+    const { token, nick } = await res.json();
+    console.log(res.json);
 
-    onLogin(token, $id);
+    onLogin(token, nick);
     redirection('/');
 
   };
@@ -227,6 +228,7 @@ export default function SignInSide() {
             >
               로그인
             </Button>
+            <KakaoSignin />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

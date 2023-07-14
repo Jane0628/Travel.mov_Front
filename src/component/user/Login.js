@@ -54,10 +54,10 @@ const Login = () => {
 			return;
 		}
 
-		const { token, userName } = await res.json();
+		const { token, nick } = await res.json();
 		console.log(res.json);
 
-		onLogin(token, $id);
+		onLogin(token, nick);
 		redirection('/');
 
 	};
