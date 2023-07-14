@@ -15,7 +15,6 @@ import Checkout from './component/reservation/Checkout';
 import { useContext, useEffect } from 'react';
 import { isLogin } from './util/login-utils';
 import Hotels from './component/view/Hotels';
-import KakaoMap from './component/kakao/KakaoMap';
 import MovieSearch from './component/movie/MovieSearch';
 import GooMap from './component/google/GooMap';
 
