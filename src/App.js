@@ -6,7 +6,7 @@ import Join from './component/user/Join';
 import MyPage from './component/user/MyPage';
 import Profile from './component/user/Profile';
 import Footer from './component/layout/Footer';
-import Sights from './component/layout/Sights';
+import Sights from './component/view/Sights';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { AuthContextProvider } from './util/AuthContext';
 import ReservationCheck from './component/reservation/ReservationCheck';
