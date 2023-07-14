@@ -1,60 +1,68 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { Carousel } from 'react-bootstrap';
-import '../../../design/intro.scss';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../../util/AuthContext';
-import { API_BASE_URL, USER } from '../../../util/host-utils';
-
+import React, { useContext, useEffect, useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { Carousel } from "react-bootstrap";
+import "../../../design/intro.scss";
+import { getLoginUserInfo } from "../../../util/login-utils";
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../../../util/AuthContext";
+import { API_BASE_URL, USER } from "../../../util/host-utils";
 
 export default function SignInSide() {
   const redirection = useNavigate();
 
   const { onLogin, isLoggedIn } = useContext(AuthContext);
 
+  // 로그인 인증 토큰 얻어오기
+  const [token, setToken] = useState(getLoginUserInfo().token);
+
   const REQUEST_URL = API_BASE_URL + USER;
 
   // 로그인 중일 시 메인으로
   useEffect(() => {
     if (isLoggedIn) {
-      redirection('/');
+      redirection("/");
     }
   });
 
   // 로그인 요청 함수
   const fetchLogin = async () => {
-
-    const $id = document.getElementById('id');
-    const $pw = document.getElementById('pw');
+    const $id = document.getElementById("id");
+    const $pw = document.getElementById("pw");
     if (!$id.value) {
-      alert('아이디를 입력하세요');
+      alert("아이디를 입력하세요");
       return;
     }
     if (!$pw.value) {
-      alert('비밀번호를 입력하세요!')
+      alert("비밀번호를 입력하세요!");
       return;
     }
 
     const res = await fetch(`${REQUEST_URL}/signin`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      method: "POST",
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({
         id: $id.value,
-        pw: $pw.value
-      })
+        pw: $pw.value,
+      }),
     });
 
     if (res.status === 400) {
@@ -64,15 +72,15 @@ export default function SignInSide() {
     }
 
     const { token, nick } = await res.json();
-    // console.log(res.json);
+    console.log(res.json);
+    console.log(token);
 
     onLogin(token, nick);
-    redirection('/');
-
+    redirection("/");
   };
 
   // 로그인 버튼 클릭 이벤트
-  const loginHandler = e => {
+  const loginHandler = (e) => {
     e.preventDefault();
     fetchLogin();
   };
@@ -85,14 +93,9 @@ export default function SignInSide() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
-      <Grid
-        item
-        xs={12}
-        sm={4}
-        md={7}>
-
+      <Grid item xs={12} sm={4} md={7}>
         <Carousel fade>
           <Carousel.Item>
             <img
@@ -100,72 +103,116 @@ export default function SignInSide() {
               alt="기생충"
             />
             <Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/parasite.png")} alt="기생충" />
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/parasite.png")}
+                alt="기생충"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/about_time.jpg")}
               alt="어바웃 타임"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/about_time.png")} alt="어바웃 타임" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/about_time.png")}
+                alt="어바웃 타임"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/train_to_busan.jpg")}
               alt="부산행"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/train_to_busan.png")} alt="부산행" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/train_to_busan.png")}
+                alt="부산행"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/avatar.jpg")}
               alt="아바타2 물의 길"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/avatar.png")} alt="아바타" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/avatar.png")}
+                alt="아바타"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className='align_right'
+              className="align_right"
               src={require("../../../img/carousel_img/the_round_up.jpg")}
               alt="범죄도시3"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/the_round_up.png")} alt="범죄도시3" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/the_round_up.png")}
+                alt="범죄도시3"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/mission_impossible.jpg")}
               alt="미션 임파서블"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/mission_impossible.png")} alt="미션 임파서블" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/mission_impossible.png")}
+                alt="미션 임파서블"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/memories_of_murder.jpg")}
               alt="살인의 추억"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/memories_of_murder.png")} alt="살인의 추억" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/memories_of_murder.png")}
+                alt="살인의 추억"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/lala_land.jpg")}
               alt="라라랜드"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/lala_land.png")} alt="라라랜드" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/lala_land.png")}
+                alt="라라랜드"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../../img/carousel_img/decision_to_leave.jpg")}
               alt="헤어질 결심"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../../img/carousel_logo/decision_to_leave.png")} alt="헤어질 결심" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../../img/carousel_logo/decision_to_leave.png")}
+                alt="헤어질 결심"
+              />
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
@@ -175,18 +222,23 @@ export default function SignInSide() {
           sx={{
             my: 8,
             mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             로그인
           </Typography>
-          <Box component="form" noValidate onSubmit={loginHandler} sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={loginHandler}
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               fullWidth
@@ -195,12 +247,12 @@ export default function SignInSide() {
               name="id"
               autoFocus
             />
-            <FormControl fullWidth variant="outlined" size='small'>
+            <FormControl fullWidth variant="outlined" size="small">
               <InputLabel>비밀번호</InputLabel>
               <OutlinedInput
                 autoComplete="off"
                 id="pw"
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

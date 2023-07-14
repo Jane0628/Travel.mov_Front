@@ -5,24 +5,23 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useNavigate } from "react-router-dom";
+import { getLoginUserInfo } from "../../util/login-utils";
 import axios from "axios";
 
 export default function PaymentForm() {
   const redirection = useNavigate();
-  const [state, setState] = React.useState({
-    next_redirect_pc_url: "",
-    tid: "",
-  });
+
+  // 로그인 인증 토큰 얻어오기
+  const [token, setToken] = React.useState(getLoginUserInfo().token);
 
   const preparePayment = async () => {
-    const res = await fetch("https://kapi.kakao.com/v1/payment/ready", {
+    const res = await fetch("http://localhost:8181/pay/ready", {
       method: "POST",
       headers: {
-        Authorization: "KakaoAK ccabfd3783b9f3b5c1fa775f38b008ef", // 발급받은 API 키
-        "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        "content-type": "application/json",
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-        cid: "TC0ONETIME", // 가맹점의 CID
         partner_order_id: "partner_order_id", // 가맹점에서 관리하는 주문번호
         partner_user_id: "partner_user_id", // 가맹점에서 관리하는 회원고유번호
         item_name: "초코파이",
@@ -30,9 +29,6 @@ export default function PaymentForm() {
         total_amount: 2200, // 결제 금액
         vat_amount: 200,
         tax_free_amount: 0,
-        approval_url: "http://localhost:3000/", // 결제 성공시 리다이렉트할 URL
-        fail_url: "http://localhost:3000/", // 결제 취소시 리다이렉트할 URL
-        cancel_url: "http://localhost:3000/", // 결제 실패시 리다이렉트할 URL
       }),
     });
     console.log(res);
@@ -40,6 +36,7 @@ export default function PaymentForm() {
     const { next_redirect_pc_url, tid } = await res.json();
     console.log(tid);
     console.log(next_redirect_pc_url);
+    window.location.href = next_redirect_pc_url;
   };
 
   return (
