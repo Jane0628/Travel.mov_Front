@@ -12,12 +12,9 @@ import { AuthContextProvider } from './util/AuthContext';
 import ReservationCheck from './component/reservation/ReservationCheck';
 import Login from './component/user/Login';
 import Checkout from './component/reservation/Checkout';
-import { useContext, useEffect } from 'react';
-import { isLogin } from './util/login-utils';
 import Hotels from './component/view/Hotels';
 import MovieSearch from './component/movie/MovieSearch';
 import GooMap from './component/google/GooMap';
-import TodaysMovieDetail from './component/view/movie/TodaysMovieDetail';
 
 
 function App() {
@@ -29,7 +26,7 @@ function App() {
 				contrastText: '#fff',
 			},
 			secondary: {
-				main: '#5c71e8',
+				main: '#424180',
 			},
 			divider: '#424180',
 			text: {
