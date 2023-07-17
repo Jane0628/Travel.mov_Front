@@ -18,37 +18,38 @@ export default function Home() {
 
     const getDescRankMovieList = () => {
         let movieList = [];
-        if(nowPlaying.data.length !== 0){
+        console.log(movieList);
+        if (nowPlaying.data.length !== 0) {
             [movieList] = nowPlaying.data;
-            movieList.sort((a,b) => b.popularity - a.popularity);
+            movieList.sort((a, b) => b.popularity - a.popularity);
         }
         return movieList;
     }
-    if(nowPlaying.loading && upcoming.loading){
-        return <Loading/>
+    if (nowPlaying.loading && upcoming.loading) {
+        return <Loading />
     }
-    if(!nowPlaying.loading){
-        if(!rankMovieList.length){
+    if (!nowPlaying.loading) {
+        if (!rankMovieList.length) {
             const rankList = getDescRankMovieList();
-            setRankMovieList((prev)=> prev.concat(rankList));
+            setRankMovieList((prev) => prev.concat(rankList));
         }
     }
 
-    return(
-    <>
-    <Header className="header" mainMovie={rankMovieList[0]}/>
-    <Container>
-        <HomeMovieList 
-        title={'Now Playing Movie'}
-        movieList={rankMovieList}
-        navLink={'/now_playing'}
-        />
-        <HomeMovieList
-        title={'Upcoming Movie'}
-        movieList={upcoming.data[0]}
-        navLink={'/upcoming'}
-        />
-    </Container>
-    </>
+    return (
+        <>
+            <Header className="header" mainMovie={rankMovieList[0]} />
+            <Container>
+                <HomeMovieList
+                    title={'Now Playing Movie'}
+                    movieList={rankMovieList}
+                    navLink={'/now_playing'}
+                />
+                <HomeMovieList
+                    title={'Upcoming Movie'}
+                    movieList={upcoming.data[0]}
+                    navLink={'/upcoming'}
+                />
+            </Container>
+        </>
     )
 }

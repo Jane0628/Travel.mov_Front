@@ -18,6 +18,11 @@ import Hotels from './component/view/Hotels';
 import MovieSearch from './component/movie/MovieSearch';
 import GooMap from './component/google/GooMap';
 import TodaysMovieDetail from './component/view/movie/TodaysMovieDetail';
+import Home from './component/view/movie/pages/Home';
+import NowPlayingMovie from './component/view/movie/pages/NowPlayingMovie';
+import UpcomingMovie from './component/view/movie/pages/UpcomingMovie';
+import Detail from './component/view/movie/pages/Detail';
+import MovieStateProvider from './component/view/movie/provider/MovieStateProvider';
 
 
 function App() {
@@ -61,22 +66,27 @@ function App() {
 	return (
 		<>
 			<AuthContextProvider>
-				<ThemeProvider theme={theme}>
-					<Routes>
-						<Route path='/' element={<Main />} />
-						<Route path='/join' element={<Join />} />
-						<Route path='/login' element={<Login />} />
-						<Route path='/myPage' element={<MyPage />} />
-						<Route path='/profile' element={<Profile />} />
-						<Route path='/sights' element={<Sights />} />
-						<Route path='/checkout' element={<Checkout />} />
-						<Route path='/reservationCheck' element={<ReservationCheck />} />
-						<Route path='/search' element={<MovieSearch />} />
-						<Route path='/map' element={<GooMap />} />
-						<Route path='/hotels' element={<Hotels />} />
-						{/* <Route path='/TodaysMovieDetail' element={<TodaysMovieDetail />} /> */}
-					</Routes>
-				</ThemeProvider>
+        <MovieStateProvider>
+				  <ThemeProvider theme={theme}>
+            <Routes>
+              <Route path='/' element={<Main />} />
+              <Route path='/join' element={<Join />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/myPage' element={<MyPage />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/sights' element={<Sights />} />
+              <Route path='/checkout' element={<Checkout />} />
+              <Route path='/reservationCheck' element={<ReservationCheck />} />
+              <Route path='/search' element={<MovieSearch />} />
+              <Route path='/map' element={<GooMap />} />
+              <Route path='/hotels' element={<Hotels />} />
+              <Route path="/TodaysMovieDetail" element={<TodaysMovieDetail />} />
+              <Route path="/now_playing" element={<NowPlayingMovie />} />
+              <Route path="/upcoming" element={<UpcomingMovie />} />
+              <Route path="/movie/:movie_id" element={<Detail />} />
+            </Routes>
+				  </ThemeProvider>
+        </MovieStateProvider>
 			</AuthContextProvider>
 		</>
 	);
