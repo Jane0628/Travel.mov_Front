@@ -17,6 +17,7 @@ import { isLogin } from './util/login-utils';
 import Hotels from './component/view/Hotels';
 import MovieSearch from './component/movie/MovieSearch';
 import GooMap from './component/google/GooMap';
+import TodaysMovieDetail from './component/view/movie/TodaysMovieDetail';
 
 
 function App() {
@@ -73,6 +74,7 @@ function App() {
 						<Route path='/search' element={<MovieSearch />} />
 						<Route path='/map' element={<GooMap />} />
 						<Route path='/hotels' element={<Hotels />} />
+						{/* <Route path='/TodaysMovieDetail' element={<TodaysMovieDetail />} /> */}
 					</Routes>
 				</ThemeProvider>
 			</AuthContextProvider>
