@@ -32,11 +32,11 @@ const NavbarWrapper = styled.div`
 }
 `;
 
-export default function Header(){
-    return(
+export default function Header() {
+    return (
         <NavbarWrapper>
             <ul>
-                <li className="home"><Link to="/">HOME</Link></li>
+                <li className="home"><Link to="/home">HOME</Link></li>
                 <li><Link to="/now_playing">Now Playing Movie</Link></li>
                 <li><Link to="/upcoming">Upcoming Movie</Link></li>
             </ul>

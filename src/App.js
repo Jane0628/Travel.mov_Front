@@ -76,10 +76,8 @@ function App() {
               <Route path="/search" element={<MovieSearch />} />
               <Route path="/map" element={<GooMap />} />
               <Route path="/hotels" element={<Hotels />} />
-              <Route
-                path="/TodaysMovieDetail"
-                element={<TodaysMovieDetail />}
-              />
+              <Route path="/TodaysMovieDetail" element={<TodaysMovieDetail />} />
+              <Route path="/Home" element={<Home />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
               <Route path="/upcoming" element={<UpcomingMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
