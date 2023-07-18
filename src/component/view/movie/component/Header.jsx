@@ -26,13 +26,14 @@ const HeaderMovie = styled.div`
         rgba(20, 20, 20, 0.4) 65%,
         rgba(20, 20, 20, 0.6) 95%,
         rgba(27, 26, 26, 1) 100%
-      ), ${props => `url('${IMAGE_URL+props.backdrop_path}');`}
+      ), ${props => `url('${IMAGE_URL + props.backdrop_path}');`}
       background-repeat: no-repeat;
       background-size: 100% 100%;
         
         .info{
             position: absolute;
             left: 30px;
+            color: white;
             .title {
                     margin-top: 0;
                     font-size: 50px;
@@ -56,19 +57,19 @@ const HeaderMovie = styled.div`
     }
 `;
 
-export default React.memo(function Header({mainMovie}){
-    const { title, backdrop_path, overview, release_date, vote_average } = mainMovie;
-    return(
-        <HeaderMovie backdrop_path={backdrop_path}>
-            <div className="info">
-                <p className='title'>{title}</p>
-                <div className='sub-info'>
-                    <div className='release-date'>{release_date}</div>
-                        <Star vote_average={vote_average}></Star>
-                        <div className='vote-average'>{vote_average}</div>
-                </div>
-                <p className="overview">{overview}</p>
-            </div>
-        </HeaderMovie>
-    )
+export default React.memo(function Header({ mainMovie }) {
+  const { title, backdrop_path, overview, release_date, vote_average } = mainMovie;
+  return (
+    <HeaderMovie backdrop_path={backdrop_path}>
+      <div className="info">
+        <p className='title'>{title}</p>
+        <div className='sub-info'>
+          <div className='release-date'>{release_date}</div>
+          <Star vote_average={vote_average}></Star>
+          <div className='vote-average'>{vote_average}</div>
+        </div>
+        <p className="overview">{overview}</p>
+      </div>
+    </HeaderMovie>
+  )
 })
