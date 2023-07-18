@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
 import "../../design/mypage.scss"
-import { Button, Grid, Container} from '@mui/material'
+import { Button, Grid, Container } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
 import { API_BASE_URL, USER } from '../../util/host-utils';
+import Header from '../layout/Header';
 
 const MyPage = () => {
 
-  const {isLoggedIn, onLogout, nick} = useContext(AuthContext);
+  const { isLoggedIn, onLogout, nick } = useContext(AuthContext);
 
   const REQUEST_URL = API_BASE_URL + USER;
 
@@ -51,45 +52,42 @@ const MyPage = () => {
 
   return (
     <>
+      <Header />
       <Container>
         <h1>My Page</h1>
         <div className='my-page'>
-            <div className='welcome'>
-              <Grid item xs={8} /*</div>style={{ backgroundColor: 'blue' }}*/>                            
-                <img                                    
-                  src={require("../../img/profileImage.png") }
-                  alt="profile"                                    
-                  />
-              </Grid>
-              <div className='nick'>
-              {
-                nick + '님 '
-                + '환영합니다'
-              }
-              </div>
+          <div className='welcome'>
+            <Grid item xs={8} /*</div>style={{ backgroundColor: 'blue' }}*/>
+              <img
+                src={require("../../img/profileImage.png")}
+                alt="profile"
+              />
+            </Grid>
+            <div className='nick'>
+              <span>{nick}</span>님 환영합니다!
             </div>
-            <div className='page-menu'>
+          </div>
+          <div className='page-menu'>
 
-              <Link to="/profile" className='link'>프로필 수정</Link>
-              <span>영화 촬영지 여행 후기</span>
-              <Link to="/hotels" className='link'>호텔 예약 하기</Link>
-              <Link to="/reservationCheck" className='link'>호텔 예약 정보 확인</Link>
-              <Link to="/" className='link'>홈페이지</Link>
+            <Link to="/profile" className='link'>프로필 수정</Link>
+            <span>영화 촬영지 여행 후기</span>
+            {/* <Link to="/hotels" className='link'>호텔 예약 하기</Link> */}
+            <Link to="/reservationCheck" className='link'>예약 정보 확인</Link>
 
-              <div className='delete'>
-                <ThemeProvider theme={theme}>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    className={`custom-button small`}
-                    onClick={handleWithdrawal}
-                  >
-                    회원 탈퇴
-                  </Button>
-                </ThemeProvider>
-              </div>
-
+            <div className='delete'>
+              <ThemeProvider theme={theme}>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  className={`custom-button small`}
+                  onClick={handleWithdrawal}
+                >
+                  회원 탈퇴
+                </Button>
+              </ThemeProvider>
             </div>
+
+          </div>
         </div>
       </Container>
     </>

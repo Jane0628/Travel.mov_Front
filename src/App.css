@@ -117,8 +117,3 @@ input {
   padding: 10px;
   height: 40px;
 }
-
-input:read-only {
-  background-color: #7b8ce0;
-  color: white;
-}

@@ -3,15 +3,15 @@ header {
   width: 100%;
 
   box-sizing: border-box;
-  padding: 10px;
   box-shadow: 0px 5px 5px #7b8ce0;
+  padding: 0 10px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   img {
-    width: 80px;
+    width: 100px;
 
     &:hover {
       cursor: pointer;
