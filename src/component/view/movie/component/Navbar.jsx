@@ -20,7 +20,7 @@ const NavbarWrapper = styled.div`
             }
         a {
             text-decoration: none;
-            color: white;
+            color: black;
             &:hover {
                 color: crimson;
             }
@@ -36,7 +36,8 @@ export default function Header() {
     return (
         <NavbarWrapper>
             <ul>
-                <li className="home"><Link to="/home">HOME</Link></li>
+                <li><Link to="/">Main</Link></li>
+                <li className="home"><Link to="/TodaysMovieDetail">Movie Main</Link></li>
                 <li><Link to="/now_playing">Now Playing Movie</Link></li>
                 <li><Link to="/upcoming">Upcoming Movie</Link></li>
             </ul>

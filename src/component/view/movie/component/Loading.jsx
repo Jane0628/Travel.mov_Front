@@ -38,11 +38,11 @@ const LoadingWrapper = styled.div`
 `;
 export default function Loading() {
 
-    return (
-        <LoadingWrapper>
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="circle"></div>
-        </LoadingWrapper>
-    )
+  return (
+    <LoadingWrapper>
+      <div className="circle"></div>
+      <div className="circle"></div>
+      <div className="circle"></div>
+    </LoadingWrapper>
+  )
 }

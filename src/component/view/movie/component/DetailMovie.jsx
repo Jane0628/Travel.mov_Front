@@ -88,39 +88,39 @@ const Description = styled.div`
         }
     }
 `;
-export default function DetailMovie({movieInfo, imageUrl}) {
-    const { poster_path, title, genres, release_date, runtime, vote_average,
-            tagline, overview, production_companies} = movieInfo;
+export default function DetailMovie({ movieInfo, imageUrl }) {
+  const { poster_path, title, genres, release_date, runtime, vote_average,
+    tagline, overview, production_companies } = movieInfo;
 
-    return(
-        <DetailMovieWrapper>
-            <img src={imageUrl+poster_path}/>
-                <Description>
-                    <h1 className="title">{title}</h1>
-                    <div className="genres">
-                        {genres.map(genre => 
-                            <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
-                    <div className="sub-info">
-                        <div className="release-date">{release_date}</div>
-                        <div>{runtime}</div>
-                        <div className="vote-average">
-                            <Star vote_average={vote_average}/>
-                            <div>{vote_average}</div>
-                        </div>
-                    </div>
-                    <div className="overviewInfo">
-                        <div className="tagline">{tagline ? `"${tagline}"` : ''}</div>
-                        <div className="overview">{overview}</div>
-                    </div>
-                    <div className="companies">
-                        {production_companies.map(company => 
-                            <div className="company" key={company.id}>
-                                <img className="company-logo" src={company.logo_path ? imageUrl+company.logo_path : null} alt="No Image"/>
-                                <div>{company.name}</div>
-                            </div>
-                        )}
-                    </div>
-                </Description>
-        </DetailMovieWrapper> 
-    )
+  return (
+    <DetailMovieWrapper>
+      <img src={imageUrl + poster_path} />
+      <Description>
+        <h1 className="title">{title}</h1>
+        <div className="genres">
+          {genres.map(genre =>
+            <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
+        <div className="sub-info">
+          <div className="release-date">{release_date}</div>
+          <div>{runtime}</div>
+          <div className="vote-average">
+            <Star vote_average={vote_average} />
+            <div>{vote_average}</div>
+          </div>
+        </div>
+        <div className="overviewInfo">
+          <div className="tagline">{tagline ? `"${tagline}"` : ''}</div>
+          <div className="overview">{overview}</div>
+        </div>
+        <div className="companies">
+          {production_companies.map(company =>
+            <div className="company" key={company.id}>
+              <img className="company-logo" src={company.logo_path ? imageUrl + company.logo_path : null} alt="No Image" />
+              <div>{company.name}</div>
+            </div>
+          )}
+        </div>
+      </Description>
+    </DetailMovieWrapper>
+  )
 }
