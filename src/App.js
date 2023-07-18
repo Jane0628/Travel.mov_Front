@@ -49,34 +49,33 @@ function App() {
 					font-weight: 600;
 					font-style: normal;
 				}
-        `
-			},
-		},
-	});
+        `,
+      },
+    },
+  });
 
-
-	return (
-		<>
-			<AuthContextProvider>
-				<ThemeProvider theme={theme}>
-					<Routes>
-						<Route path='/' element={<Main />} />
-						<Route path='/join' element={<Join />} />
-						<Route path='/login' element={<Login />} />
-						<Route path='/myPage' element={<MyPage />} />
-						<Route path='/profile' element={<Profile />} />
-						<Route path='/sights' element={<Sights />} />
-						<Route path='/checkout' element={<Checkout />} />
-						<Route path='/reservationCheck' element={<ReservationCheck />} />
-						<Route path='/search' element={<MovieSearch />} />
-						<Route path='/map' element={<GooMap />} />
-						<Route path='/hotels' element={<Hotels />} />
-						{/* <Route path='/TodaysMovieDetail' element={<TodaysMovieDetail />} /> */}
-					</Routes>
-				</ThemeProvider>
-			</AuthContextProvider>
-		</>
-	);
+  return (
+    <>
+      <AuthContextProvider>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/join" element={<Join />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/myPage" element={<MyPage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/sights" element={<Sights />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/reservationCheck" element={<ReservationCheck />} />
+            <Route path="/search" element={<MovieSearch />} />
+            <Route path="/map" element={<GooMap />} />
+            <Route path="/hotels" element={<Hotels />} />
+            {/* <Route path='/TodaysMovieDetail' element={<TodaysMovieDetail />} /> */}
+          </Routes>
+        </ThemeProvider>
+      </AuthContextProvider>
+    </>
+  );
 }
 
 export default App;
