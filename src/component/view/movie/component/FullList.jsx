@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Navbar from "../component/Navbar"
+import Header from "../../../layout/Header";
 
 const GridContainer = styled.div`
     display: grid;
@@ -40,12 +42,16 @@ const PageBtn = styled.div`
         padding: 5px 10px;
         margin-right: 5px;
         background-color: transparent;
-        border: 2px solid crimson;
+        border: 2px solid #424180;
         border-radius: 5px;
-        color: crimson;
+        color: #424180;
         cursor: pointer;
         &:last-child {
             margin-right: 0;
+        }
+        &:hover {
+            background: #b1bff9;
+            transition: 0.7s;
         }
         &:active {
             color: #1b1a1a;
@@ -74,6 +80,8 @@ export default function FullList({ movieList }) {
   }
   return (
     <>
+      <Header />
+      <Navbar />
       <GridContainer>
         {movieList[page - 1].map((movie) =>
           <Item key={movie.id} onClick={() => handleClick(movie.id)}>

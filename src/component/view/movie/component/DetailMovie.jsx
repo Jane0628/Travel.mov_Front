@@ -33,9 +33,10 @@ const Description = styled.div`
         font-size: 14px;
         
         .genre {
+            color: white;
             padding: 5px;
             margin-right: 7px;
-            background-color: crimson;
+            background-color: #7b8ce0;
             border-radius: 20px;
             &:last-child{
                 margin-right: 0;
