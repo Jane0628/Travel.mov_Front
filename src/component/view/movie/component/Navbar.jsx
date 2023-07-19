@@ -20,7 +20,7 @@ const NavbarWrapper = styled.div`
             }
         a {
             text-decoration: none;
-            color: black;
+            color: #424180;
             &:hover {
                 color: crimson;
             }

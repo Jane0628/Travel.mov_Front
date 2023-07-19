@@ -8,7 +8,7 @@ const MovieListContainer = styled.div`
     .main-title{
         display:flex;
         justify-content: space-between;
-        color: crimson;
+        color: #424180;
         .title{
             font-size: 30px;
         }

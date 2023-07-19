@@ -33,9 +33,10 @@ const Description = styled.div`
         font-size: 14px;
         
         .genre {
+            color: white;
             padding: 5px;
             margin-right: 7px;
-            background-color: crimson;
+            background-color: #7b8ce0;
             border-radius: 20px;
             &:last-child{
                 margin-right: 0;
@@ -47,12 +48,10 @@ const Description = styled.div`
         font-size: 16px;
         display: flex;
         
-        >div::after{
+          >div::after{
             content: "|";
             padding: 7px;
-        }
-        >div:last-child::after {
-            content: "";
+          }
         }
         .release-date{
             overflow: nowrap;
@@ -102,11 +101,11 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
             <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
         <div className="sub-info">
           <div className="release-date">{release_date}</div>
-          <div>{runtime}</div>
-          <div className="vote-average">
-            <Star vote_average={vote_average} />
-            <div>{vote_average}</div>
-          </div>
+          <div>{runtime}minutes</div>
+        </div>
+        <div className="vote-average">
+          <Star vote_average={vote_average} />
+          <div>{vote_average}</div>
         </div>
         <div className="overviewInfo">
           <div className="tagline">{tagline ? `"${tagline}"` : ''}</div>
