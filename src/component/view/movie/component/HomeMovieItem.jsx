@@ -21,7 +21,6 @@ const Item = styled.div`
     
         .rank{
             position: absolute;
-            top: 5px;
             left: 10px;
             font-size: 70px;
             font-style: italic;
@@ -32,22 +31,24 @@ const Item = styled.div`
         }
             
         .info{
+            color: white;
             background-color: rgba(20,20,20,0.3);
             backdrop-filter: blur(3px);
             padding: 15px;
+            margin-left: -12px;
             width:100%;
             max-height: 35%;
             position: absolute;
             bottom: 0;
             >div{
-                margin-bottom: 17px;
+                margin-bottom: 0px;
             }
             .vote-average {
                 font-size: 15px;
                 font-weight: 300;
             }
             .title {
-                font-size: 30px;
+                font-size: 20px;
             }
             .release-date {
                 font-size: 15px;
