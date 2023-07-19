@@ -54,34 +54,34 @@ const PageBtn = styled.div`
     }
 `;
 
-export default function FullList({movieList}){
-    const [page, setPage ] = useState(1);
-    const IMAGE_URL = "https://image.tmdb.org/t/p/w300/";
-    const navigate = useNavigate();
+export default function FullList({ movieList }) {
+  const [page, setPage] = useState(1);
+  const IMAGE_URL = "https://image.tmdb.org/t/p/w300/";
+  const navigate = useNavigate();
 
-    const handlePagination = (currentPage) => {
-        setPage(currentPage);
+  const handlePagination = (currentPage) => {
+    setPage(currentPage);
+  }
+  const handleClick = (id) => {
+    navigate(`/movie/${id}`);
+  }
+  const pagination = () => {
+    let pageButton = [];
+    for (let i = 1; i < movieList.length + 1; i++) {
+      pageButton.push(<button key={i} onClick={() => handlePagination(i)}>{i}</button>)
     }
-    const handleClick = (id) => {
-        navigate(`/movie/${id}`);
-    }
-    const pagination = () => {
-        let pageButton = [];
-        for(let i = 1; i< movieList.length+1; i++){
-            pageButton.push(<button key={i} onClick={()=>handlePagination(i)}>{i}</button>)
-         }
-         return pageButton;
-    } 
-    return (
-        <>
-        <GridContainer>
-            {movieList[page-1].map((movie) =>
-                <Item key={movie.id} onClick={()=>handleClick(movie.id)}>
-                    <img src={IMAGE_URL+movie.poster_path}/>
-                </Item>
-            )}
-        </GridContainer>
-        <PageBtn>{pagination()}</PageBtn>
-        </>
-    )
+    return pageButton;
+  }
+  return (
+    <>
+      <GridContainer>
+        {movieList[page - 1].map((movie) =>
+          <Item key={movie.id} onClick={() => handleClick(movie.id)}>
+            <img src={IMAGE_URL + movie.poster_path} />
+          </Item>
+        )}
+      </GridContainer>
+      <PageBtn>{pagination()}</PageBtn>
+    </>
+  )
 }

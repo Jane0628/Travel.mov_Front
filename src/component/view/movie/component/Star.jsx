@@ -24,25 +24,25 @@ const Inner = styled.div`
     white-space: nowrap;
 `;
 
-export default function Star({vote_average}){
-    const printStar = () => {
-        let star =[];
-        for(let i = 0; i<5 ; i++){
-            star.push(
-                <FontAwesomeIcon className="star fa-fw" key={i} icon={faStar}/>
-            )
-        }
-        return star;
-    }
+export default function Star({ vote_average }) {
+	const printStar = () => {
+		let star = [];
+		for (let i = 0; i < 5; i++) {
+			star.push(
+				<FontAwesomeIcon className="star fa-fw" key={i} icon={faStar} />
+			)
+		}
+		return star;
+	}
 
-    return (
-        <Wrapper>
-            <div className="outer">
-                {printStar()}
-            </div>
-            <Inner className="inner" width={vote_average}>
-                    {printStar()}
-                </Inner>
-        </Wrapper>
-    )
+	return (
+		<Wrapper>
+			<div className="outer">
+				{printStar()}
+			</div>
+			<Inner className="inner" width={vote_average}>
+				{printStar()}
+			</Inner>
+		</Wrapper>
+	)
 }

@@ -14,7 +14,7 @@ const Item = styled.div`
         height: 400px;
         ${props => `
             background-image:
-            url('${IMAGE_URL+props.url}');`}
+            url('${IMAGE_URL + props.url}');`}
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: center;
@@ -57,23 +57,23 @@ const Item = styled.div`
     }
 `;
 
-export default function MovieItem({movie, rank}){
+export default function MovieItem({ movie, rank }) {
 
-    const {id, poster_path, title, vote_average, release_date } = movie;
-    const navigate = useNavigate();
-    const handleClick = () => {
-        navigate("/movie/"+id);
-    }
-    return(
-        <Item url={poster_path}>
-            <div className="container" onClick={handleClick}>
-               <div className="rank">{rank}</div>
-                <div className="info">
-                    <div className="vote-average">({vote_average}/10)</div>
-                    <div className="title">{title}</div>
-                    <div className="release-date">Release Date : {release_date}</div>
-                </div>
-            </div>
-        </Item>
-    )
+  const { id, poster_path, title, vote_average, release_date } = movie;
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/movie/" + id);
+  }
+  return (
+    <Item url={poster_path}>
+      <div className="container" onClick={handleClick}>
+        <div className="rank">{rank}</div>
+        <div className="info">
+          <div className="vote-average">({vote_average}/10)</div>
+          <div className="title">{title}</div>
+          <div className="release-date">Release Date : {release_date}</div>
+        </div>
+      </div>
+    </Item>
+  )
 }
