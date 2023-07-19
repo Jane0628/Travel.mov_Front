@@ -17,7 +17,9 @@ const MovieSearch = () => {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result.locations[0].location);
+      for(let l of result.locations) {
+        console.log(l.location);
+      }
     } catch (error) {
       console.error(error);
     }

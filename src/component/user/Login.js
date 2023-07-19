@@ -24,6 +24,7 @@ import { isLogin } from '../../util/login-utils';
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createTheme } from '@mui/material/styles';
+import NaverSignin from '../naver/NaverSignin';
 
 
 export default function SignInSide() {
@@ -318,6 +319,7 @@ export default function SignInSide() {
               로그인
             </Button>
             <KakaoSignin />
+            <NaverSignin />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
