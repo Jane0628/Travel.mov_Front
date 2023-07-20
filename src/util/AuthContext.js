@@ -6,7 +6,6 @@ const AuthContext = React.createContext({
   isLoggedIn: false, //로그인 했는지의 여부 추적
   nick: "",
   id: "",
-  email: "",
   onLogout: () => { },
   onLogin: (token, nick, id) => { },
   setUserInfo: () => { },
@@ -65,7 +64,6 @@ export const AuthContextProvider = (props) => {
         isLoggedIn,
         nick,
         id,
-        email,
         onLogout: logoutHandler,
         onLogin: loginHandler,
         setUserInfo: setLoginUserInfo,

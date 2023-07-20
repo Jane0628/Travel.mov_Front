@@ -23,17 +23,9 @@ const Profile = () => {
 		setNick(newNick);
 	};
 
-	const theme = createTheme({
-		palette: {
-			primary: {
-				main: '#7b8ce0',
-			},
-		},
-	});
-
 	const redirection = useNavigate();
 
-	console.log(id);
+	// console.log(id);
 
 	// 상태변수로 회원가입 입력값 관리
 	const [userValue, setUserValue] = useState({
@@ -82,19 +74,21 @@ const Profile = () => {
 
 		const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
-		let msg, flag = false;
+		let msg;
+		let verification = 0;
 		if (!inputVal) { //비밀번호 안적음
 			msg = '비밀번호는 필수입니다.';
+			verification = 1;
 		} else if (!pwRegex.test(inputVal)) {
 			msg = '8~20글자 영문, 숫자, 특수문자를 포함해 주세요.';
+			verification = 1;
 		} else {
-			msg = '사용 가능한 비밀번호입니다.';
-			flag = true;
-			setCorrect({ ...correct, pw: flag });
+			verification = 2;
+			setCorrect({ ...correct, pw: verification });
 		}
 
 		saveInputState({
-			key: 'password',
+			key: 'pw',
 			inputVal,
 			msg,
 			verification
@@ -116,7 +110,7 @@ const Profile = () => {
 			verification = 1;
 		} else {
 			verification = 2;
-			setCorrect({ ...correct, nickN: verification });
+			setCorrect({ ...correct, nick: verification });
 		}
 
 		saveInputState({
@@ -173,6 +167,7 @@ const Profile = () => {
 
 	const isValid = () => {
 		for (const key in correct) {
+			console.log(correct[key]);
 			if (correct[key] !== 2) return false;
 		}
 		return true;
@@ -207,7 +202,7 @@ const Profile = () => {
 		setNick(userValue.nick);
 
 		// password, nickN, email 값 가져오기
-		const passwordValue = document.getElementById('outlined-adornment-password').value;
+		const passwordValue = document.getElementById('pw').value;
 		const nickNValue = document.getElementById('nick').value;
 		const emailValue = document.getElementById('email').value;
 
@@ -267,8 +262,8 @@ const Profile = () => {
 											label="비밀번호"
 											name="pw"
 											onChange={passwordHandler}
-											error={correct.password === 1 ? true : false}
-											helperText={correct.password === 1 ? message.password : null}
+											error={correct.pw === 1 ? true : false}
+											helperText={correct.pw === 1 ? message.pw : null}
 										/>
 										<IconButton
 											aria-label="toggle password visibility"
@@ -286,8 +281,8 @@ const Profile = () => {
 										id="nick"
 										label="닉네임"
 										name="nick"
-										error={correct.nickN === 1 ? true : false}
-										helperText={correct.nickN === 1 ? message.nickN : null}
+										error={correct.nick === 1 ? true : false}
+										helperText={correct.nick === 1 ? message.nick : null}
 										defaultValue={localStorage.getItem("LOGIN_USERNICK")}
 										onChange={nameHandler}
 									/>
