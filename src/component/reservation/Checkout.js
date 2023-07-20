@@ -11,12 +11,13 @@ import Typography from "@mui/material/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
-
+import { getLoginUserInfo } from "../../util/login-utils";
+import { useNavigate } from "react-router-dom";
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://Tramovle.com/">
+      <Link color="inherit" href="https://tramovel.com/">
         Tramovle.com
       </Link>{" "}
       {new Date().getFullYear()}
@@ -27,20 +28,63 @@ function Copyright() {
 
 const steps = ["예약자 정보", "결제 정보", "예약 확인"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
 export default function Checkout() {
+  const [startDate, setStartDate] = React.useState(new Date());
+  const [endDate, setEndDate] = React.useState(new Date());
+  const redirection = useNavigate();
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm start={startHandler} end={endHandler} />;
+      case 1:
+        return <PaymentForm product />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error("Unknown step");
+    }
+  }
+  const startHandler = (date) => {
+    // console.log(date);
+    setStartDate(date);
+  };
+  const endHandler = (date) => {
+    setEndDate(date);
+    console.log(date);
+  };
+
+  // 로그인 인증 토큰 얻어오기
+  const [token, setToken] = React.useState(getLoginUserInfo().token);
+  const [userNick, setUserNick] = React.useState(getLoginUserInfo().username);
+
+  const preparePayment = async () => {
+    const res = await fetch("http://localhost:8181/pay/ready", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        partner_order_id: "partner_order_id", // 가맹점에서 관리하는 주문번호
+        partner_user_id: userNick, // 가맹점에서 관리하는 회원고유번호
+        item_name: "호텔이름",
+        item_code: "호텔id",
+        quantity: 1,
+        total_amount: 2200, // 결제 금액
+        vat_amount: 200,
+        tax_free_amount: 0,
+        start_date: startDate,
+        end_date: endDate,
+      }),
+    });
+    console.log(res);
+
+    const { next_redirect_pc_url, tid } = await res.json();
+    console.log(tid);
+    console.log(next_redirect_pc_url);
+    window.location.href = next_redirect_pc_url;
+  };
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -93,7 +137,19 @@ export default function Checkout() {
                 onClick={handleNext}
                 sx={{ mt: 3, ml: 1 }}
               >
-                {activeStep === steps.length - 1 ? "예약하기" : "다음"}
+                {activeStep === steps.length - 1 ? (
+                  <>
+                    <Typography variant="h6" gutterBottom>
+                      결제하기
+                    </Typography>
+                    <img
+                      src={require("../../img/payment_icon_yellow_large.png")}
+                      onClick={preparePayment}
+                    />
+                  </>
+                ) : (
+                  "다음"
+                )}
               </Button>
             </Box>
           </React.Fragment>
