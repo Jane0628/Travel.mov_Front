@@ -48,8 +48,20 @@
 			width: 400px;
 			// margin-bottom: 1px;
 
-			div {
-				margin-bottom: 8px;
+			div.pwInput {
+				position: relative;
+
+				input {
+					width: 330px;
+				}
+
+				// 비밀번호 눈 버튼
+				button.css-1vx20r6-MuiButtonBase-root-MuiIconButton-root {
+					position: absolute;
+					top: 33px;
+					right: 0;
+					transform: translate(-35%, -50%);
+				}
 			}
 		}
 
@@ -73,7 +85,6 @@
 			right: 60px;
 			bottom: 0px;
 		}
-
 	}
 
 	.image-change {

@@ -1,9 +1,12 @@
 import React, { createContext, useEffect, useState } from "react";
+import { API_BASE_URL, USER } from "./host-utils";
 
 //새로운 전역 Context를 생성
 const AuthContext = React.createContext({
   isLoggedIn: false, //로그인 했는지의 여부 추적
   nick: "",
+  id: "",
+  email: "",
   onLogout: () => { },
   onLogin: (token, nick, id) => { },
   setUserInfo: () => { },
@@ -40,6 +43,10 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("ACCESS_TOKEN", token);
     localStorage.setItem("LOGIN_USERNICK", nick);
     localStorage.setItem("LOGIN_USERID", id);
+
+    // 로그인할 때 db에서 이메일 정보 가져와서 로컬 스토리지에 담기
+    // fetch(`${API_BASE_URL}${USER}/getEmail`)
+
     setIsLoggedIn(true);
     setNick(nick);
     setId(id);
@@ -51,12 +58,14 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("LOGIN_USERNICK", nick);
     localStorage.setItem("LOGIN_USERID", id);
   };
+
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn,
         nick,
         id,
+        email,
         onLogout: logoutHandler,
         onLogin: loginHandler,
         setUserInfo: setLoginUserInfo,

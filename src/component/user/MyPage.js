@@ -8,16 +8,14 @@ import { API_BASE_URL, USER } from '../../util/host-utils';
 import Header from '../layout/Header';
 
 const MyPage = () => {
-
-  
   const { onLogout, nick, id } = useContext(AuthContext);
-  
+
   const REQUEST_URL = API_BASE_URL + USER;
   console.log('API_BASE_URL:', API_BASE_URL);
   console.log('USER:', USER);
 
   console.log('REQUEST_URL:', REQUEST_URL);
-  
+
   console.log(id);
 
   const theme = createTheme({

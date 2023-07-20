@@ -81,6 +81,10 @@ body a {
   color: white;
 }
 
+p {
+  margin: 0;
+}
+
 a.MuiTypography-root {
   text-decoration: none;
 }
@@ -116,4 +120,13 @@ input {
   box-sizing: border-box;
   padding: 10px;
   height: 40px;
+}
+
+div.css-13i4rnv-MuiGrid-root {
+  margin-bottom: 20px;
+}
+
+p.css-1q7497z-MuiFormHelperText-root {
+  margin: 0 5px;
+  font-size: 15px;
 }

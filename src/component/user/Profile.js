@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
 import '../../design/profile.scss'
 import { Grid, Button, TextField, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl, Input } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container } from 'reactstrap';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
@@ -13,14 +12,6 @@ import EditIcon from '@mui/icons-material/Edit';
 const Profile = () => {
 
 	const fileInputRef = useRef(null);
-
-	const theme = createTheme({
-		palette: {
-			primary: {
-				main: '#7b8ce0',
-			},
-		},
-	});
 
 	const redirection = useNavigate();
 
@@ -40,13 +31,13 @@ const Profile = () => {
 
 	//검증 완료 체크에 대한 상태변수 관리
 	const [correct, setCorrect] = useState({
-		password: false,
-		nickN: false,
-		email: false
+		password: 0,
+		nickN: 0,
+		email: 0
 	});
 
 	//검증 데이터를 상태변수에 저장하는 함수
-	const saveInputState = ({ key, inputVal, flag, msg }) => {
+	const saveInputState = ({ key, inputVal, verification, msg }) => {
 
 		inputVal !== 'pass' && setUserValue({
 			...userValue,
@@ -55,7 +46,7 @@ const Profile = () => {
 
 		setCorrect({
 			...correct,
-			[key]: flag
+			[key]: verification
 		});
 
 		setMessage({
@@ -71,54 +62,56 @@ const Profile = () => {
 
 		const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
-		let msg, flag = false;
-		if (!inputVal) { //비밀번호 안적음
+		let msg;
+		let verification = 0;
+		if (!inputVal) {
 			msg = '비밀번호는 필수입니다.';
+			verification = 1;
 		} else if (!pwRegex.test(inputVal)) {
-			msg = '8~20글자 영문, 숫자, 특수문자를 포함해 주세요.';
+			msg = '8~20자 사이로 영문, 숫자, 특수문자를 포함해주세요.';
+			verification = 1;
 		} else {
-			msg = '사용 가능한 비밀번호입니다.';
-			flag = true;
-			setCorrect({ ...correct, pw: flag });
+			verification = 2;
+			setCorrect({ ...correct, password: verification });
 		}
 
 		saveInputState({
 			key: 'password',
 			inputVal,
 			msg,
-			flag
+			verification
 		});
 	};
 
 	//닉네임 입력창 체인지 이벤트 핸들러
 	const nameHandler = e => {
 
-		const nameRegex = /^[가-힣a-z0-9]{2,10}$/;
-
 		const inputVal = e.target.value;
 
-		let msg, flag = false;
+		const nameRegex = /^[ㄱ-ㅎ가-힣a-z0-9]{2,10}$/;
 
+		let msg;
+		let verification = 0;
 		if (!inputVal) {
 			msg = '닉네임은 필수입니다.';
+			verification = 1;
 		} else if (!nameRegex.test(inputVal)) {
 			msg = '2~10글자로 작성하세요!';
+			verification = 1;
 		} else {
-			msg = '사용 가능한 닉네임입니다.';
-			flag = true;
+			verification = 2;
+			setCorrect({ ...correct, nickN: verification });
 		}
-
-		setMessage({ ...message, nickN: msg });
-		setUserValue({ ...userValue, nickN: inputVal });
-		setCorrect({ ...correct, nickN: flag });
 
 		saveInputState({
 			key: 'nickN',
 			inputVal,
 			msg,
-			flag
+			verification
 		});
 	};
+
+	// 이메일 기본값 (db에서 빼오기)
 
 	//이메일 입력창 체인지 이벤트 핸들러
 	const emailHandler = e => {
@@ -127,21 +120,24 @@ const Profile = () => {
 
 		const emailRegex = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
 
-		let msg, flag = false;
+		let msg;
+		let verification = 0;
 		if (!inputVal) {
 			msg = '이메일은 필수값입니다.';
+			verification = 1;
 		} else if (!emailRegex.test(inputVal)) {
 			msg = '이메일 형식이 아닙니다.';
+			verification = 1;
 		} else {
-			msg = '사용가능한 이메일입니다.'
-			flag = true;
-			setCorrect({ ...correct, email: flag });
+			verification = 2;
+			setCorrect({ ...correct, email: verification });
 		}
+
 		saveInputState({
 			key: 'email',
 			inputVal,
 			msg,
-			flag
+			verification
 		});
 
 	};
@@ -165,10 +161,8 @@ const Profile = () => {
 	};
 
 	const isValid = () => {
-
 		for (const key in correct) {
-			const flag = correct[key];
-			if (!flag) return false;
+			if (correct[key] !== 2) return false;
 		}
 		return true;
 	}
@@ -189,7 +183,7 @@ const Profile = () => {
 		})
 			.then(res => {
 				if (res.status === 200) {
-					alert('수정이 완료되었습니다');
+					alert('수정이 완료되었습니다.');
 					redirection('/myPage');
 				} else {
 					alert('서버와의 통신이 원활하지 않습니다.');
@@ -201,7 +195,7 @@ const Profile = () => {
 		e.preventDefault();
 
 		// password, nickN, email 값 가져오기
-		const passwordValue = document.getElementById('outlined-adornment-password').value;
+		const passwordValue = document.getElementById('pw').value;
 		const nickNValue = document.getElementById('nick').value;
 		const emailValue = document.getElementById('email').value;
 
@@ -248,88 +242,68 @@ const Profile = () => {
 										id="id"
 										label="아이디"
 										name="id"
-										value={'SimChung2'}
-										readOnly
+										value={localStorage.getItem('LOGIN_USERID')}
+										disabled
 									/>
 								</Grid>
 								<Grid item xs={8}>
-									<FormControl sx={{ width: '400px' }} variant="outlined" fullWidth>
-										<InputLabel htmlFor="outlined-adornment-password">비밀번호</InputLabel>
-										<OutlinedInput
-											id="outlined-adornment-password"
+									<div class="pwInput">
+										<TextField
 											type={showPassword ? 'text' : 'password'}
-											endAdornment={
-												<InputAdornment position="end">
-													<IconButton
-														aria-label="toggle password visibility"
-														edge="end"
-														onClick={showPasswordHandler}
-													>
-														{showPassword ? <VisibilityOff /> : <Visibility />}
-													</IconButton>
-												</InputAdornment>
-											}
+											fullWidth
+											id="pw"
 											label="비밀번호"
+											name="pw"
 											onChange={passwordHandler}
+											error={correct.password === 1 ? true : false}
+											helperText={correct.password === 1 ? message.password : null}
 										/>
-									</FormControl>
-									<span style={
-										correct.password ? { color: 'green' } : { color: 'red' }
-									}>{message.password}</span>
+										<IconButton
+											aria-label="toggle password visibility"
+											edge="end"
+											onClick={showPasswordHandler}
+										>
+											{showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+									</div>
 								</Grid>
 								<Grid item xs={8}>
 									<TextField
 										variant="outlined"
-
 										fullWidth
 										id="nick"
 										label="닉네임"
 										name="nick"
-										autoComplete="nick"
+										error={correct.nickN === 1 ? true : false}
+										helperText={correct.nickN === 1 ? message.nickN : null}
+										defaultValue={localStorage.getItem("LOGIN_USERNICK")}
 										onChange={nameHandler}
 									/>
 								</Grid>
-								<span style={
-									correct.nickN ? { color: 'green' } : { color: 'red' }
-								}>{message.nickN}</span>
 								<Grid item xs={8}>
 									<TextField
 										variant="outlined"
-
 										fullWidth
 										id="email"
 										label="이메일"
 										name="email"
 										autoComplete="email"
+										error={correct.email === 1 ? true : false}
+										helperText={correct.email === 1 ? message.email : null}
+										defaultValue={localStorage.getItem("email")}
 										onChange={emailHandler}
 									/>
 								</Grid>
-								<span style={
-									correct.email ? { color: 'green' } : { color: 'red' }
-								}>{message.email}</span>
-							</div>
-							<div className='change'>
-								<ThemeProvider theme={theme}>
+								<Grid item xs={8}>
 									<Button
 										type="submit"
 										fullWidth
 										variant="contained"
 										color="primary"
 										onClick={handleFormSubmit}
-									> 변경할래요
+									> 변경할래요!
 									</Button>
-								</ThemeProvider>
-							</div>
-							<div className='no-change'>
-								<ThemeProvider theme={theme}>
-									<Button href='/mypage'
-										type='button'
-										fullWidth
-										variant='contained'
-										color='primary'
-									> 변경안해요
-									</Button>
-								</ThemeProvider>
+								</Grid>
 							</div>
 						</div>
 					</div>
