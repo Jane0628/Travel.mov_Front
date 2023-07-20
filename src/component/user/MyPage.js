@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import "../../design/mypage.scss"
 import { Button, Grid, Container } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -10,7 +10,12 @@ import Header from '../layout/Header';
 const MyPage = () => {
 
   
-  const { onLogout, nick, id } = useContext(AuthContext);
+  const { onLogout, nick, id, } = useContext(AuthContext);
+
+  // 닉네임이 수정될 때마다 MyPage 컴포넌트를 리렌더링
+  useEffect(() => {
+    console.log('닉네임이 변경되었습니다:', nick);
+  }, [nick]);
   
   const REQUEST_URL = API_BASE_URL + USER;
   console.log('API_BASE_URL:', API_BASE_URL);

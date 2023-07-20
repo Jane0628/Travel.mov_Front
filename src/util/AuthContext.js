@@ -60,6 +60,7 @@ export const AuthContextProvider = (props) => {
         onLogout: logoutHandler,
         onLogin: loginHandler,
         setUserInfo: setLoginUserInfo,
+        setNick,
       }}
     >
       {props.children}
