@@ -39,7 +39,7 @@ export default function Header() {
                 <li><Link to="/">Main</Link></li>
                 <li className="home"><Link to="/TodaysMovieDetail">Movie Main</Link></li>
                 <li><Link to="/now_playing">Now Playing Movie</Link></li>
-                <li><Link to="/upcoming">Upcoming Movie</Link></li>
+                {/* <li><Link to="/upcoming">Upcoming Movie</Link></li> */}
             </ul>
         </NavbarWrapper>
     )

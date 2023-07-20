@@ -13,14 +13,12 @@ import ReservationCheck from "./component/reservation/ReservationCheck";
 import Login from "./component/user/Login";
 import Checkout from "./component/reservation/Checkout";
 import Hotels from "./component/view/Hotels";
-import GooMap from "./component/google/GooMap";
 import TodaysMovieDetail from "./component/view/movie/TodaysMovieDetail";
 import Home from "./component/view/movie/pages/Home";
 import NowPlayingMovie from "./component/view/movie/pages/NowPlayingMovie";
 import UpcomingMovie from "./component/view/movie/pages/UpcomingMovie";
 import Detail from "./component/view/movie/pages/Detail";
 import MovieStateProvider from "./component/view/movie/provider/MovieStateProvider";
-import SearchMovie from "./component/movie/SearchMovie";
 
 function App() {
   const theme = createTheme({
@@ -73,8 +71,6 @@ function App() {
               <Route path="/sights" element={<Sights />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
-              <Route path="/search" element={<SearchMovie />} />
-              <Route path="/map" element={<GooMap />} />
               <Route path="/hotels" element={<Hotels />} />
               <Route path="/TodaysMovieDetail" element={<TodaysMovieDetail />} />
               <Route path="/Home" element={<Home />} />
