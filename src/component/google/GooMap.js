@@ -146,7 +146,7 @@ const GooMap = () => {
         />
         <button onClick={handleSearch}>Search</button>
       </div>
-      <div id="map" style={{ width: "1500px", height: "600px" }}></div>
+      <div id="map" style={{ width: "800px", height: "480px" }}></div>
       {selectedPlace && (
         <div>
           <img

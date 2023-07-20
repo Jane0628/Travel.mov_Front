@@ -16,6 +16,7 @@ const NowPlayingMovie = async () => {
           page: i,
         },
       });
+      console.log('나우플레잉' + res.data.results);
       Data.push(res.data.results);
     }
     return Data;
@@ -48,6 +49,7 @@ const UpcomingMovie = async () => {
 const getDetail = async (id) => {
   try {
     const res = await instance.get(`/movie/${id}`);
+    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error);

@@ -1,3 +1,4 @@
+import GooMap from "../../../google/GooMap";
 import Star from "../component/Star";
 import styled from "styled-components";
 
@@ -88,8 +89,30 @@ const Description = styled.div`
     }
 `;
 export default function DetailMovie({ movieInfo, imageUrl }) {
-  const { poster_path, title, genres, release_date, runtime, vote_average,
-    tagline, overview, production_companies } = movieInfo;
+  const { poster_path, title, genres, imdb_id } = movieInfo;
+
+  const searchLocation = async () => {
+
+    const url = 'https://imdb8.p.rapidapi.com/title/get-filming-locations?tconst=' + imdb_id;
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': `${process.env.REACT_APP_X_RAPIDAPI_KEY}`,
+        'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      for (let l of result.locations) {
+        console.log(l.location);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+  };
 
   return (
     <DetailMovieWrapper>
@@ -99,7 +122,7 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
         <div className="genres">
           {genres.map(genre =>
             <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
-        <div className="sub-info">
+        {/* <div className="sub-info">
           <div className="release-date">{release_date}</div>
           <div>{runtime}minutes</div>
         </div>
@@ -118,7 +141,8 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
               <div>{company.name}</div>
             </div>
           )}
-        </div>
+        </div> */}
+        <GooMap />
       </Description>
     </DetailMovieWrapper>
   )
