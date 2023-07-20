@@ -32,29 +32,29 @@ const MovieContainer = styled.div`
 
 export default function Detail() {
 
-    const IMAGE_URL = "https://image.tmdb.org/t/p/original/";
+  const IMAGE_URL = "https://image.tmdb.org/t/p/original/";
 
-    const path = useParams();
-    const [ movieId, setMovieId] = useState(path.movie_id);
-    const [ movie, setMovie ] = useState({});
-    
-    const getData = async() => {
-        const res = await getDetail(movieId);
-        setMovie(prev => ({...prev},res));
-    }
-    useEffect(()=>{
-        getData();
-    },[movieId]);
-    
-    if(!Object.keys(movie).length){
-        return <Loading/>
-    }
-    return(
-        <MovieContainer imgUrl={IMAGE_URL+movie.poster_path}>
-            <DetailMovie 
-            movieInfo={movie}
-            imageUrl={IMAGE_URL}
-            />
-        </MovieContainer>
-    )
+  const path = useParams();
+  const [movieId, setMovieId] = useState(path.movie_id);
+  const [movie, setMovie] = useState({});
+
+  const getData = async () => {
+    const res = await getDetail(movieId);
+    setMovie(prev => ({ ...prev }, res));
+  }
+  useEffect(() => {
+    getData();
+  }, [movieId]);
+
+  if (!Object.keys(movie).length) {
+    return <Loading />
+  }
+  return (
+    <MovieContainer imgUrl={IMAGE_URL + movie.poster_path}>
+      <DetailMovie
+        movieInfo={movie}
+        imageUrl={IMAGE_URL}
+      />
+    </MovieContainer>
+  )
 }

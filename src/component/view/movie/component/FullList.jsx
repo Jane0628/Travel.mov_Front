@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Navbar from "../component/Navbar"
+import Header from "../../../layout/Header";
 
 const GridContainer = styled.div`
     display: grid;
@@ -40,12 +42,16 @@ const PageBtn = styled.div`
         padding: 5px 10px;
         margin-right: 5px;
         background-color: transparent;
-        border: 2px solid crimson;
+        border: 2px solid #424180;
         border-radius: 5px;
-        color: crimson;
+        color: #424180;
         cursor: pointer;
         &:last-child {
             margin-right: 0;
+        }
+        &:hover {
+            background: #b1bff9;
+            transition: 0.7s;
         }
         &:active {
             color: #1b1a1a;
@@ -54,34 +60,36 @@ const PageBtn = styled.div`
     }
 `;
 
-export default function FullList({movieList}){
-    const [page, setPage ] = useState(1);
-    const IMAGE_URL = "https://image.tmdb.org/t/p/w300/";
-    const navigate = useNavigate();
+export default function FullList({ movieList }) {
+  const [page, setPage] = useState(1);
+  const IMAGE_URL = "https://image.tmdb.org/t/p/w300/";
+  const navigate = useNavigate();
 
-    const handlePagination = (currentPage) => {
-        setPage(currentPage);
+  const handlePagination = (currentPage) => {
+    setPage(currentPage);
+  }
+  const handleClick = (id) => {
+    navigate(`/movie/${id}`);
+  }
+  const pagination = () => {
+    let pageButton = [];
+    for (let i = 1; i < movieList.length + 1; i++) {
+      pageButton.push(<button key={i} onClick={() => handlePagination(i)}>{i}</button>)
     }
-    const handleClick = (id) => {
-        navigate(`/movie/${id}`);
-    }
-    const pagination = () => {
-        let pageButton = [];
-        for(let i = 1; i< movieList.length+1; i++){
-            pageButton.push(<button key={i} onClick={()=>handlePagination(i)}>{i}</button>)
-         }
-         return pageButton;
-    } 
-    return (
-        <>
-        <GridContainer>
-            {movieList[page-1].map((movie) =>
-                <Item key={movie.id} onClick={()=>handleClick(movie.id)}>
-                    <img src={IMAGE_URL+movie.poster_path}/>
-                </Item>
-            )}
-        </GridContainer>
-        <PageBtn>{pagination()}</PageBtn>
-        </>
-    )
+    return pageButton;
+  }
+  return (
+    <>
+      <Header />
+      <Navbar />
+      <GridContainer>
+        {movieList[page - 1].map((movie) =>
+          <Item key={movie.id} onClick={() => handleClick(movie.id)}>
+            <img src={IMAGE_URL + movie.poster_path} />
+          </Item>
+        )}
+      </GridContainer>
+      <PageBtn>{pagination()}</PageBtn>
+    </>
+  )
 }

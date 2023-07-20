@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const LoadingWrapper =styled.div`
+const LoadingWrapper = styled.div`
     
     display: flex;
     align-items: center;
@@ -36,13 +36,13 @@ const LoadingWrapper =styled.div`
         }
     }
 `;
-export default function Loading(){
+export default function Loading() {
 
-    return (
-        <LoadingWrapper>
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="circle"></div>
-        </LoadingWrapper>
-    )
+  return (
+    <LoadingWrapper>
+      <div className="circle"></div>
+      <div className="circle"></div>
+      <div className="circle"></div>
+    </LoadingWrapper>
+  )
 }

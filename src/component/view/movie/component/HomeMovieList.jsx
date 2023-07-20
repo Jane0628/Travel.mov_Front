@@ -8,7 +8,7 @@ const MovieListContainer = styled.div`
     .main-title{
         display:flex;
         justify-content: space-between;
-        color: crimson;
+        color: #424180;
         .title{
             font-size: 30px;
         }
@@ -27,33 +27,33 @@ const MovieListWrapper = styled.div`
     }
 `;
 
-export default function HomeMovieList({title, movieList, navLink}){
+export default function HomeMovieList({ title, movieList, navLink }) {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate(`${navLink}`);
-    }
+  const handleClick = () => {
+    navigate(`${navLink}`);
+  }
 
-    return (
-        <>
-        {movieList &&
-            <MovieListContainer>
-                <div className="main-title">
-                    <div>
-                        <div>TOP 20 Popular</div>
-                        <div className="title">{title}</div>
-                    </div>
-                    <div className="moreBtn" type="button" onClick={handleClick}>View All</div>
-                </div>
-                <MovieListWrapper>
-                {movieList.length !== 0 && 
-                    movieList.map((movie, idx) =>
-                        <HomeMovieItem key={movie.id} movie={movie} rank={idx+1}></HomeMovieItem>
-                )}
-                </MovieListWrapper>
-            </MovieListContainer>
-        }
-        </>
-    )
+  return (
+    <>
+      {movieList &&
+        <MovieListContainer>
+          <div className="main-title">
+            <div>
+              <div>TOP 20 Popular</div>
+              <div className="title">{title}</div>
+            </div>
+            <div className="moreBtn" type="button" onClick={handleClick}>View All</div>
+          </div>
+          <MovieListWrapper>
+            {movieList.length !== 0 &&
+              movieList.map((movie, idx) =>
+                <HomeMovieItem key={movie.id} movie={movie} rank={idx + 1}></HomeMovieItem>
+              )}
+          </MovieListWrapper>
+        </MovieListContainer>
+      }
+    </>
+  )
 }

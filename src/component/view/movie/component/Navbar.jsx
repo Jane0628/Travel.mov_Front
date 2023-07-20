@@ -20,7 +20,7 @@ const NavbarWrapper = styled.div`
             }
         a {
             text-decoration: none;
-            color: white;
+            color: #424180;
             &:hover {
                 color: crimson;
             }
@@ -32,13 +32,14 @@ const NavbarWrapper = styled.div`
 }
 `;
 
-export default function Header(){
-    return(
+export default function Header() {
+    return (
         <NavbarWrapper>
             <ul>
-                <li className="home"><Link to="/">HOME</Link></li>
+                <li><Link to="/">Main</Link></li>
+                <li className="home"><Link to="/TodaysMovieDetail">Movie Main</Link></li>
                 <li><Link to="/now_playing">Now Playing Movie</Link></li>
-                <li><Link to="/upcoming">Upcoming Movie</Link></li>
+                {/* <li><Link to="/upcoming">Upcoming Movie</Link></li> */}
             </ul>
         </NavbarWrapper>
     )

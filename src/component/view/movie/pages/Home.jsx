@@ -12,43 +12,44 @@ const Container = styled.div`
 
 export default function Home() {
 
-    const nowPlaying = useContext(NowPlayingMovieContext);
-    const upcoming = useContext(UpcomingMovieContext);
-    const [rankMovieList, setRankMovieList] = useState([]);
+  const nowPlaying = useContext(NowPlayingMovieContext);
+  const upcoming = useContext(UpcomingMovieContext);
+  const [rankMovieList, setRankMovieList] = useState([]);
 
-    const getDescRankMovieList = () => {
-        let movieList = [];
-        if(nowPlaying.data.length !== 0){
-            [movieList] = nowPlaying.data;
-            movieList.sort((a,b) => b.popularity - a.popularity);
-        }
-        return movieList;
+  const getDescRankMovieList = () => {
+    let movieList = [];
+    console.log(movieList);
+    if (nowPlaying.data.length !== 0) {
+      [movieList] = nowPlaying.data;
+      movieList.sort((a, b) => b.popularity - a.popularity);
     }
-    if(nowPlaying.loading && upcoming.loading){
-        return <Loading/>
+    return movieList;
+  }
+  if (nowPlaying.loading && upcoming.loading) {
+    return <Loading />
+  }
+  if (!nowPlaying.loading) {
+    if (!rankMovieList.length) {
+      const rankList = getDescRankMovieList();
+      setRankMovieList((prev) => prev.concat(rankList));
     }
-    if(!nowPlaying.loading){
-        if(!rankMovieList.length){
-            const rankList = getDescRankMovieList();
-            setRankMovieList((prev)=> prev.concat(rankList));
-        }
-    }
+  }
 
-    return(
+  return (
     <>
-    <Header className="header" mainMovie={rankMovieList[0]}/>
-    <Container>
-        <HomeMovieList 
-        title={'Now Playing Movie'}
-        movieList={rankMovieList}
-        navLink={'/now_playing'}
+      <Header className="header" mainMovie={rankMovieList[0]} />
+      <Container>
+        <HomeMovieList
+          title={'Now Playing Movie'}
+          movieList={rankMovieList}
+          navLink={'/now_playing'}
         />
         <HomeMovieList
-        title={'Upcoming Movie'}
-        movieList={upcoming.data[0]}
-        navLink={'/upcoming'}
+          title={'Upcoming Movie'}
+          movieList={upcoming.data[0]}
+          navLink={'/upcoming'}
         />
-    </Container>
+      </Container>
     </>
-    )
+  )
 }

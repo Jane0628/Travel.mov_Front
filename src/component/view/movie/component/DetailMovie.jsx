@@ -1,3 +1,4 @@
+import GooMap from "../../../google/GooMap";
 import Star from "../component/Star";
 import styled from "styled-components";
 
@@ -33,9 +34,10 @@ const Description = styled.div`
         font-size: 14px;
         
         .genre {
+            color: white;
             padding: 5px;
             margin-right: 7px;
-            background-color: crimson;
+            background-color: #7b8ce0;
             border-radius: 20px;
             &:last-child{
                 margin-right: 0;
@@ -47,12 +49,10 @@ const Description = styled.div`
         font-size: 16px;
         display: flex;
         
-        >div::after{
+          >div::after{
             content: "|";
             padding: 7px;
-        }
-        >div:last-child::after {
-            content: "";
+          }
         }
         .release-date{
             overflow: nowrap;
@@ -88,39 +88,62 @@ const Description = styled.div`
         }
     }
 `;
-export default function DetailMovie({movieInfo, imageUrl}) {
-    const { poster_path, title, genres, release_date, runtime, vote_average,
-            tagline, overview, production_companies} = movieInfo;
+export default function DetailMovie({ movieInfo, imageUrl }) {
+  const { poster_path, title, genres, imdb_id } = movieInfo;
 
-    return(
-        <DetailMovieWrapper>
-            <img src={imageUrl+poster_path}/>
-                <Description>
-                    <h1 className="title">{title}</h1>
-                    <div className="genres">
-                        {genres.map(genre => 
-                            <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
-                    <div className="sub-info">
-                        <div className="release-date">{release_date}</div>
-                        <div>{runtime}</div>
-                        <div className="vote-average">
-                            <Star vote_average={vote_average}/>
-                            <div>{vote_average}</div>
-                        </div>
-                    </div>
-                    <div className="overviewInfo">
-                        <div className="tagline">{tagline ? `"${tagline}"` : ''}</div>
-                        <div className="overview">{overview}</div>
-                    </div>
-                    <div className="companies">
-                        {production_companies.map(company => 
-                            <div className="company" key={company.id}>
-                                <img className="company-logo" src={company.logo_path ? imageUrl+company.logo_path : null} alt="No Image"/>
-                                <div>{company.name}</div>
-                            </div>
-                        )}
-                    </div>
-                </Description>
-        </DetailMovieWrapper> 
-    )
+  const searchLocation = async () => {
+
+    const url = 'https://imdb8.p.rapidapi.com/title/get-filming-locations?tconst=' + imdb_id;
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': `${process.env.REACT_APP_X_RAPIDAPI_KEY}`,
+        'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      for (let l of result.locations) {
+        console.log(l.location);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+  };
+
+  return (
+    <DetailMovieWrapper>
+      <img src={imageUrl + poster_path} />
+      <Description>
+        <h1 className="title">{title}</h1>
+        <div className="genres">
+          {genres.map(genre =>
+            <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
+        {/* <div className="sub-info">
+          <div className="release-date">{release_date}</div>
+          <div>{runtime}minutes</div>
+        </div>
+        <div className="vote-average">
+          <Star vote_average={vote_average} />
+          <div>{vote_average}</div>
+        </div>
+        <div className="overviewInfo">
+          <div className="tagline">{tagline ? `"${tagline}"` : ''}</div>
+          <div className="overview">{overview}</div>
+        </div>
+        <div className="companies">
+          {production_companies.map(company =>
+            <div className="company" key={company.id}>
+              <img className="company-logo" src={company.logo_path ? imageUrl + company.logo_path : null} alt="No Image" />
+              <div>{company.name}</div>
+            </div>
+          )}
+        </div> */}
+        <GooMap />
+      </Description>
+    </DetailMovieWrapper>
+  )
 }

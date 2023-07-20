@@ -9,11 +9,16 @@ import Header from '../layout/Header';
 
 const MyPage = () => {
 
-  const { isLoggedIn, onLogout, nick } = useContext(AuthContext);
-
+  
+  const { onLogout, nick, id } = useContext(AuthContext);
+  
   const REQUEST_URL = API_BASE_URL + USER;
+  console.log('API_BASE_URL:', API_BASE_URL);
+  console.log('USER:', USER);
 
-  console.log(nick);
+  console.log('REQUEST_URL:', REQUEST_URL);
+  
+  console.log(id);
 
   const theme = createTheme({
     palette: {
@@ -31,7 +36,7 @@ const MyPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nick }), // 사용자 닉네임을 서버로 전송
+        body: JSON.stringify({ id }), // 사용자 닉네임을 서버로 전송
       })
         .then((response) => {
           if (response.ok) {
