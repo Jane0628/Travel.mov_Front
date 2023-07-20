@@ -1,45 +1,66 @@
-import React, { useRef, useState } from 'react'
-import '../../design/profile.scss'
+import React, { useContext, useRef, useState } from 'react';
+import '../../design/profile.scss';
 import { Grid, Button, TextField, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl, Input } from '@mui/material';
 import { Container } from 'reactstrap';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
-import { API_BASE_URL } from '../../util/host-utils';
+import { API_BASE_URL, USER } from '../../util/host-utils';
 import Header from '../layout/Header';
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
+import { getLoginUserInfo } from '../../util/login-utils';
+import AuthContext from '../../util/AuthContext';
 
 const Profile = () => {
-
 	const fileInputRef = useRef(null);
+
+	const REQUEST_URL = API_BASE_URL + USER;
+
+	const { nick, id, setNick } = useContext(AuthContext);
+
+	const handleNickChange = (newNick) => {
+		// 새로운 닉네임을 설정하고 상태를 업데이트합니다.
+		setNick(newNick);
+	};
+
+	const theme = createTheme({
+		palette: {
+			primary: {
+				main: '#7b8ce0',
+			},
+		},
+	});
 
 	const redirection = useNavigate();
 
-	//상태변수로 회원가입 입력값 관리
+	console.log(id);
+
+	// 상태변수로 회원가입 입력값 관리
 	const [userValue, setUserValue] = useState({
-		password: '',
-		nickN: '',
-		email: ''
+		id: id,
+		pw: '',
+		nick: '',
+		email: '',
 	});
 
-	//검증 메세지에 대한 상태변수 관리
+	// 검증 메세지에 대한 상태변수 관리
 	const [message, setMessage] = useState({
-		password: '',
-		nickN: '',
-		email: ''
+		pw: '',
+		nick: '',
+		email: '',
 	});
 
 	//검증 완료 체크에 대한 상태변수 관리
 	const [correct, setCorrect] = useState({
-		password: 0,
-		nickN: 0,
+		pw: 0,
+		nick: 0,
 		email: 0
 	});
 
 	//검증 데이터를 상태변수에 저장하는 함수
 	const saveInputState = ({ key, inputVal, verification, msg }) => {
 
-		inputVal !== 'pass' && setUserValue({
+		setUserValue({
 			...userValue,
 			[key]: inputVal
 		});
@@ -55,24 +76,21 @@ const Profile = () => {
 		});
 	}
 
-	//패스워드 입력창 체인지 이벤트 핸들러
-	const passwordHandler = e => {
-
+	// 패스워드 입력창 체인지 이벤트 핸들러
+	const passwordHandler = (e) => {
 		const inputVal = e.target.value;
 
 		const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
-		let msg;
-		let verification = 0;
-		if (!inputVal) {
+		let msg, flag = false;
+		if (!inputVal) { //비밀번호 안적음
 			msg = '비밀번호는 필수입니다.';
-			verification = 1;
 		} else if (!pwRegex.test(inputVal)) {
-			msg = '8~20자 사이로 영문, 숫자, 특수문자를 포함해주세요.';
-			verification = 1;
+			msg = '8~20글자 영문, 숫자, 특수문자를 포함해 주세요.';
 		} else {
-			verification = 2;
-			setCorrect({ ...correct, password: verification });
+			msg = '사용 가능한 비밀번호입니다.';
+			flag = true;
+			setCorrect({ ...correct, pw: flag });
 		}
 
 		saveInputState({
@@ -85,10 +103,8 @@ const Profile = () => {
 
 	//닉네임 입력창 체인지 이벤트 핸들러
 	const nameHandler = e => {
-
 		const inputVal = e.target.value;
-
-		const nameRegex = /^[ㄱ-ㅎ가-힣a-z0-9]{2,10}$/;
+		const nameRegex = /^[가-힣a-z0-9]{2,10}$/;
 
 		let msg;
 		let verification = 0;
@@ -96,7 +112,7 @@ const Profile = () => {
 			msg = '닉네임은 필수입니다.';
 			verification = 1;
 		} else if (!nameRegex.test(inputVal)) {
-			msg = '2~10글자로 작성하세요!';
+			msg = '2~10자 이내로 작성해주세요.';
 			verification = 1;
 		} else {
 			verification = 2;
@@ -104,20 +120,16 @@ const Profile = () => {
 		}
 
 		saveInputState({
-			key: 'nickN',
+			key: 'nick',
 			inputVal,
 			msg,
 			verification
 		});
-	};
+	}
 
-	// 이메일 기본값 (db에서 빼오기)
-
-	//이메일 입력창 체인지 이벤트 핸들러
-	const emailHandler = e => {
-
+	// 이메일 입력창 체인지 이벤트 핸들러
+	const emailHandler = (e) => {
 		const inputVal = e.target.value;
-
 		const emailRegex = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
 
 		let msg;
@@ -139,8 +151,7 @@ const Profile = () => {
 			msg,
 			verification
 		});
-
-	};
+	}
 
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -152,7 +163,7 @@ const Profile = () => {
 	// 이미지
 	const [selectedImage, setSelectedImage] = useState(null);
 
-	const handleImageChange = e => {
+	const handleImageChange = (e) => {
 		const file = e.target.files[0];
 		const imageUrl = URL.createObjectURL(file);
 
@@ -168,34 +179,35 @@ const Profile = () => {
 	}
 
 	const fetchSignUpPost = () => {
-		const userJsonBlob = new Blob(
-			[JSON.stringify(userValue)],
-			{ type: 'application/json' }
-		);
+		const userJsonBlob = new Blob([JSON.stringify(userValue)], { type: 'application/json' });
 
 		const userFormData = new FormData();
 		userFormData.append('user', userJsonBlob);
 		userFormData.append('profileImage', fileInputRef.current.files[0]);
 
-		fetch(`${API_BASE_URL}`, {
+		fetch(REQUEST_URL, {
 			method: 'PUT',
-			body: userFormData
+			body: userFormData,
 		})
-			.then(res => {
+			.then((res) => {
 				if (res.status === 200) {
-					alert('수정이 완료되었습니다.');
+					alert('수정이 완료되었습니다');
+					localStorage.setItem('LOGIN_USERNICK', userValue.nick);
 					redirection('/myPage');
 				} else {
 					alert('서버와의 통신이 원활하지 않습니다.');
 				}
-			})
-	}
+			});
+	};
 
-	const handleFormSubmit = e => {
+	const handleFormSubmit = (e) => {
 		e.preventDefault();
 
+		// 닉네임 업데이트
+		setNick(userValue.nick);
+
 		// password, nickN, email 값 가져오기
-		const passwordValue = document.getElementById('pw').value;
+		const passwordValue = document.getElementById('outlined-adornment-password').value;
 		const nickNValue = document.getElementById('nick').value;
 		const emailValue = document.getElementById('email').value;
 
@@ -219,7 +231,7 @@ const Profile = () => {
 		<>
 			<Header />
 			<Container>
-				<form>
+				<form onSubmit={handleFormSubmit}>
 					<h1>프로필 수정</h1>
 					<div className='prof-main'>
 						<div className='image'>
@@ -242,7 +254,7 @@ const Profile = () => {
 										id="id"
 										label="아이디"
 										name="id"
-										value={localStorage.getItem('LOGIN_USERID')}
+										value={id}
 										disabled
 									/>
 								</Grid>
@@ -290,7 +302,7 @@ const Profile = () => {
 										autoComplete="email"
 										error={correct.email === 1 ? true : false}
 										helperText={correct.email === 1 ? message.email : null}
-										defaultValue={localStorage.getItem("email")}
+										// defaultValue={localStorage.getItem("email")}
 										onChange={emailHandler}
 									/>
 								</Grid>
@@ -313,4 +325,4 @@ const Profile = () => {
 	)
 }
 
-export default Profile
+export default Profile;
