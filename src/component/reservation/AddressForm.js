@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function AddressForm({ start, end }) {
+export default function AddressForm({ start, end, name }) {
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
   function checkIn(date) {
@@ -33,6 +33,9 @@ export default function AddressForm({ start, end }) {
       })
     );
   }
+  const inputName = (e) => {
+    name(e.target.value);
+  };
 
   return (
     <React.Fragment>
@@ -49,6 +52,7 @@ export default function AddressForm({ start, end }) {
             fullWidth
             autoComplete="given-name"
             variant="standard"
+            onChange={inputName}
           />
         </Grid>
         <Grid item xs={12} className="datepicker-container">

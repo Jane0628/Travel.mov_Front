@@ -31,12 +31,19 @@ const steps = ["예약자 정보", "결제 정보", "예약 확인"];
 export default function Checkout() {
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
+  const [name, setName] = React.useState();
   const redirection = useNavigate();
 
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <AddressForm start={startHandler} end={endHandler} />;
+        return (
+          <AddressForm
+            start={startHandler}
+            end={endHandler}
+            name={nameHandler}
+          />
+        );
       case 1:
         return <PaymentForm product />;
       case 2:
@@ -53,6 +60,10 @@ export default function Checkout() {
     setEndDate(date);
     console.log(date);
   };
+  const nameHandler = (inputName) => {
+    console.log(inputName);
+    setName(inputName);
+  };
 
   // 로그인 인증 토큰 얻어오기
   const [token, setToken] = React.useState(getLoginUserInfo().token);
@@ -66,7 +77,7 @@ export default function Checkout() {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-        partner_order_id: "partner_order_id", // 가맹점에서 관리하는 주문번호
+        partner_order_id: name, // 가맹점에서 관리하는 주문번호
         partner_user_id: userNick, // 가맹점에서 관리하는 회원고유번호
         item_name: "호텔이름",
         item_code: "호텔id",
