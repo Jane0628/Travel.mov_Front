@@ -10,9 +10,29 @@ import {
 } from "@mui/material";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function AddressForm() {
+export default function AddressForm({ start, end }) {
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
+  function checkIn(date) {
+    setStartDate(date);
+    start(
+      date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+  }
+  function checkout(date) {
+    setEndDate(date);
+    end(
+      date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+  }
 
   return (
     <React.Fragment>
@@ -35,7 +55,7 @@ export default function AddressForm() {
           <DatePicker
             dateFormat="yyyy/MM/dd"
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => checkIn(date)}
             selectsStart
             startDate={startDate}
             endDate={endDate}
@@ -44,7 +64,7 @@ export default function AddressForm() {
           <DatePicker
             dateFormat="yyyy/MM/dd"
             selected={endDate}
-            onChange={(date) => setEndDate(date)}
+            onChange={(date) => checkout(date)}
             selectsEnd
             startDate={startDate}
             endDate={endDate}
