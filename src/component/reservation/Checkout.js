@@ -45,19 +45,31 @@ export default function Checkout() {
           />
         );
       case 1:
-        return <PaymentForm product />;
+        return <PaymentForm payment />;
       case 2:
-        return <Review />;
+        return <Review name={name} date={{ startDate, endDate }} payment />;
       default:
         throw new Error("Unknown step");
     }
   }
   const startHandler = (date) => {
     // console.log(date);
-    setStartDate(date);
+    setStartDate(
+      date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
   };
   const endHandler = (date) => {
-    setEndDate(date);
+    setEndDate(
+      date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
     console.log(date);
   };
   const nameHandler = (inputName) => {
@@ -154,7 +166,7 @@ export default function Checkout() {
                       결제하기
                     </Typography>
                     <img
-                      src={require("../../img/payment_icon_yellow_large.png")}
+                      src={require("../../img/payment_icon_yellow_medium.png")}
                       onClick={preparePayment}
                     />
                   </>

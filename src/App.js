@@ -19,6 +19,7 @@ import NowPlayingMovie from "./component/view/movie/pages/NowPlayingMovie";
 import UpcomingMovie from "./component/view/movie/pages/UpcomingMovie";
 import Detail from "./component/view/movie/pages/Detail";
 import MovieStateProvider from "./component/view/movie/provider/MovieStateProvider";
+import UploadFreeBoard from "./component/freeboard/UploadFreeBoard";
 
 function App() {
   const theme = createTheme({
@@ -72,11 +73,15 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
               <Route path="/hotels" element={<Hotels />} />
-              <Route path="/TodaysMovieDetail" element={<TodaysMovieDetail />} />
+              <Route
+                path="/TodaysMovieDetail"
+                element={<TodaysMovieDetail />}
+              />
               <Route path="/Home" element={<Home />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
               <Route path="/upcoming" element={<UpcomingMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
+              <Route path="/freeBoard" element={<UploadFreeBoard />} />
             </Routes>
           </ThemeProvider>
         </MovieStateProvider>
