@@ -45,7 +45,7 @@ const Profile = () => {
 	//검증 완료 체크에 대한 상태변수 관리
 	const [correct, setCorrect] = useState({
 		pw: 0,
-		nick: 0,
+		nick: 2,
 		email: 0
 	});
 
@@ -167,8 +167,11 @@ const Profile = () => {
 
 	const isValid = () => {
 		for (const key in correct) {
-			console.log(correct[key]);
-			if (correct[key] !== 2) return false;
+			if (correct[key] !== 2) {
+				setCorrect({ ...correct, [key]: 1 });
+				document.getElementById(key).focus();
+				return false;
+			}
 		}
 		return true;
 	}
@@ -207,9 +210,9 @@ const Profile = () => {
 		const emailValue = document.getElementById('email').value;
 
 		// 가져온 값 사용 또는 처리
-		console.log('Password:', passwordValue);
-		console.log('NickName:', nickNValue);
-		console.log('Email:', emailValue);
+		// console.log('Password:', passwordValue);
+		// console.log('NickName:', nickNValue);
+		// console.log('Email:', emailValue);
 
 		if (isValid()) {
 			fetchSignUpPost();
@@ -219,9 +222,6 @@ const Profile = () => {
 
 	};
 
-
-
-
 	return (
 		<>
 			<Header />
@@ -230,15 +230,16 @@ const Profile = () => {
 					<h1>프로필 수정</h1>
 					<div className='prof-main'>
 						<div className='image'>
-							<div>
-								<img src={selectedImage ? selectedImage : require("../../img/profileImage.png")} alt="" />
-								<Fab color="secondary" classes={'.file-label'} >
-									<label htmlFor="fileInput-hidden">
-										<EditIcon />
-										<input id="fileInput-hidden" type="file" onChange={handleImageChange} accept="image/*" className="file-input" ref={fileInputRef} />
-									</label>
-								</Fab>
+							<div class="frame">
+								<img id='pfp' src={selectedImage ? selectedImage : require("../../img/profileImage.png")} alt="" />
 							</div>
+							<Fab color="secondary">
+								<label htmlFor="fileInput-hidden">
+									<EditIcon />
+									<input id="fileInput-hidden" type="file" onChange={handleImageChange} accept="image/*" className="file-input" ref={fileInputRef} />
+								</label>
+							</Fab>
+							<span className='recommendation'>※ 1:1 비율의 사진 사용을 권장합니다.</span>
 						</div>
 						<div className='profile'>
 							<div className="right">
@@ -261,6 +262,7 @@ const Profile = () => {
 											id="pw"
 											label="비밀번호"
 											name="pw"
+											required
 											onChange={passwordHandler}
 											error={correct.pw === 1 ? true : false}
 											helperText={correct.pw === 1 ? message.pw : null}
@@ -281,6 +283,7 @@ const Profile = () => {
 										id="nick"
 										label="닉네임"
 										name="nick"
+										required
 										error={correct.nick === 1 ? true : false}
 										helperText={correct.nick === 1 ? message.nick : null}
 										defaultValue={localStorage.getItem("LOGIN_USERNICK")}
@@ -295,6 +298,7 @@ const Profile = () => {
 										label="이메일"
 										name="email"
 										autoComplete="email"
+										required
 										error={correct.email === 1 ? true : false}
 										helperText={correct.email === 1 ? message.email : null}
 										// defaultValue={localStorage.getItem("email")}
@@ -304,11 +308,10 @@ const Profile = () => {
 								<Grid item xs={8}>
 									<Button
 										type="submit"
-										fullWidth
 										variant="contained"
 										color="primary"
 										onClick={handleFormSubmit}
-									> 변경할래요!
+									> 수정하기
 									</Button>
 								</Grid>
 							</div>
