@@ -21,10 +21,9 @@ import KakaoSignin from '../kakao/KakaoSignin';
 import { isLogin } from '../../util/login-utils';
 
 // 캐러셀에 꼭 필요합니다. 지우지 말아주세요!
-import { Carousel } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { createTheme } from '@mui/material/styles';
-
+import { Carousel } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { createTheme } from "@mui/material/styles";
 
 export default function SignInSide() {
   const redirection = useNavigate();
@@ -36,8 +35,8 @@ export default function SignInSide() {
   // 로그인 중일 시 메인으로
   useEffect(() => {
     if (isLoggedIn) {
-      alert('이미 로그인 중입니다.');
-      redirection('/');
+      alert("이미 로그인 중입니다.");
+      redirection("/");
     }
   });
 
@@ -58,12 +57,12 @@ export default function SignInSide() {
     }
 
     const res = await fetch(`${REQUEST_URL}/signin`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      method: "POST",
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({
         id: $id.value,
-        pw: $pw.value
-      })
+        pw: $pw.value,
+      }),
     });
 
     if (res.status === 400) {
@@ -75,11 +74,11 @@ export default function SignInSide() {
     const { token, nick, id } = await res.json();
 
     onLogin(token, nick, id);
-    redirection('/');
+    redirection("/");
   };
 
   // 로그인 버튼 클릭 이벤트
-  const loginHandler = e => {
+  const loginHandler = (e) => {
     e.preventDefault();
     fetchLogin();
   };
@@ -92,14 +91,9 @@ export default function SignInSide() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
-      <Grid
-        item
-        xs={12}
-        sm={4}
-        md={7}>
-
+      <Grid item xs={12} sm={4} md={7}>
         <Carousel fade>
           <Carousel.Item>
             <img
@@ -107,72 +101,116 @@ export default function SignInSide() {
               alt="기생충"
             />
             <Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/parasite.png")} alt="기생충" />
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/parasite.png")}
+                alt="기생충"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../img/carousel_img/about_time.jpg")}
               alt="어바웃 타임"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/about_time.png")} alt="어바웃 타임" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/about_time.png")}
+                alt="어바웃 타임"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../img/carousel_img/train_to_busan.jpg")}
               alt="부산행"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/train_to_busan.png")} alt="부산행" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/train_to_busan.png")}
+                alt="부산행"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../img/carousel_img/avatar.jpg")}
               alt="아바타2 물의 길"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/avatar.png")} alt="아바타" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/avatar.png")}
+                alt="아바타"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className='align_right'
+              className="align_right"
               src={require("../../img/carousel_img/the_round_up.jpg")}
               alt="범죄도시3"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/the_round_up.png")} alt="범죄도시3" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/the_round_up.png")}
+                alt="범죄도시3"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../img/carousel_img/mission_impossible.jpg")}
               alt="미션 임파서블"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/mission_impossible.png")} alt="미션 임파서블" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/mission_impossible.png")}
+                alt="미션 임파서블"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../img/carousel_img/memories_of_murder.jpg")}
               alt="살인의 추억"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/memories_of_murder.png")} alt="살인의 추억" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/memories_of_murder.png")}
+                alt="살인의 추억"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../img/carousel_img/lala_land.jpg")}
               alt="라라랜드"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/lala_land.png")} alt="라라랜드" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/lala_land.png")}
+                alt="라라랜드"
+              />
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               src={require("../../img/carousel_img/decision_to_leave.jpg")}
               alt="헤어질 결심"
-            /><Carousel.Caption>
-              <img className='logo' src={require("../../img/carousel_logo/decision_to_leave.png")} alt="헤어질 결심" />
+            />
+            <Carousel.Caption>
+              <img
+                className="logo"
+                src={require("../../img/carousel_logo/decision_to_leave.png")}
+                alt="헤어질 결심"
+              />
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
@@ -182,18 +220,23 @@ export default function SignInSide() {
           sx={{
             my: 8,
             mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             로그인
           </Typography>
-          <Box component="form" noValidate onSubmit={loginHandler} sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={loginHandler}
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               fullWidth
@@ -202,12 +245,12 @@ export default function SignInSide() {
               name="id"
               autoFocus
             />
-            <FormControl fullWidth variant="outlined" size='small'>
+            <FormControl fullWidth variant="outlined" size="small">
               <InputLabel>비밀번호</InputLabel>
               <OutlinedInput
                 autoComplete="off"
                 id="pw"
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
