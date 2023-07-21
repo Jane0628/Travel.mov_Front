@@ -317,7 +317,6 @@ export default function SignInSide() {
             >
               로그인
             </Button>
-            <KakaoSignin />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -330,6 +329,12 @@ export default function SignInSide() {
                 </Link>
               </Grid>
             </Grid>
+            <div className="division">
+              <div className='line' />
+              <p>or</p>
+              <div className='line' />
+            </div>
+            <KakaoSignin />
           </Box>
         </Box>
       </Grid>

@@ -266,14 +266,18 @@ const Profile = () => {
 											onChange={passwordHandler}
 											error={correct.pw === 1 ? true : false}
 											helperText={correct.pw === 1 ? message.pw : null}
+											InputProps={{
+												endAdornment: (
+													<InputAdornment position="end">
+														<IconButton
+															onClick={showPasswordHandler}
+														>
+															{showPassword ? <VisibilityOff /> : <Visibility />}
+														</IconButton>
+													</InputAdornment>
+												),
+											}}
 										/>
-										<IconButton
-											aria-label="toggle password visibility"
-											edge="end"
-											onClick={showPasswordHandler}
-										>
-											{showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
 									</div>
 								</Grid>
 								<Grid item xs={8}>

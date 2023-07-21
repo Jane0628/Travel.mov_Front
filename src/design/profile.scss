@@ -66,20 +66,8 @@
 			display: flex;
 			flex-direction: column;
 
-			div.pwInput {
-				position: relative;
-
-				input {
-					width: 330px;
-				}
-
-				// 비밀번호 눈 버튼
-				button.css-1vx20r6-MuiButtonBase-root-MuiIconButton-root {
-					position: absolute;
-					top: 33px;
-					right: 0;
-					transform: translate(-35%, -50%);
-				}
+			input {
+				width: 330px;
 			}
 
 			// 수정하기 버튼
