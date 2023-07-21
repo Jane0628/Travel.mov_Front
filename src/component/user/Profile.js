@@ -16,7 +16,7 @@ const Profile = () => {
 
 	const REQUEST_URL = API_BASE_URL + USER;
 
-	const { nick, id, setNick } = useContext(AuthContext);
+	const { nick, id, setNick, isLoggedIn } = useContext(AuthContext);
 
 	const handleNickChange = (newNick) => {
 		// 새로운 닉네임을 설정하고 상태를 업데이트합니다.
@@ -157,6 +157,18 @@ const Profile = () => {
 	// 이미지
 	const [selectedImage, setSelectedImage] = useState(null);
 
+	// 기본 프사 설정
+	const imgHandler = () => {
+		if (selectedImage) return selectedImage;
+		else if (isLoggedIn === 1) {
+			// 일반 로그인 유저
+			return require("../../img/profileImage.png");
+		} else {
+			// 카카오 로그인 유저
+			return localStorage.getItem("LOGIN_USER_PFP");
+		}
+	}
+
 	const handleImageChange = (e) => {
 		const file = e.target.files[0];
 		const imageUrl = URL.createObjectURL(file);
@@ -190,7 +202,7 @@ const Profile = () => {
 			.then((res) => {
 				if (res.status === 200) {
 					alert('수정이 완료되었습니다');
-					localStorage.setItem('LOGIN_USERNICK', userValue.nick);
+					localStorage.setItem('LOGIN_USER_NICK', userValue.nick);
 					redirection('/myPage');
 				} else {
 					alert('서버와의 통신이 원활하지 않습니다.');
@@ -231,7 +243,7 @@ const Profile = () => {
 					<div className='prof-main'>
 						<div className='image'>
 							<div class="frame">
-								<img id='pfp' src={selectedImage ? selectedImage : require("../../img/profileImage.png")} alt="" />
+								<img id='pfp' src={imgHandler()} alt="" />
 							</div>
 							<Fab color="secondary">
 								<label htmlFor="fileInput-hidden">
@@ -243,43 +255,46 @@ const Profile = () => {
 						</div>
 						<div className='profile'>
 							<div className="right">
-								<Grid item xs={8}>
-									<TextField
-										type="text"
-										fullWidth
-										id="id"
-										label="아이디"
-										name="id"
-										value={id}
-										disabled
-									/>
-								</Grid>
-								<Grid item xs={8}>
-									<div class="pwInput">
-										<TextField
-											type={showPassword ? 'text' : 'password'}
-											fullWidth
-											id="pw"
-											label="비밀번호"
-											name="pw"
-											required
-											onChange={passwordHandler}
-											error={correct.pw === 1 ? true : false}
-											helperText={correct.pw === 1 ? message.pw : null}
-											InputProps={{
-												endAdornment: (
-													<InputAdornment position="end">
-														<IconButton
-															onClick={showPasswordHandler}
-														>
-															{showPassword ? <VisibilityOff /> : <Visibility />}
-														</IconButton>
-													</InputAdornment>
-												),
-											}}
-										/>
-									</div>
-								</Grid>
+								{isLoggedIn === 2 ? (
+									<>
+										<Grid item xs={8}>
+											<TextField
+												type="text"
+												fullWidth
+												id="id"
+												label="아이디"
+												name="id"
+												value={id}
+												disabled
+											/>
+										</Grid>
+										<Grid item xs={8}>
+											<div class="pwInput">
+												<TextField
+													type={showPassword ? 'text' : 'password'}
+													fullWidth
+													id="pw"
+													label="비밀번호"
+													name="pw"
+													required
+													onChange={passwordHandler}
+													error={correct.pw === 1 ? true : false}
+													helperText={correct.pw === 1 ? message.pw : null}
+													InputProps={{
+														endAdornment: (
+															<InputAdornment position="end">
+																<IconButton
+																	onClick={showPasswordHandler}
+																>
+																	{showPassword ? <VisibilityOff /> : <Visibility />}
+																</IconButton>
+															</InputAdornment>
+														),
+													}}
+												/>
+											</div>
+										</Grid>
+									</>) : null}
 								<Grid item xs={8}>
 									<TextField
 										variant="outlined"
@@ -290,7 +305,7 @@ const Profile = () => {
 										required
 										error={correct.nick === 1 ? true : false}
 										helperText={correct.nick === 1 ? message.nick : null}
-										defaultValue={localStorage.getItem("LOGIN_USERNICK")}
+										defaultValue={localStorage.getItem("LOGIN_USER_NICK")}
 										onChange={nameHandler}
 									/>
 								</Grid>
@@ -305,7 +320,7 @@ const Profile = () => {
 										required
 										error={correct.email === 1 ? true : false}
 										helperText={correct.email === 1 ? message.email : null}
-										// defaultValue={localStorage.getItem("email")}
+										defaultValue={localStorage.getItem("LOGIN_USER_EMAIL")}
 										onChange={emailHandler}
 									/>
 								</Grid>

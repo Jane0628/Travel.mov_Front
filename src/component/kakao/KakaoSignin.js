@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 
 
 const KakaoSignin = () => {
+  const redirection = useNavigate();
+
   const [user, setUser] = useState(null);
   const [loggedin, setLoggedIn] = useState(false);
   const { Kakao } = window;
@@ -19,7 +22,6 @@ const KakaoSignin = () => {
   const kakaoLogin = async () => {
     await Kakao.Auth.login({
       success(res) {
-        console.log(res);
         Kakao.Auth.setAccessToken(res.access_token);
         console.log("카카오 로그인 성공");
 
@@ -29,31 +31,29 @@ const KakaoSignin = () => {
             console.log("카카오 인가 요청 성공");
             setLoggedIn(true);
             const kakaoAccount = res.kakao_account;
-            localStorage.setItem("email", kakaoAccount.email);
-            localStorage.setItem(
-              "profileImg",
-              kakaoAccount.profile.profile_image_url
-            );
-            localStorage.setItem("nickname", kakaoAccount.profile.nickname);
+            localStorage.setItem("LOGIN_USER_EMAIL", kakaoAccount.email);
+            localStorage.setItem("LOGIN_USER_PFP", kakaoAccount.profile.profile_image_url);
+            localStorage.setItem("LOGIN_USER_NICK", kakaoAccount.profile.nickname);
+            localStorage.setItem("isLoggedIn", 2);
+            alert(`환영합니다, ${kakaoAccount.profile.nickname}님!`);
+            redirection("/");
           },
           fail(error) {
-            console.log(error);
+            console.log("카카오 로그인 실패함...ㅠㅠ");
           },
         });
       },
       fail(error) {
-        console.log(error);
-      },
+        console.log("카카오 로그인 실패");
+      }
     });
-  };
+  }
 
   const kakaoLogout = () => {
     Kakao.Auth.logout((res) => {
       console.log(Kakao.Auth.getAccessToken());
       console.log(res);
-      localStorage.removeItem("email");
-      localStorage.removeItem("profileImg");
-      localStorage.removeItem("nickname");
+      localStorage.clear();
       setUser(null);
     });
   };
@@ -64,7 +64,7 @@ const KakaoSignin = () => {
   }, []);
 
   useEffect(() => {
-    console.log(loggedin);
+    // console.log(loggedin);
     if (loggedin) {
       setUser({
         email: localStorage.getItem("email"),
@@ -106,19 +106,18 @@ const KakaoSignin = () => {
 
   return (
     <>
-      {user ? (
-        <div>
-          <button onClick={kakaoLogout}>로그아웃</button>
-          {/* <h2>카카오 로그인 성공!</h2>
-          <h3>카카오 프로필 사진</h3>
-          <img src={user.profileImg} alt="" />
-          <h3>카카오 닉네임</h3>
-          <h4>{user.nickname}</h4>
-          <h3>카카오 이메일</h3>
-          <h4>{user.email}</h4> */}
-        </div>
-      ) : (
-        <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        {user ? (
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={kakaoLogout}>
+            <img id="kakaoSymbol" src={require("../../img/kakao_symbol.png")} alt="카카오 심볼" />
+            로그아웃
+          </Button>
+        ) : (
           <Button
             type="button"
             fullWidth
@@ -128,9 +127,8 @@ const KakaoSignin = () => {
             <img id="kakaoSymbol" src={require("../../img/kakao_symbol.png")} alt="카카오 심볼" />
             카카오 로그인
           </Button>
-        </ThemeProvider>
-      )
-      }
+        )}
+      </ThemeProvider>
     </>
   );
 }

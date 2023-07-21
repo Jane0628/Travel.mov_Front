@@ -6,7 +6,7 @@ import Header from "../../layout/Header"
 function TodaysMovieDetail() {
   return (
     <>
-      <Header/>
+      <Header />
       <Navbar />
       <Home />
     </>

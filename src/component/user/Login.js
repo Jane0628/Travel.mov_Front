@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import '../../design/login.scss';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
 import { API_BASE_URL, USER } from '../../util/host-utils';
 import KakaoSignin from '../kakao/KakaoSignin';
@@ -43,16 +43,17 @@ export default function SignInSide() {
 
   // 로그인 요청 함수
   const fetchLogin = async () => {
-
     const $id = document.getElementById('id');
     const $pw = document.getElementById('pw');
 
     if (!$id.value) {
-      alert('아이디를 입력하세요');
+      alert('아이디를 입력해주세요.');
+      $id.focus();
       return;
     }
     if (!$pw.value) {
-      alert('비밀번호를 입력하세요!')
+      alert('비밀번호를 입력해주세요.');
+      $pw.focus();
       return;
     }
 
@@ -83,96 +84,12 @@ export default function SignInSide() {
     fetchLogin();
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // 눈 클릭 시 비밀번호 보여주는/숨기는 메서드
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
-
-  // 반응형
-  const theme = createTheme({
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 900,
-        lg: 1200,
-        xl: 1536,
-      }
-    }
-  });
-
-  // 카카오 로그인
-  const [user, setUser] = useState(null);
-  const [loggedin, setLoggedIn] = useState(false);
-  const { Kakao } = window;
-
-  const initKakao = async () => {
-    const jsKey = `${process.env.REACT_APP_KAKAOMAP_API_KEY}`;
-    if (Kakao && !Kakao.isInitialized()) {
-      await Kakao.init(jsKey);
-      console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
-    }
-  };
-
-  const kakaoLogin = async () => {
-    await Kakao.Auth.login({
-      success(res) {
-        console.log(res);
-        Kakao.Auth.setAccessToken(res.access_token);
-        console.log("카카오 로그인 성공");
-
-        Kakao.API.request({
-          url: "/v2/user/me",
-          success(res) {
-            console.log("카카오 인가 요청 성공");
-            setLoggedIn(true);
-            const kakaoAccount = res.kakao_account;
-            localStorage.setItem("email", kakaoAccount.email);
-            localStorage.setItem(
-              "profileImg",
-              kakaoAccount.profile.profile_image_url
-            );
-            localStorage.setItem("nickname", kakaoAccount.profile.nickname);
-          },
-          fail(error) {
-            console.log(error);
-          },
-        });
-      },
-      fail(error) {
-        console.log(error);
-      },
-    });
-  };
-
-  const kakaoLogout = () => {
-    Kakao.Auth.logout((res) => {
-      console.log(Kakao.Auth.getAccessToken());
-      console.log(res);
-      localStorage.removeItem("email");
-      localStorage.removeItem("profileImg");
-      localStorage.removeItem("nickname");
-      setUser(null);
-    });
-  };
-
-  useEffect(() => {
-    initKakao();
-    Kakao.Auth.getAccessToken() ? setLoggedIn(true) : setLoggedIn(false);
-  }, []);
-
-  useEffect(() => {
-    console.log(loggedin);
-    if (loggedin) {
-      setUser({
-        email: localStorage.getItem("email"),
-        profileImg: localStorage.getItem("profileImg"),
-        nickname: localStorage.getItem("nickname"),
-      });
-    }
-  }, [loggedin]);
 
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
