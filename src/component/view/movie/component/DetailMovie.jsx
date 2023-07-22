@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import GooMap from "../../../google/GooMap";
 import Star from "../component/Star";
 import styled from "styled-components";
+import { Button } from "@mui/base";
 
 const DetailMovieWrapper = styled.div`
     position: relative;
@@ -90,8 +92,10 @@ const Description = styled.div`
 `;
 export default function DetailMovie({ movieInfo, imageUrl }) {
   const { poster_path, title, genres, imdb_id } = movieInfo;
+  const [locations, setLocations] = useState([]);
+  const [gooLocation, setGooLocation] = useState('');
 
-  const searchLocation = async () => {
+  useEffect(async () => {
 
     const url = 'https://imdb8.p.rapidapi.com/title/get-filming-locations?tconst=' + imdb_id;
     const options = {
@@ -105,18 +109,31 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      for (let l of result.locations) {
-        console.log(l.location);
+      if (result && result.locations) {
+        // Extracting the location strings from the result and setting it to the 'locations' state.
+        const locationNames = result.locations.map((location) => location.location);
+        setLocations(locationNames);
       }
     } catch (error) {
       console.error(error);
     }
 
-  };
+  }, []);
+
+  const searchLocation = (e) => {
+    setGooLocation(e.target.textContent);
+  }
 
   return (
     <DetailMovieWrapper>
-      <img src={imageUrl + poster_path} />
+      <div>
+        <img src={imageUrl + poster_path} />
+        {
+          locations.map((location, index) => (
+            <Button key={index} onClick={searchLocation}>{location}</Button>
+          ))
+        }
+      </div>
       <Description>
         <h1 className="title">{title}</h1>
         <div className="genres">
@@ -142,7 +159,7 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
             </div>
           )}
         </div> */}
-        <GooMap />
+        <GooMap location={gooLocation} />
       </Description>
     </DetailMovieWrapper>
   )
