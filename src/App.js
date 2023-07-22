@@ -64,7 +64,6 @@ function App() {
         <MovieStateProvider>
           <ThemeProvider theme={theme}>
             <Routes>
-              <Route path="/" element={<Main />} />
               <Route path="/join" element={<Join />} />
               <Route path="/login" element={<Login />} />
               <Route path="/myPage" element={<MyPage />} />
@@ -74,7 +73,7 @@ function App() {
               <Route path="/reservationCheck" element={<ReservationCheck />} />
               <Route path="/hotels" element={<Hotels />} />
               <Route
-                path="/TodaysMovieDetail"
+                path="/"
                 element={<TodaysMovieDetail />}
               />
               <Route path="/Home" element={<Home />} />

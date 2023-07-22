@@ -95,7 +95,11 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
   const [locations, setLocations] = useState([]);
   const [gooLocation, setGooLocation] = useState('');
 
-  useEffect(async () => {
+  useEffect(() => {
+    getLocations();
+  }, [locations]);
+
+  const getLocations = async () => {
 
     const url = 'https://imdb8.p.rapidapi.com/title/get-filming-locations?tconst=' + imdb_id;
     const options = {
@@ -118,7 +122,7 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
       console.error(error);
     }
 
-  }, []);
+  };
 
   const searchLocation = (e) => {
     setGooLocation(e.target.textContent);
