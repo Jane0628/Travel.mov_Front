@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const GooMap = () => {
+const GooMap = ({ location }) => {
   const [map, setMap] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -32,9 +32,11 @@ const GooMap = () => {
     }
   }, []);
 
-  const handleSearchInputChange = (e) => {
-    setSearchInput(e.target.value);
-  };
+  useEffect(() => {
+    if (location) {
+      handleSearch();
+    }
+  }, [location]);
 
   const handleSearch = () => {
     if (!map) return;
@@ -43,7 +45,7 @@ const GooMap = () => {
 
     service.textSearch(
       {
-        query: searchInput,
+        query: searchInput || location, // location 값이 없을 경우 기본으로 사용합니다.
       },
       (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
@@ -56,6 +58,13 @@ const GooMap = () => {
       }
     );
   };
+
+  useEffect(() => {
+    if (!searchResults.length) {
+      setSelectedPlace(null);
+      setSelectedHotel(null);
+    }
+  }, [searchResults]);
 
   const fitMapBounds = (places) => {
     const bounds = new window.google.maps.LatLngBounds();
@@ -137,15 +146,6 @@ const GooMap = () => {
 
   return (
     <div>
-      <div>
-        <input
-          type="text"
-          value={searchInput}
-          onChange={handleSearchInputChange}
-          placeholder="Search for a place"
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
       <div id="map" style={{ width: "800px", height: "480px" }}></div>
       {selectedPlace && (
         <div>
