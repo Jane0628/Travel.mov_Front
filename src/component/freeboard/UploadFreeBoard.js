@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { FiStar } from "react-icons/fi";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "../../design/uploadFreeBoard.scss";
@@ -7,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import { getLoginUserInfo } from "../../util/login-utils";
 
 const UploadFreeBoard = () => {
+  const starArr = [1, 2, 3, 4, 5];
+  const [hover, setHover] = useState(0);
+  const [starNum, setStarNum] = useState(0);
   const redirection = useNavigate();
   const [movieContent, setMovieContent] = useState({
     title: "",
@@ -19,6 +24,10 @@ const UploadFreeBoard = () => {
 
   const submitReview = async () => {
     console.log(movieContent);
+    if (!starNum) {
+      alert("별점을 선택해 주세요");
+      return;
+    }
     if (!movieContent.title) {
       alert("제목을 입력해주세요");
       return;
@@ -27,6 +36,7 @@ const UploadFreeBoard = () => {
       alert("내용을 입력해주세요");
       return;
     }
+    console.log(starNum);
     const res = await fetch(`${API_BASE_URL}/freeBoard`, {
       method: "POST",
       headers: {
@@ -37,6 +47,7 @@ const UploadFreeBoard = () => {
         title: movieContent.title,
         content: movieContent.content,
         userNick: nick,
+        star: starNum,
       }),
     });
 
@@ -47,7 +58,7 @@ const UploadFreeBoard = () => {
     }
     if (res.status === 200) {
       alert("게시글이 등록되었습니다.");
-      redirection("/login");
+      redirection("/freeBoardList");
     }
   };
 
@@ -61,7 +72,7 @@ const UploadFreeBoard = () => {
   return (
     <>
       <div className="App">
-        <h1>Movie Review</h1>
+        <h1>영화 촬영지 후기</h1>
         {/* <div className="movie-container">
            {viewContent.map((element) => (
             <div>
@@ -71,6 +82,25 @@ const UploadFreeBoard = () => {
           ))} 
         </div> */}
         <div className="form-wrapper">
+          <Rating>
+            {starArr.map((idx) => (
+              <Star
+                key={idx}
+                onMouseEnter={() => setHover(idx)}
+                onMouseLeave={() => setHover(0)}
+                onClick={() => setStarNum(idx)}
+                fill={
+                  starNum
+                    ? idx <= starNum
+                      ? "#000"
+                      : "#E5E5E5"
+                    : idx <= hover
+                    ? "#000"
+                    : "#E5E5E5"
+                }
+              />
+            ))}
+          </Rating>
           <input
             className="title-input"
             type="text"
@@ -93,12 +123,8 @@ const UploadFreeBoard = () => {
                 content: data,
               });
             }}
-            onBlur={(event, editor) => {
-              console.log("Blur.", editor);
-            }}
-            onFocus={(event, editor) => {
-              console.log("Focus.", editor);
-            }}
+            onBlur={(event, editor) => {}}
+            onFocus={(event, editor) => {}}
           />
         </div>
         <button
@@ -116,3 +142,14 @@ const UploadFreeBoard = () => {
 };
 
 export default UploadFreeBoard;
+
+const Rating = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Star = styled(FiStar)`
+  font-size: 50px;
+  color: transparent;
+`;
