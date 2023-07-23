@@ -20,6 +20,7 @@ import UpcomingMovie from "./component/view/movie/pages/UpcomingMovie";
 import Detail from "./component/view/movie/pages/Detail";
 import MovieStateProvider from "./component/view/movie/provider/MovieStateProvider";
 import UploadFreeBoard from "./component/freeboard/UploadFreeBoard";
+import FreeBoardList from "./component/freeboard/FreeBoardList";
 
 function App() {
   const theme = createTheme({
@@ -82,6 +83,7 @@ function App() {
               <Route path="/upcoming" element={<UpcomingMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
               <Route path="/freeBoard" element={<UploadFreeBoard />} />
+              <Route path="/freeBoardList" element={<FreeBoardList />} />
             </Routes>
           </ThemeProvider>
         </MovieStateProvider>
