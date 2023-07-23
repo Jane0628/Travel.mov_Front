@@ -21,8 +21,12 @@ import Detail from "./component/view/movie/pages/Detail";
 import MovieStateProvider from "./component/view/movie/provider/MovieStateProvider";
 import UploadFreeBoard from "./component/freeboard/UploadFreeBoard";
 import FreeBoardList from "./component/freeboard/FreeBoardList";
+import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
+
+import { useParams } from "react-router-dom";
 
 function App() {
+  const key = useParams();
   const theme = createTheme({
     palette: {
       mode: "light",
@@ -84,6 +88,10 @@ function App() {
               <Route path="/movie/:movie_id" element={<Detail />} />
               <Route path="/freeBoard" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList" element={<FreeBoardList />} />
+              <Route
+                path="/freeBoardDetail"
+                element={<FreeBoardDetail id={key} />}
+              />
             </Routes>
           </ThemeProvider>
         </MovieStateProvider>

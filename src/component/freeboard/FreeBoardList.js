@@ -27,7 +27,7 @@ const ReservationCheck = ({ movie }) => {
 
   useEffect(() => {
     //페이지가 렌더링 되면 후기목록 보여주기.
-    fetch(`${API_BASE_URL}/freeboard/${nick}`, {
+    fetch(`${API_BASE_URL}/freeBoard/${nick}`, {
       //movie로 고칠 예정
       method: "GET",
       headers: requestHeader,
@@ -45,16 +45,13 @@ const ReservationCheck = ({ movie }) => {
       })
       .then((json) => {
         console.log(json);
-        console.log(json.freeBoardDTOS);
+        console.log(json.freeBoards);
 
         //fetch를 통해 받아온 데이터를 상태 변수에 할당.
-        if (json) setFreeBoardList(json.freeBoardDTOS);
+        if (json) setFreeBoardList(json.freeBoards);
       });
   }, []);
 
-  function preventDefault(event) {
-    event.preventDefault();
-  }
   return (
     <React.Fragment>
       <Title>??영화 여행 후기 게시판</Title>
@@ -71,16 +68,13 @@ const ReservationCheck = ({ movie }) => {
           {freeBoardList.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.uploadDate}</TableCell>
-              <TableCell>{row.title}</TableCell>
+              <Link to={`/freeBoardDetail/${row.id}`}>{row.title}</Link>
               <TableCell>{row.userNick}</TableCell>
               <TableCell align="right">{row.star}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
     </React.Fragment>
   );
 };
