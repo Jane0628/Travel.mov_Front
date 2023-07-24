@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import NowPlayingMovieContext from '../contexts/NowPlayingMovieContext';
-import UpcomingMovieContext from '../contexts/UpcomingMovieContext';
+import PopularMovieContext from '../contexts/PopularMovieContext';
 import Header from '../component/Header';
 import Loading from '../component/Loading';
 import HomeMovieList from '../component/HomeMovieList';
@@ -13,7 +13,7 @@ const Container = styled.div`
 export default function Home() {
 
   const nowPlaying = useContext(NowPlayingMovieContext);
-  const upcoming = useContext(UpcomingMovieContext);
+  const popular = useContext(PopularMovieContext);
   const [rankMovieList, setRankMovieList] = useState([]);
 
   const getDescRankMovieList = () => {
@@ -25,7 +25,7 @@ export default function Home() {
     }
     return movieList;
   }
-  if (nowPlaying.loading && upcoming.loading) {
+  if (nowPlaying.loading && popular.loading) {
     return <Loading />
   }
   if (!nowPlaying.loading) {
@@ -45,9 +45,9 @@ export default function Home() {
           navLink={'/now_playing'}
         />
         <HomeMovieList
-          title={'Upcoming Movie'}
-          movieList={upcoming.data[0]}
-          navLink={'/upcoming'}
+          title={'Popular Movie'}
+          movieList={popular.data[0]}
+          navLink={'/popular'}
         />
       </Container>
     </>
