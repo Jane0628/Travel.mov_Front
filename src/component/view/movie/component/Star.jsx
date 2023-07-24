@@ -19,7 +19,7 @@ height: 16px;
 const Inner = styled.div`
     color: yellow;
     overflow:hidden;
-    ${width => `width: ${width.width * 8.5}%;`}
+    ${width => `width: ${width.width * 8}%;`}
     position: absolute;
     top:0;
     white-space: nowrap;
