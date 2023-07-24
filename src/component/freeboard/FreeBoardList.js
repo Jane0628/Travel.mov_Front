@@ -1,9 +1,8 @@
-import { Link } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import { API_BASE_URL } from "../../util/host-utils";
 import { getLoginUserInfo } from "../../util/login-utils";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,7 +10,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Title } from "@mui/icons-material";
 
-const ReservationCheck = ({ movie }) => {
+const FreeBoardList = () => {
+  //url에서 영화정보 얻어오기
+  const movie = useParams();
+  const id = movie.id;
   // 로그인 인증 토큰 얻어오기
   const token = getLoginUserInfo().token;
   const nick = getLoginUserInfo().username;
@@ -27,7 +29,7 @@ const ReservationCheck = ({ movie }) => {
 
   useEffect(() => {
     //페이지가 렌더링 되면 후기목록 보여주기.
-    fetch(`${API_BASE_URL}/freeBoard/${nick}`, {
+    fetch(`${API_BASE_URL}/freeBoard/${id}`, {
       //movie로 고칠 예정
       method: "GET",
       headers: requestHeader,
@@ -67,8 +69,21 @@ const ReservationCheck = ({ movie }) => {
         <TableBody>
           {freeBoardList.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.uploadDate}</TableCell>
-              <Link to={`/freeBoardDetail/${row.id}`}>{row.title}</Link>
+              <TableCell>
+                {row.uploadDate.toLocaleString("ko-KR", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </TableCell>
+              <TableCell>
+                <Link
+                  style={{ color: "black" }}
+                  to={`/freeBoardDetail/${row.id}`}
+                >
+                  {row.title}
+                </Link>
+              </TableCell>
               <TableCell>{row.userNick}</TableCell>
               <TableCell align="right">{row.star}</TableCell>
             </TableRow>
@@ -79,4 +94,4 @@ const ReservationCheck = ({ movie }) => {
   );
 };
 
-export default ReservationCheck;
+export default FreeBoardList;

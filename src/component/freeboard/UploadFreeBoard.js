@@ -5,10 +5,13 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "../../design/uploadFreeBoard.scss";
 import { API_BASE_URL } from "../../util/host-utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getLoginUserInfo } from "../../util/login-utils";
 
 const UploadFreeBoard = () => {
+  //url에서 영화 정보 얻어오기
+  const movie = useParams();
+  const movieId = movie.id;
   const starArr = [1, 2, 3, 4, 5];
   const [hover, setHover] = useState(0);
   const [starNum, setStarNum] = useState(0);
@@ -46,6 +49,7 @@ const UploadFreeBoard = () => {
       body: JSON.stringify({
         title: movieContent.title,
         content: movieContent.content,
+        movie: movieId,
         userNick: nick,
         star: starNum,
       }),
@@ -58,7 +62,7 @@ const UploadFreeBoard = () => {
     }
     if (res.status === 200) {
       alert("게시글이 등록되었습니다.");
-      redirection("/freeBoardList");
+      redirection(`/freeBoardList/${movieId}`);
     }
   };
 
