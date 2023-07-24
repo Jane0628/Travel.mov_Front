@@ -11,8 +11,9 @@ const NowPlayingMovie = async () => {
   let Data = [];
   try {
     for (let i = 1; i < 6; i++) {
-      const res = await instance.get("/movie/now_playing", {
+      const res = await instance.get("/movie/now_playing?language=ko-KR", {
         params: {
+          region: "KR",
           page: i,
         },
       });
@@ -23,14 +24,14 @@ const NowPlayingMovie = async () => {
     console.log(error);
   }
 };
-const UpcomingMovie = async () => {
+const PopularMovie = async () => {
   let Data = [];
   let totalPage = 1;
   try {
     for (let i = 1; i < totalPage + 1; i++) {
-      const res = await instance.get("/movie/upcoming", {
+      const res = await instance.get("/movie/get_popular_movies?language=ko-KR", {
         params: {
-          region: "US",
+          region: "KR",
           page: i,
         },
       });
@@ -47,7 +48,7 @@ const UpcomingMovie = async () => {
 
 const getDetail = async (id) => {
   try {
-    const res = await instance.get(`/movie/${id}`);
+    const res = await instance.get(`/movie/${id}?language=ko-KR`);
     console.log(res.data);
     return res.data;
   } catch (error) {
@@ -55,4 +56,4 @@ const getDetail = async (id) => {
   }
 };
 
-export { NowPlayingMovie, UpcomingMovie, getDetail };
+export { NowPlayingMovie, PopularMovie, getDetail };

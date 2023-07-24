@@ -1,16 +1,16 @@
 import { useContext } from "react"
 import FullList from "../component/FullList";
-import UpcomingMovieContext from "../contexts/UpcomingMovieContext";
+import PopularMovieContext from "../contexts/PopularMovieContext";
 import Loading from "../component/Loading";
 
-export default function UpcomingMovie() {
-  const upcoming = useContext(UpcomingMovieContext);
+export default function PopularMovie() {
+    const popular = useContext(PopularMovieContext);
 
-  if (upcoming.loading) {
-    return <Loading />
-  }
+    if (popular.loading) {
+        return <Loading />
+    }
 
-  return (
-    <FullList movieList={upcoming.data} />
-  )
+    return (
+        <FullList movieList={popular.data} />
+    )
 }
