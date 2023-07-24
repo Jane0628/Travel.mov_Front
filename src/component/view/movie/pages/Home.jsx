@@ -40,12 +40,12 @@ export default function Home() {
       <Header className="header" mainMovie={rankMovieList[0]} />
       <Container>
         <HomeMovieList
-          title={'Now Playing Movie'}
+          title={'현재 상영 중인 영화'}
           movieList={rankMovieList}
           navLink={'/now_playing'}
         />
         <HomeMovieList
-          title={'TopRated Movie'}
+          title={'평점이 높은 영화'}
           movieList={topRated.data[0]}
           navLink={'/topRated'}
         />

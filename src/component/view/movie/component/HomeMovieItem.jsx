@@ -72,7 +72,7 @@ export default function MovieItem({ movie, rank }) {
         <div className="info">
           <div className="vote-average">({vote_average}/10)</div>
           <div className="title">{title}</div>
-          <div className="release-date">Release Date : {release_date}</div>
+          <div className="release-date">개봉일 : {release_date}</div>
         </div>
       </div>
     </Item>

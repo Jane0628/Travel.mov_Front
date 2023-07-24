@@ -48,7 +48,7 @@ const TopRatedMovie = async () => {
 
 const getDetail = async (id) => {
   try {
-    const res = await instance.get(`/movie/${id}`);
+    const res = await instance.get(`/movie/${id}?language=ko-KR`);
     console.log(res.data);
     return res.data;
   } catch (error) {
