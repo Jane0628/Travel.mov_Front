@@ -24,16 +24,12 @@ const NowPlayingMovie = async () => {
     console.log(error);
   }
 };
-const PopularMovie = async () => {
+const TopRatedMovie = async () => {
   let Data = [];
   let totalPage = 1;
   try {
     for (let i = 1; i < totalPage + 1; i++) {
-<<<<<<< HEAD
-      const res = await instance.get("/movie/popular?api key=ab3d2e3bd514dc30dfbab5a6de119924", {
-=======
-      const res = await instance.get("/movie/get_popular_movies?language=ko-KR", {
->>>>>>> 5f7c3c885dd7a8dda426fc74a57bae2443324453
+      const res = await instance.get("/movie/top_rated?language=ko-KR", {
         params: {
           region: "KR",
           page: i,
@@ -52,7 +48,7 @@ const PopularMovie = async () => {
 
 const getDetail = async (id) => {
   try {
-    const res = await instance.get(`/movie/${id}?language=ko-KR`);
+    const res = await instance.get(`/movie/${id}`);
     console.log(res.data);
     return res.data;
   } catch (error) {
@@ -60,4 +56,4 @@ const getDetail = async (id) => {
   }
 };
 
-export { NowPlayingMovie, PopularMovie, getDetail };
+export { NowPlayingMovie, TopRatedMovie, getDetail };
