@@ -29,7 +29,7 @@ const UpcomingMovie = async () => {
   let totalPage = 1;
   try {
     for (let i = 1; i < totalPage + 1; i++) {
-      const res = await instance.get("/movie/upcoming", {
+      const res = await instance.get("/movie/popular?api key=ab3d2e3bd514dc30dfbab5a6de119924", {
         params: {
           region: "US",
           page: i,
