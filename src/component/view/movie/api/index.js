@@ -16,7 +16,6 @@ const NowPlayingMovie = async () => {
           page: i,
         },
       });
-      console.log('나우플레잉' + res.data.results);
       Data.push(res.data.results);
     }
     return Data;
