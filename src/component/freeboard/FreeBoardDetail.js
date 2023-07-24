@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../util/host-utils";
 import { getLoginUserInfo } from "../../util/login-utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Title } from "@mui/icons-material";
+import { Button, Grid } from "@mui/material";
 
-const FreeBoardDetail = ({ id }) => {
+const FreeBoardDetail = () => {
+  //url에서 게시글 번호 얻어오기
+  const board = useParams();
+  const id = board.id;
+  console.log(board.id);
   // 로그인 인증 토큰 얻어오기
   const token = getLoginUserInfo().token;
   const nick = getLoginUserInfo().username;
@@ -18,9 +24,8 @@ const FreeBoardDetail = ({ id }) => {
   };
 
   useEffect(() => {
-    //페이지가 렌더링 되면 후기목록 보여주기.
-    fetch(`${API_BASE_URL}/freeBoard/${id}`, {
-      //movie로 고칠 예정
+    //페이지가 렌더링 되면 후기디테일 보여주기
+    fetch(`${API_BASE_URL}/freeBoard/detail/${id}`, {
       method: "GET",
       headers: requestHeader,
     })
@@ -37,13 +42,63 @@ const FreeBoardDetail = ({ id }) => {
       })
       .then((json) => {
         console.log(json);
-        console.log(json.freeBoard);
 
         //fetch를 통해 받아온 데이터를 상태 변수에 할당.
-        if (json) setFreeBoard(json.freeBoard);
+        if (json) setFreeBoard(json);
       });
   }, []);
-  return <div>FreeBoardDetail</div>;
+  const deleteHandler = () => {
+    fetch(`${API_BASE_URL}/freeBoard/${id}`, {
+      method: "DELETE",
+      headers: requestHeader,
+    })
+      .then((res) => {
+        if (res.status === 200) return res.text();
+        else if (res.status === 403) {
+          alert("로그인이 필요한 서비스 입니다.");
+          redirection("/login");
+          return;
+        } else {
+          alert("관리자에게 문의하세요!");
+        }
+        return;
+      })
+      .then((text) => {
+        alert(text);
+        listHandler();
+      });
+  };
+  const listHandler = () => {
+    redirection(`/freeBoardList/${freeBoard.movie}`);
+  };
+  return (
+    <>
+      <Title>{freeBoard.title}</Title>
+      <Grid>
+        <h2>작성자</h2>
+        <p>{freeBoard.userNick}</p>
+      </Grid>
+      <Grid>
+        <h2>작성일자</h2>
+        <p>{freeBoard.uploadDate}</p>
+      </Grid>
+      <div dangerouslySetInnerHTML={{ __html: freeBoard.content }}></div>
+      <Grid>
+        <Button type="button" color="primary" onClick={listHandler}>
+          {" "}
+          후기목록으로
+        </Button>
+        {nick === freeBoard.userNick ? (
+          <Button type="button" color="primary" onClick={deleteHandler}>
+            {" "}
+            삭제하기
+          </Button>
+        ) : (
+          <></>
+        )}
+      </Grid>
+    </>
+  );
 };
 
 export default FreeBoardDetail;

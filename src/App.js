@@ -15,18 +15,15 @@ import Checkout from "./component/reservation/Checkout";
 import Hotels from "./component/view/Hotels";
 import TodaysMovieDetail from "./component/view/movie/TodaysMovieDetail";
 import Home from "./component/view/movie/pages/Home";
+import TopRatedMovie from "./component/view/movie/pages/TopRatedMovie";
 import NowPlayingMovie from "./component/view/movie/pages/NowPlayingMovie";
-import UpcomingMovie from "./component/view/movie/pages/UpcomingMovie";
 import Detail from "./component/view/movie/pages/Detail";
 import MovieStateProvider from "./component/view/movie/provider/MovieStateProvider";
 import UploadFreeBoard from "./component/freeboard/UploadFreeBoard";
 import FreeBoardList from "./component/freeboard/FreeBoardList";
 import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
 
-import { useParams } from "react-router-dom";
-
 function App() {
-  const key = useParams();
   const theme = createTheme({
     palette: {
       mode: "light",
@@ -77,19 +74,16 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
               <Route path="/hotels" element={<Hotels />} />
-              <Route
-                path="/"
-                element={<TodaysMovieDetail />}
-              />
+              <Route path="/" element={<TodaysMovieDetail />} />
               <Route path="/Home" element={<Home />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
-              <Route path="/upcoming" element={<UpcomingMovie />} />
+              <Route path="/topRated" element={<TopRatedMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
-              <Route path="/freeBoard" element={<UploadFreeBoard />} />
-              <Route path="/freeBoardList" element={<FreeBoardList />} />
+              <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
+              <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route
-                path="/freeBoardDetail"
-                element={<FreeBoardDetail id={key} />}
+                path="/freeBoardDetail/:id"
+                element={<FreeBoardDetail />}
               />
             </Routes>
           </ThemeProvider>
