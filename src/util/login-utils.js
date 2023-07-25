@@ -1,12 +1,11 @@
-
 // 로그인 한 유저의 데이터 객체를 반환하는 함수
 export const getLoginUserInfo = () => {
-    return {
-        token: localStorage.getItem('ACCESS_TOKEN'),
-        username: localStorage.getItem('LOGIN_USERNICK'),
-        id: localStorage.getItem('LOGIN_USERID')
-    };
+  return {
+    token: localStorage.getItem("ACCESS_TOKEN"),
+    username: localStorage.getItem("LOGIN_USER_NICK"),
+    id: localStorage.getItem("LOGIN_USER_ID"),
+  };
 };
 
 // 로그인 여부를 확인하는 함수
-export const isLogin = () => !!localStorage.getItem('ACCESS_TOKEN'); // 토큰이 있다면 true 반환
+export const isLogin = () => !!localStorage.getItem("ACCESS_TOKEN"); // 토큰이 있다면 true 반환
