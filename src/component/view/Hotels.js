@@ -1,82 +1,31 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-const hotels = [
-  {
-    id: 1,
-    name: '시그니엘 서울',
-    description: '주소 : 서울특별시 송파구 올림픽로 300 롯데월드타워 (신천동)' + "\n" + '전화 : 02-3213-1000',
-    imageUrl: 'https://res.heraldm.com/content/image/2017/01/06/20170106000674_0.jpg',
-  },
-  {
-    id: 2,
-    name: '포시즌스 호텔 서울',
-    description: '주소 : 서울특별시 종로구 새문안로 97  (당주동) 전화 : 02-6388-5000',
-    imageUrl: 'https://www.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=44441&fileTy=MEDIA&fileNo=1',
-  },
-  {
-    id: 3,
-    name: '그랜드 머큐어 앰배서더 호텔',
-    description: '주소 : 서울특별시 용산구 청파로20길 95 서울드래곤시티 (한강로3가) 전화 : 02-2223-7000',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBO9EFe3JAPJ9-2OTnP20RXHe7vqJAgLOZYg&usqp=CAU',
-  },
-  {
-    id: 4,
-    name: '호텔 신라 서울',
-    description: '주소 : 서울특별시 중구 동호로 249  (장충동2가) 전화 : 02-2233-3131',
-    imageUrl: 'https://www.shillahotels.com/images/en/hub/sub/seoulMainImg.jpg',
-  },
-  {
-    id: 5,
-    name: '롯데 호텔 서울',
-    description: '주소 : 서울특별시 중구 을지로 30 (소공동) 전화 : 02-771-1000',
-    imageUrl: 'https://image.edaily.co.kr/images/Photo/files/NP/S/2018/08/PS18083001018.jpg',
-  },
-  {
-    id: 6,
-    name: 'JW 메리어트 호텔 서울',
-    description: '주소 : 서울특별시 서초구 신반포로 176 전화 : 02-6282-6262',
-    imageUrl: 'https://dimg.donga.com/wps/ECONOMY/IMAGE/2014/02/04/60568235.1.jpg',
-  },
-  {
-    id: 7,
-    name: '포시즌스 호텔 서울',
-    description: '주소 : 서울특별시 종로구 새문안로 97  (당주동) 전화 : 02-6388-5000',
-    imageUrl: 'https://www.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=44441&fileTy=MEDIA&fileNo=1',
-  },
-  {
-    id: 8,
-    name: '시그니엘 서울',
-    description: '주소 : 서울특별시 송파구 올림픽로 300 롯데월드타워 (신천동) 전화 : 02-3213-1000',
-    imageUrl: 'https://res.heraldm.com/content/image/2017/01/06/20170106000674_0.jpg',
-  },
-  {
-    id: 9,
-    name: '호텔 신라 서울',
-    description: '주소 : 서울특별시 중구 동호로 249  (장충동2가) 전화 : 02-2233-3131',
-    imageUrl: 'https://www.shillahotels.com/images/en/hub/sub/seoulMainImg.jpg',
-  },
-  {
-    id: 10,
-    name: '그랜드 머큐어 앰배서더 호텔',
-    description: '주소 : 서울특별시 용산구 청파로20길 95 서울드래곤시티 (한강로3가) 전화 : 02-2223-7000',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBO9EFe3JAPJ9-2OTnP20RXHe7vqJAgLOZYg&usqp=CAU',
-  },
-  {
-    id: 11,
-    name: 'JW 메리어트 호텔 서울',
-    description: '주소 : 서울특별시 서초구 신반포로 176 전화 : 02-6282-6262',
-    imageUrl: 'https://dimg.donga.com/wps/ECONOMY/IMAGE/2014/02/04/60568235.1.jpg',
-  },
-  {
-    id: 12,
-    name: '롯데 호텔 서울',
-    description: '주소 : 서울특별시 중구 을지로 30  (소공동) 전화 : 02-771-1000',
-    imageUrl: 'https://image.edaily.co.kr/images/Photo/files/NP/S/2018/08/PS18083001018.jpg',
-  },
-];
+import { API_BASE_URL } from '../../util/host-utils';
+import { useEffect } from 'react';
+import { getLoginUserInfo } from '../../util/login-utils';
 
 const HotelCarousel = () => {
+
+  const [hotels, setHotels] = useState([]);
+  // const [address, setAddress] = useState("서울특별시");
+  const token = getLoginUserInfo().token;
+  const address = "서울특별시";
+  const requestHeader = {
+    'content-type' : 'application/json',
+    'Authorization' : 'Bearer ' + token
+  };
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/hotel/${address}`, {
+      method: "GET",
+      headers: requestHeader,
+    })
+    .then(res => res.json())
+    .then(json => {
+      console.log(json);
+      // setHotels(json)
+    })
+  })
+  
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 6;
   const pageCount = Math.ceil(hotels.length / pageSize);

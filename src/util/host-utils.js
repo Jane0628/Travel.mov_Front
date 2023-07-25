@@ -11,3 +11,4 @@ if(clientHostName === 'localhost') { //개발 중
 
 export const API_BASE_URL = backEndHostName;
 export const USER = '/user';
+export const HOTELS = '/hotels';
