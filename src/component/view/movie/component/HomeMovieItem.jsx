@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom";
+import Star from "./Star";
 
 const IMAGE_URL = "https://image.tmdb.org/t/p/w300/";
 
@@ -37,12 +38,18 @@ const Item = styled.div`
             padding: 15px;
             margin-left: -12px;
             width:100%;
-            max-height: 35%;
+            height: 35%;
             position: absolute;
             bottom: 0;
-            >div{
-                margin-bottom: 0px;
+            display: flex;
+            flex-direction: column;
+            
+            .rate {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
             }
+
             .vote-average {
                 font-size: 15px;
                 font-weight: 300;
@@ -70,7 +77,10 @@ export default function MovieItem({ movie, rank }) {
       <div className="container" onClick={handleClick}>
         <div className="rank">{rank}</div>
         <div className="info">
-          <div className="vote-average">({vote_average}/10)</div>
+          <div className="rate">
+            <Star vote_average={vote_average} />
+            <div className="vote-average">({vote_average}/10)</div>
+          </div>
           <div className="title">{title}</div>
           <div className="release-date">개봉일 : {release_date}</div>
         </div>

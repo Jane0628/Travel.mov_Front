@@ -2,13 +2,12 @@ import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import NowPlayingMovieContext from '../contexts/NowPlayingMovieContext';
 import TopRatedMovieContext from '../contexts/TopRatedMovieContext';
-import Header from '../component/Header';
 import Loading from '../component/Loading';
 import HomeMovieList from '../component/HomeMovieList';
+import MainMovie from '../component/MainMovie';
+import Header from '../../../layout/Header';
 
-const Container = styled.div`
-    margin: 40px;
-`;
+const Container = styled.div`margin: 40px;`;
 
 export default function Home() {
 
@@ -18,26 +17,25 @@ export default function Home() {
 
   const getDescRankMovieList = () => {
     let movieList = [];
-    console.log(movieList);
-    if (nowPlaying.data.length !== 0) {
+    if (nowPlaying.data.length) {
       [movieList] = nowPlaying.data;
       movieList.sort((a, b) => b.popularity - a.popularity);
     }
     return movieList;
   }
+
+  // 로딩 중일 시 로딩 화면 보여주기
   if (nowPlaying.loading && topRated.loading) {
     return <Loading />
-  }
-  if (!nowPlaying.loading) {
-    if (!rankMovieList.length) {
-      const rankList = getDescRankMovieList();
-      setRankMovieList((prev) => prev.concat(rankList));
-    }
+  } else if (!rankMovieList.length) {
+    const rankList = getDescRankMovieList();
+    setRankMovieList((prev) => prev.concat(rankList));
   }
 
   return (
     <>
-      <Header className="header" mainMovie={rankMovieList[0]} />
+      <Header />
+      <MainMovie mainMovie={rankMovieList[0]} />
       <Container>
         <HomeMovieList
           title={'현재 상영 중인 영화'}
