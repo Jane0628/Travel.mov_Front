@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { NowPlayingMovie, UpcomingMovie } from '../api/index';
+import { NowPlayingMovie, TopRatedMovie } from '../api/index';
 import React from 'react';
 import NowPlayingMovieContext from "../contexts/NowPlayingMovieContext";
-import UpcomingMovieContext from "../contexts/UpcomingMovieContext";
+import TopRatedMovieContext from "../contexts/TopRatedMovieContext";
 
 export default function MovieStateProvider({ children }) {
 
@@ -10,22 +10,22 @@ export default function MovieStateProvider({ children }) {
     data: [],
     loading: true
   });
-  const [upcoming, setUpcomingMovie] = useState({
+  const [topRated, setTopRatedMovie] = useState({
     data: [],
     loading: true
   });
 
   const getData = async () => {
-    const [nowPlayingData, upcomingData] =
+    const [nowPlayingData, topRatedData] =
       await Promise.all([
         NowPlayingMovie(),
-        UpcomingMovie()
+        TopRatedMovie()
       ]);
     setNowPlayingMovie((prev) => {
       return { ...prev, data: nowPlayingData, loading: false }
     });
-    setUpcomingMovie((prev) => {
-      return { ...prev, data: upcomingData, loading: false }
+    setTopRatedMovie((prev) => {
+      return { ...prev, data: topRatedData, loading: false }
     });
   }
 
@@ -39,9 +39,9 @@ export default function MovieStateProvider({ children }) {
   return (
     <>
       <NowPlayingMovieContext.Provider value={nowPlaying}>
-        <UpcomingMovieContext.Provider value={upcoming}>
+        <TopRatedMovieContext.Provider value={topRated}>
           {children}
-        </UpcomingMovieContext.Provider>
+        </TopRatedMovieContext.Provider>
       </NowPlayingMovieContext.Provider>
     </>
   )

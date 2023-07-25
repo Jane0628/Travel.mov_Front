@@ -91,7 +91,7 @@ const Description = styled.div`
     }
 `;
 export default function DetailMovie({ movieInfo, imageUrl }) {
-  const { poster_path, title, genres, imdb_id } = movieInfo;
+  const { poster_path, title, genres, imdb_id, release_date, vote_average, tagline, overview } = movieInfo;
   const [locations, setLocations] = useState([]);
   const [gooLocation, setGooLocation] = useState('');
 
@@ -143,9 +143,8 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
         <div className="genres">
           {genres.map(genre =>
             <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
-        {/* <div className="sub-info">
+        <div className="sub-info">
           <div className="release-date">{release_date}</div>
-          <div>{runtime}minutes</div>
         </div>
         <div className="vote-average">
           <Star vote_average={vote_average} />
@@ -155,14 +154,6 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
           <div className="tagline">{tagline ? `"${tagline}"` : ''}</div>
           <div className="overview">{overview}</div>
         </div>
-        <div className="companies">
-          {production_companies.map(company =>
-            <div className="company" key={company.id}>
-              <img className="company-logo" src={company.logo_path ? imageUrl + company.logo_path : null} alt="No Image" />
-              <div>{company.name}</div>
-            </div>
-          )}
-        </div> */}
         <GooMap location={gooLocation} />
       </Description>
     </DetailMovieWrapper>
