@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../component/Navbar"
 import Header from "../../../layout/Header";
@@ -61,15 +60,14 @@ const PageBtn = styled.div`
 `;
 
 export default function RecommendList() {
-  const [movieList, setMovieList] = useState('');
+  const [movieList, setMovieList] = useState([]);
 
   //비동기 통신 한국추천영화
   useEffect(() => {
-    fetch('http://localhost:3000/movie/ko', {
+    fetch('http://localhost:8181/movie/ko', {
       method: 'GET',
       headers: {
-        'content-type': 'application/json',
-        'Authorization': 'Bearer ' + token // 토큰 어케하는거임 좀 해결해줘 동준아
+        'content-type': 'application/json'
       }
     })
       .then(res => res.json())
@@ -80,7 +78,6 @@ export default function RecommendList() {
   }, []);
 
   const [page, setPage] = useState(1);
-  const navigate = useNavigate();
 
   const handlePagination = (currentPage) => {
     setPage(currentPage);
