@@ -3,7 +3,7 @@ import axios from "axios";
 const instance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
   params: {
-    api_key: "ab3d2e3bd514dc30dfbab5a6de119924"
+    api_key: process.env.REACT_APP_TMDBAPI_KEY,
   },
 });
 
@@ -48,7 +48,7 @@ const TopRatedMovie = async () => {
 
 const getDetail = async (id) => {
   try {
-    const res = await instance.get(`/movie/${id}`);
+    const res = await instance.get(`/movie/${id}?language=ko-KR`);
     console.log(res.data);
     return res.data;
   } catch (error) {
