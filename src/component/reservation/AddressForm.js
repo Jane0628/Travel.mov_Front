@@ -10,9 +10,50 @@ import {
 } from "@mui/material";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function AddressForm() {
+export default function AddressForm({ start, end, name, days }) {
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
+  //체크인 날짜 설정
+  function checkIn(date) {
+    setStartDate(date);
+    start(
+      date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+    calcDay(date);
+  }
+  //체크아웃 날짜 설정
+  function checkout(date) {
+    setEndDate(date);
+    end(
+      date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+    calcDays(date);
+  }
+  //날짜 차이 계산
+  function dateDiffInDays(date1, date2) {
+    const oneDay = 24 * 60 * 60 * 1000; // 1일 = 24시간 * 60분 * 60초 * 1000밀리초
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    return Math.floor(timeDiff / oneDay);
+  }
+  //useEffect반응이 느려서 두가지로 구현
+  function calcDays(date) {
+    days(dateDiffInDays(startDate, date));
+  }
+  function calcDay(date) {
+    days(dateDiffInDays(date, endDate));
+  }
+  //예약자 이름 설정
+  const inputName = (e) => {
+    name(e.target.value);
+  };
 
   return (
     <React.Fragment>
@@ -29,13 +70,14 @@ export default function AddressForm() {
             fullWidth
             autoComplete="given-name"
             variant="standard"
+            onChange={inputName}
           />
         </Grid>
         <Grid item xs={12} className="datepicker-container">
           <DatePicker
             dateFormat="yyyy/MM/dd"
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => checkIn(date)}
             selectsStart
             startDate={startDate}
             endDate={endDate}
@@ -44,7 +86,7 @@ export default function AddressForm() {
           <DatePicker
             dateFormat="yyyy/MM/dd"
             selected={endDate}
-            onChange={(date) => setEndDate(date)}
+            onChange={(date) => checkout(date)}
             selectsEnd
             startDate={startDate}
             endDate={endDate}

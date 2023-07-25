@@ -4,47 +4,93 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { useNavigate } from "react-router-dom";
 import { getLoginUserInfo } from "../../util/login-utils";
-import axios from "axios";
+import { API_BASE_URL } from "../../util/host-utils";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl } from "react-bootstrap";
 
-export default function PaymentForm() {
+export default function PaymentForm({ value }) {
+  const token = getLoginUserInfo().token;
   const redirection = useNavigate();
+  const [couponList, setCouponList] = useState([]);
+  const [discount, setDiscount] = useState();
 
-  // 로그인 인증 토큰 얻어오기
-  const [token, setToken] = React.useState(getLoginUserInfo().token);
+  const requestHeader = {
+    "content-type": "application/json",
+    Authorization: "Bearer " + token,
+  };
+  useEffect(() => {
+    //페이지가 렌더링 되면 쿠폰목록 보여주기.
+    fetch(`${API_BASE_URL}/coupon`, {
+      method: "GET",
+      headers: requestHeader,
+    })
+      .then((res) => {
+        if (res.status === 200) return res.json();
+        else if (res.status === 403) {
+          alert("로그인이 필요한 서비스 입니다.");
+          redirection("/login");
+          return;
+        } else {
+          alert("관리자에게 문의하세요!");
+        }
+        return;
+      })
+      .then((json) => {
+        console.log(json);
+        console.log(json.couponList);
 
-  const preparePayment = async () => {
-    const res = await fetch("http://localhost:8181/pay/ready", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        partner_order_id: "partner_order_id", // 가맹점에서 관리하는 주문번호
-        partner_user_id: "partner_user_id", // 가맹점에서 관리하는 회원고유번호
-        item_name: "초코파이",
-        quantity: 1,
-        total_amount: 2200, // 결제 금액
-        vat_amount: 200,
-        tax_free_amount: 0,
-      }),
-    });
-    console.log(res);
+        //fetch를 통해 받아온 데이터를 상태 변수에 할당.
+        if (json) setCouponList(json.couponList);
+      });
+  }, []);
 
-    const { next_redirect_pc_url, tid } = await res.json();
-    console.log(tid);
-    console.log(next_redirect_pc_url);
-    window.location.href = next_redirect_pc_url;
+  const handleChange = (e) => {
+    setDiscount(e.target.value.discount);
+    console.log(e.target.value.discount);
+    value.point(e.target.value.discount);
+    console.log(e.target.value.id);
+    value.coupon(e.target.value.id);
   };
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        카카오페이로 결제하기
-      </Typography>
       <Grid container spacing={3}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+          {value.product}
+        </Typography>
+        <Grid item xs={12} md={6}>
+          {value.days}박 {value.days + 1}일
+        </Grid>
+        <Typography variant="h6" gutterBottom>
+          적용가능 쿠폰
+        </Typography>
+        {couponList.map((coupon) => {
+          <div>{coupon.name}</div>;
+        })}
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={discount}
+          label="쿠폰"
+          onChange={handleChange}
+        >
+          {couponList.map(
+            (coupon) =>
+              coupon.status === 1 && (
+                <MenuItem
+                  key={coupon.id}
+                  value={{ discount: coupon.discountPrice, id: coupon.id }}
+                >
+                  {coupon.name}
+                </MenuItem>
+              )
+          )}
+        </Select>
+
         {/* <Grid item xs={12} md={6}>
           <TextField
             required
@@ -86,10 +132,7 @@ export default function PaymentForm() {
             variant="standard"
           />
         </Grid> */}
-        <img
-          src={require("../../img/payment_icon_yellow_large.png")}
-          onClick={preparePayment}
-        />
+
         {/* <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveCard" value="yes" />}

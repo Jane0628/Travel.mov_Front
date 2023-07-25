@@ -1,11 +1,28 @@
-form .buttons {
-    width: 500px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
+ form.css-178yklu {
+ 	margin-top: 70px;
 
-.check-btn {
-    margin-top: 10px;
-    height: 40%;
-}
+ 	div.css-1idn90j-MuiGrid-root {
+ 		margin-bottom: 30px;
+ 		padding: 0;
+ 		display: flex;
+ 		justify-content: center;
+
+ 		button.check-btn {
+ 			width: 135px;
+ 			height: 65.85px;
+ 			margin: 0 0 0 10px;
+ 		}
+ 	}
+
+ 	.buttons {
+ 		width: 500px;
+ 		display: flex;
+ 		justify-content: space-between;
+ 		margin-top: 30px;
+ 	}
+ }
+
+ .check-btn {
+ 	margin-top: 10px;
+ 	height: 40%;
+ }

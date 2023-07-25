@@ -1,15 +1,34 @@
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, TextField, ThemeProvider, Typography, createTheme } from '@mui/material';
-import '../../design/join.scss'
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Copyright, Visibility, VisibilityOff } from '@mui/icons-material';
-import AuthContext from '../../util/AuthContext';
-import { API_BASE_URL, USER } from '../../util/host-utils';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import Header from '../layout/Header';
+import {
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  CssBaseline,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  Link,
+  OutlinedInput,
+  TextField,
+  ThemeProvider,
+  Typography,
+  createTheme,
+} from "@mui/material";
+import "../../design/join.scss";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { Copyright, Visibility, VisibilityOff } from "@mui/icons-material";
+import AuthContext from "../../util/AuthContext";
+import { API_BASE_URL, USER } from "../../util/host-utils";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import Header from "../layout/Header";
 
 const Join = () => {
-
   const redirection = useNavigate();
 
   const { onLogin, isLoggedIn } = useContext(AuthContext);
@@ -18,30 +37,29 @@ const Join = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      alert('이미 로그인 중이십니다.');
-      redirection('/');
+      alert("이미 로그인 중이십니다.");
+      redirection("/");
     }
   });
 
   //회원가입 요청 함수
   const fetchJoin = async () => {
-
-    const $id = document.getElementById('id');
-    const $pw = document.getElementById('pw');
-    const $nick = document.getElementById('nick');
-    const $email = document.getElementById('email');
+    const $id = document.getElementById("id");
+    const $pw = document.getElementById("pw");
+    const $nick = document.getElementById("nick");
+    const $email = document.getElementById("email");
 
     console.log($id.value);
 
     const res = await fetch(REQUEST_URL, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      method: "POST",
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({
         id: $id.value,
         pw: $pw.value,
         nick: $nick.value,
-        email: $email.value
-      })
+        email: $email.value,
+      }),
     });
 
     //잘못된 요청시 경고창 띄움
@@ -51,226 +69,241 @@ const Join = () => {
       return;
     }
     if (res.status === 200) {
-      alert('회원가입에 성공했습니다.');
-      redirection('/login');
+      alert("회원가입에 성공했습니다.");
+      alert("10000원 쿠폰이 지급되었습니다. (사용기한 7일)");
+      redirection("/login");
     }
-
-  }
+  };
   //아이디 중복체크 유무
-  const [check, setCheck] = useState(false);
+  const [idCheck, setIdCheck] = useState(false);
 
   //상태변수로 회원가입 입력값 관리
   const [userValue, setUserValue] = useState({
-    id: '',
-    password: '',
-    nickN: '',
-    email: ''
+    id: "",
+    pw: "",
+    nick: "",
+    email: "",
   });
 
   //검증 메세지에 대한 상태변수 관리
   const [message, setMessage] = useState({
-    id: '',
-    password: '',
-    nickN: '',
-    email: ''
+    id: "",
+    pw: "",
+    nick: "",
+    email: "",
   });
 
   //검증 완료 체크에 대한 상태변수 관리
   const [correct, setCorrect] = useState({
-    id: false,
-    password: false,
-    nickN: false,
-    email: false
+    id: 0,
+    pw: 0,
+    nick: 0,
+    email: 0,
   });
 
   //검증 데이터를 상태변수에 저장하는 함수
-  const saveInputState = ({ key, inputVal, flag, msg }) => {
-
-    inputVal !== 'pass' && setUserValue({
-      ...userValue,
-      [key]: inputVal
-    });
+  const saveInputState = ({ key, inputVal, verification, msg }) => {
+    inputVal !== "pass" &&
+      setUserValue({
+        ...userValue,
+        [key]: inputVal,
+      });
 
     setCorrect({
       ...correct,
-      [key]: flag
+      [key]: verification,
     });
 
     setMessage({
       ...message,
-      [key]: msg
+      [key]: msg,
     });
-  }
+  };
 
-  //아이디 중복 체크
+  // 아이디 중복 체크
   const fetchIdCheck = () => {
+    const id = document.getElementById("id");
 
     //아이디 검증 실패시
-    if (!correct.id) {
-      alert('아이디를 먼저 올바르게 입력해주세요');
+    if (correct.id !== 3) {
+      alert("올바른 아이디를 입력해주세요.");
+      id.focus();
       return;
     }
-    let msg, flag = false;
-    const id = document.getElementById('id').value
-    fetch(`${REQUEST_URL}/check?id=${id}`)
-      .then(res => {
+
+    let msg, flag, verification;
+    fetch(`${REQUEST_URL}/check?id=${id.value}`)
+      .then((res) => {
         if (res.status === 200) {
           return res.json();
         }
-      }).then(json => {
+      })
+      .then((json) => {
         console.log(json);
         if (json) {
-          msg = '이미 사용중인 아이디 입니다!'
+          msg = "이미 사용중인 아이디입니다.";
+          id.focus();
+          verification = 1;
+          flag = false;
         } else {
-          msg = '사용 가능한 아이디 입니다.';
+          alert("사용 가능한 아이디입니다.");
+          verification = 2;
           flag = true;
         }
+
+        setCorrect({ ...correct, id: verification });
         setUserValue({ ...userValue, id: id });
         setMessage({ ...message, id: msg });
-        setCheck(flag);
-        console.log('check =' + check);
+        setIdCheck(flag);
       })
-      .catch(error => {
-        console.log('서버와 통신이 원활하지 않습니다.');
+      .catch((error) => {
+        console.log("서버와 통신이 원활하지 않습니다.");
       });
+  };
 
-  }
-
-  //아이디 입력창 체인지 이벤트 핸들러
-  const idHandler = e => {
-    const idRegex = /^[a-z0-9\.\-_]{4,10}$/;
-
+  // 아이디 입력창 체인지 이벤트 핸들러
+  const idHandler = (e) => {
     const inputVal = e.target.value;
 
-    //아이디 변경시 중복체크초기화
-    setCheck(false);
+    const idRegex = /^[a-z0-9\.\-_]{4,10}$/;
+
+    // 아이디 변경 시 중복 체크 초기화
+    setIdCheck(false);
     setCorrect(false);
 
-    let msg, flag = false;
+    let msg;
+    let verification = 0;
     if (!inputVal) {
-      msg = '아이디는 필수값입니다.';
+      msg = "아이디는 필수값입니다.";
+      verification = 1;
     } else if (!idRegex.test(inputVal)) {
-      msg = '4~10자리 영문과 숫자로 입력해주세요';
-    } else if (!check) {
-      msg = '아이디 중복체크 버튼을 클릭하세요';
-      flag = true;
-      setCorrect({ ...correct, id: flag });
-    } else {
+      msg = "4~10자리 영문과 숫자로 입력해주세요";
+      verification = 1;
+    } else if (!idCheck) {
+      msg = "아이디 중복체크 버튼을 클릭하세요";
+      verification = 3;
+      setCorrect({ ...correct, id: verification });
     }
 
     saveInputState({
-      key: 'id',
+      key: "id",
       inputVal,
       msg,
-      flag
+      verification,
     });
   };
 
   //패스워드 입력창 체인지 이벤트 핸들러
-  const passwordHandler = e => {
-
+  const passwordHandler = (e) => {
     const inputVal = e.target.value;
 
-    const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
+    const pwRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
-    let msg, flag = false;
-    if (!inputVal) { //비밀번호 안적음
-      msg = '비밀번호는 필수입니다.';
+    let msg, verification;
+    if (!inputVal) {
+      //비밀번호 안적음
+      msg = "비밀번호는 필수입니다.";
+      verification = 1;
     } else if (!pwRegex.test(inputVal)) {
-      msg = '8~20글자 영문, 숫자, 특수문자를 포함해 주세요.';
+      msg = "8~20글자 영문, 숫자, 특수문자를 포함해 주세요.";
+      verification = 1;
     } else {
-      msg = '사용 가능한 비밀번호입니다.';
-      flag = true;
-      setCorrect({ ...correct, password: flag });
+      msg = "사용 가능한 비밀번호입니다.";
+      verification = 2;
+      setCorrect({ ...correct, password: verification });
     }
 
     saveInputState({
-      key: 'password',
+      key: "pw",
       inputVal,
       msg,
-      flag
+      verification,
     });
   };
 
   //닉네임 입력창 체인지 이벤트 핸들러
-  const nameHandler = e => {
-
-    const nameRegex = /^[가-힣a-z0-9]{2,10}$/;
-
+  const nameHandler = (e) => {
     const inputVal = e.target.value;
 
-    let msg, flag = false;
+    const nameRegex = /^[ㄱ-ㅎ가-힣a-z0-9]{2,10}$/;
 
+    let msg, verification;
     if (!inputVal) {
-      msg = '닉네임은 필수입니다.';
+      msg = "닉네임은 필수입니다.";
+      verification = 1;
     } else if (!nameRegex.test(inputVal)) {
-      msg = '2~10글자로 작성하세요!';
+      msg = "2~10글자로 작성하세요!";
+      verification = 1;
     } else {
-      msg = '사용 가능한 닉네임입니다.';
-      flag = true;
+      msg = "사용 가능한 닉네임입니다.";
+      verification = 2;
     }
 
     setMessage({ ...message, nickN: msg });
     setUserValue({ ...userValue, nickN: inputVal });
-    setCorrect({ ...correct, nickN: flag });
+    setCorrect({ ...correct, nickN: verification });
 
     saveInputState({
-      key: 'nickN',
+      key: "nick",
       inputVal,
       msg,
-      flag
+      verification,
     });
   };
 
   //이메일 입력창 체인지 이벤트 핸들러
-  const emailHandler = e => {
-
+  const emailHandler = (e) => {
     const inputVal = e.target.value;
 
-    const emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    const emailRegex =
+      /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
-    let msg, flag = false;
+    let msg, verification;
     if (!inputVal) {
-      msg = '이메일은 필수값입니다.';
+      msg = "이메일은 필수값입니다.";
+      verification = 1;
     } else if (!emailRegex.test(inputVal)) {
-      msg = '이메일 형식이 아닙니다.';
+      msg = "이메일 형식이 아닙니다.";
+      verification = 1;
     } else {
-      msg = '사용가능한 이메일입니다.'
-      flag = true;
-      setCorrect({ ...correct, email: flag });
+      msg = "사용가능한 이메일입니다.";
+      verification = 2;
+      setCorrect({ ...correct, email: verification });
     }
     saveInputState({
-      key: 'email',
+      key: "email",
       inputVal,
       msg,
-      flag
+      verification,
     });
-
   };
 
   //4개의 입력칸이 모두 검증에 통과했는지 여부를 검사
   const isValid = () => {
     for (const key in correct) {
-      const flag = correct[key];
-      if (!flag) return false;
+      if (correct[key] !== 2) {
+        setCorrect({ ...correct, [key]: 1 });
+        document.getElementById(key).focus();
+        return false;
+      }
     }
     return true;
-  }
+  };
 
   //회원가입 버튼 클릭시 이벤트
-  const joinHandler = e => {
+  const joinHandler = (e) => {
     e.preventDefault();
-    if (!check) {
-      alert('아이디 중복체크를 해주세요');
+    if (!idCheck) {
+      alert("아이디 중복 체크를 진행해주세요.");
       return;
     }
     if (isValid()) {
       fetchJoin();
     } else {
-      alert('입력란을 다시 확인해 주세요')
+      alert("입력란을 다시 확인해 주세요");
     }
-
-  }
+  };
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -287,108 +320,95 @@ const Join = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <AssignmentIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             회원가입
           </Typography>
-          <Box component="form" noValidate onSubmit={joinHandler} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={joinHandler}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="id"
-                  name="id"
-                  required
+                  variant="outlined"
                   fullWidth
                   id="id"
                   label="아이디"
+                  name="id"
+                  required
+                  error={correct.id === 1 ? true : false}
+                  helperText={correct.id === 2 ? null : message.id}
                   onChange={idHandler}
-                  autoFocus
                 />
-                <button type='button' onClick={fetchIdCheck} className='check-btn'>중복체크</button>
-                <span style={
-                  correct.id ? { color: 'green' } : { color: 'red' }
-                }>{message.id}
-                </span>
+                <Button
+                  type="button"
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  onClick={fetchIdCheck}
+                  className="check-btn"
+                  disabled={idCheck}
+                >
+                  중복체크
+                </Button>
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  variant="outlined"
                   fullWidth
                   id="nick"
                   label="닉네임"
                   name="nick"
-                  autoComplete="nick"
+                  required
+                  error={correct.nick === 1 ? true : false}
+                  helperText={correct.nick === 2 ? null : message.nick}
                   onChange={nameHandler}
                 />
-                <span style={
-                  correct.nickN ? { color: 'green' } : { color: 'red' }
-                }>{message.nickN}
-                </span>
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   id="email"
-                  label="이메일 주소"
+                  label="이메일"
                   name="email"
-                  autoComplete="email"
+                  error={correct.email === 1 ? true : false}
+                  helperText={correct.email === 2 ? null : message.email}
                   onChange={emailHandler}
                 />
-                <span style={
-                  correct.email ? { color: 'green' } : { color: 'red' }
-                }>{message.email}
-                </span>
               </Grid>
-              {/* <Grid item xs={12}>
-
-                <TextField
-                  required
-                  fullWidth
-                  name="pw"
-                  label="비밀번호"
-                  type="password"
-                  id="pw"
-                  autoComplete="new-password"
-                />
-              </Grid> */}
               <Grid item xs={12}>
-                <FormControl sx={{ width: '500px' }} variant="outlined" required size='Large'>
-                  <InputLabel>비밀번호</InputLabel>
-                  <OutlinedInput
-                    autoComplete="off"
-                    id="pw"
-                    type={showPassword ? 'text' : 'password'}
-                    endAdornment={
+                <TextField
+                  type={showPassword ? "text" : "password"}
+                  fullWidth
+                  id="pw"
+                  label="비밀번호"
+                  name="pw"
+                  required
+                  onChange={passwordHandler}
+                  error={correct.pw === 1 ? true : false}
+                  helperText={correct.pw === 1 ? message.pw : null}
+                  InputProps={{
+                    endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={showPasswordHandler}
-                          edge="end"
-                        >
+                        <IconButton onClick={showPasswordHandler}>
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-                    }
-                    label="비밀번호"
-                    onChange={passwordHandler}
-                    name="pw"
-                  />
-                </FormControl>
-                <span style={
-                  correct.password ? { color: 'green' } : { color: 'red' }
-                }>{message.password}
-                </span>
+                    ),
+                  }}
+                />
               </Grid>
-
-              <Grid>
+              <FormGroup>
                 <h2>선호하는 영화 장르</h2>
                 <FormControlLabel control={<Checkbox />} label="액션" />
                 <FormControlLabel control={<Checkbox />} label="공포" />
@@ -398,8 +418,7 @@ const Join = () => {
                 <FormControlLabel control={<Checkbox />} label="판타지" />
                 <FormControlLabel control={<Checkbox />} label="모험" />
                 <FormControlLabel control={<Checkbox />} label="SF" />
-                <FormControlLabel control={<Checkbox />} label="애니메이션" />
-              </Grid>
+              </FormGroup>
             </Grid>
             <div className="buttons">
               <Button
@@ -421,12 +440,8 @@ const Join = () => {
           </Box>
         </Box>
       </Container>
-
-
     </>
   );
 };
-
-
 
 export default Join;

@@ -6,7 +6,6 @@ import styled from "styled-components";
 import DetailMovie from '../component/DetailMovie';
 
 const MovieContainer = styled.div`
-
     position: relative;
     width: 100%;
     height: 100%;
@@ -27,7 +26,6 @@ const MovieContainer = styled.div`
         right:0;
         bottom:0;
     }
-}   
 `;
 
 export default function Detail() {

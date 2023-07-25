@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Navbar from "../component/Navbar"
 import Header from "../../../layout/Header";
 
 const GridContainer = styled.div`
@@ -81,7 +80,6 @@ export default function FullList({ movieList }) {
   return (
     <>
       <Header />
-      <Navbar />
       <GridContainer>
         {movieList[page - 1].map((movie) =>
           <Item key={movie.id} onClick={() => handleClick(movie.id)}>

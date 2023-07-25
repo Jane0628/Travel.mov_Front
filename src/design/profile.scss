@@ -5,39 +5,56 @@
 	justify-content: space-between;
 	align-items: center;
 
+	// 프사
 	.image {
+		position: relative;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 
-		img {
+		.frame {
 			width: 300px;
 			height: 300px;
 			border-radius: 50%;
 			border: 2px solid #424180;
-			margin-bottom: 20px;
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			img#pfp {
+				width: 100%;
+			}
 		}
 
-		.file-label {
-			display: block;
-			background-color: #7b8ce0;
-			border-radius: 5px;
-			color: white;
-			padding: 12px;
-			cursor: pointer;
-			width: 170px;
-			margin: 0 auto;
-			text-align: center;
-			font-weight: 700;
+		// Fab
+		button.css-v49lkv-MuiButtonBase-root-MuiFab-root {
+			width: 40px;
+			height: 40px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			top: 22px;
+			right: 45px;
+
+			label {
+				height: 40px;
+			}
 		}
 
 		.file-input {
 			display: none;
 		}
 
-		span {
-			margin-bottom: 0;
+		span.recommendation {
+			margin: 20px auto 0;
+			color: red;
+			font-weight: 500;
 		}
 	}
+
+	////////////////////////////////////////////////////////
 
 	.profile {
 		display: flex;
@@ -46,10 +63,21 @@
 
 		.right {
 			width: 400px;
-			// margin-bottom: 1px;
+			display: flex;
+			flex-direction: column;
 
-			div {
-				margin-bottom: 8px;
+			input {
+				width: 330px;
+			}
+
+			// 수정하기 버튼
+			.css-13i4rnv-MuiGrid-root:last-child {
+				display: flex;
+				justify-content: center;
+
+				button {
+					width: 200px;
+				}
 			}
 		}
 
@@ -73,7 +101,6 @@
 			right: 60px;
 			bottom: 0px;
 		}
-
 	}
 
 	.image-change {

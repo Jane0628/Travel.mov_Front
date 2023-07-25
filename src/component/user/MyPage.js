@@ -9,20 +9,20 @@ import Header from '../layout/Header';
 
 const MyPage = () => {
 
-  
+
   const { onLogout, nick, id, } = useContext(AuthContext);
 
   // 닉네임이 수정될 때마다 MyPage 컴포넌트를 리렌더링
   useEffect(() => {
     console.log('닉네임이 변경되었습니다:', nick);
   }, [nick]);
-  
+
   const REQUEST_URL = API_BASE_URL + USER;
   console.log('API_BASE_URL:', API_BASE_URL);
   console.log('USER:', USER);
 
   console.log('REQUEST_URL:', REQUEST_URL);
-  
+
   console.log(id);
 
   const theme = createTheme({
@@ -101,7 +101,7 @@ const MyPage = () => {
         </div>
       </Container>
     </>
-  )
+  );
 }
 
-export default MyPage
+export default MyPage;

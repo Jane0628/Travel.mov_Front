@@ -11,12 +11,14 @@ import Typography from "@mui/material/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
-
+import { getLoginUserInfo } from "../../util/login-utils";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://Tramovle.com/">
+      <Link color="inherit" href="https://tramovel.com/">
         Tramovle.com
       </Link>{" "}
       {new Date().getFullYear()}
@@ -27,20 +29,131 @@ function Copyright() {
 
 const steps = ["예약자 정보", "결제 정보", "예약 확인"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
 export default function Checkout() {
+  const [startDate, setStartDate] = React.useState(new Date());
+  const [endDate, setEndDate] = React.useState(new Date());
+  const [days, setDays] = React.useState();
+  const [name, setName] = React.useState();
+  const [discount, setDiscount] = React.useState();
+  const redirection = useNavigate();
+  const [product, setProduct] = React.useState();
+  const [total, setTotal] = React.useState(22000);
+  const [couponId, setCouponId] = React.useState();
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return (
+          <AddressForm
+            start={startHandler}
+            end={endHandler}
+            days={daysHandler}
+            name={nameHandler}
+          />
+        );
+      case 1:
+        return (
+          <PaymentForm
+            value={{
+              product,
+              days,
+              point: discountHandler,
+              coupon: counponHandler,
+            }}
+          />
+        );
+      case 2:
+        return (
+          <Review
+            name={name}
+            date={{ startDate, endDate, days }}
+            payment
+            discount={discount}
+            total={total}
+          />
+        );
+      default:
+        throw new Error("Unknown step");
+    }
+  }
+  //체크인 날짜
+  const startHandler = (date) => {
+    // console.log(date);
+    setStartDate(
+      date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+  };
+  //체크아웃 날짜
+  const endHandler = (date) => {
+    setEndDate(
+      date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+    console.log(date);
+  };
+  //몇박
+  const daysHandler = (date) => {
+    setDays(date);
+    console.log("몇박?" + date);
+  };
+  //예약자 이름
+  const nameHandler = (inputName) => {
+    console.log(inputName);
+    setName(inputName);
+  };
+  //할인 금액
+  const discountHandler = (point) => {
+    console.log(point);
+    setDiscount(point);
+    setTotal(total - point);
+  };
+  const counponHandler = (id) => {
+    console.log(id);
+    setCouponId(id);
+  };
+
+  // 로그인 인증 토큰 얻어오기
+  const token = getLoginUserInfo().token;
+  const userNick = getLoginUserInfo().username;
+
+  const preparePayment = async () => {
+    console.log(userNick);
+    const res = await fetch("http://localhost:8181/pay/ready", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        partner_order_id: name, // 예약자이름
+        partner_user_id: userNick, // 닉네임
+        item_name: "호텔이름",
+        item_code: "호텔id",
+        quantity: 1,
+        total_amount: 22000 - discount, // 결제 금액
+        vat_amount: 200,
+        // total_amount: total, // 결제 금액
+        // vat_amount: total * 0.1,
+        tax_free_amount: 0,
+        start_date: startDate,
+        end_date: endDate,
+        coupon: couponId,
+      }),
+    });
+    console.log(res);
+
+    const { next_redirect_pc_url, tid } = await res.json();
+    console.log(tid);
+    console.log(next_redirect_pc_url);
+    window.location.href = next_redirect_pc_url;
+  };
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -93,7 +206,19 @@ export default function Checkout() {
                 onClick={handleNext}
                 sx={{ mt: 3, ml: 1 }}
               >
-                {activeStep === steps.length - 1 ? "예약하기" : "다음"}
+                {activeStep === steps.length - 1 ? (
+                  <>
+                    <Typography variant="h6" gutterBottom>
+                      결제하기
+                    </Typography>
+                    <img
+                      src={require("../../img/payment_icon_yellow_medium.png")}
+                      onClick={preparePayment}
+                    />
+                  </>
+                ) : (
+                  "다음"
+                )}
               </Button>
             </Box>
           </React.Fragment>

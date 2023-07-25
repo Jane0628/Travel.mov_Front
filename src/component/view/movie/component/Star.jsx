@@ -3,23 +3,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Wrapper = styled.div`
-
 position: relative;
 font-size: 16px; //fontawesome icon의 default size는 parent element의 font-size임.
 width: 150px;
-height: 16px;
+height: 30px;
+display: flex;
+align-items: center;
+
 .outer {
-    width: 100%;
-    top:0;
-    position: absolute;
-    color: gray;
-    
+  width: 100%;
+  position: absolute;
+  top:0;
+  color: gray;
 }
 `;
+
 const Inner = styled.div`
     color: yellow;
     overflow:hidden;
-    ${width => `width: ${width.width * 8.5}%;`}
+    ${width => `width: ${width.width * 8}%;`}
     position: absolute;
     top:0;
     white-space: nowrap;

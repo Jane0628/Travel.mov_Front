@@ -1,7 +1,6 @@
 import "./App.css";
 import Header from "./component/layout/Header";
 import { Route, Routes } from "react-router-dom";
-import Main from "./component/layout/main/Main";
 import Join from "./component/user/Join";
 import MyPage from "./component/user/MyPage";
 import Profile from "./component/user/Profile";
@@ -13,16 +12,18 @@ import ReservationCheck from "./component/reservation/ReservationCheck";
 import Login from "./component/user/Login";
 import Checkout from "./component/reservation/Checkout";
 import Hotels from "./component/view/Hotels";
-import GooMap from "./component/google/GooMap";
-import TodaysMovieDetail from "./component/view/movie/TodaysMovieDetail";
 import Home from "./component/view/movie/pages/Home";
+import TopRatedMovie from "./component/view/movie/pages/TopRatedMovie";
 import NowPlayingMovie from "./component/view/movie/pages/NowPlayingMovie";
-import UpcomingMovie from "./component/view/movie/pages/UpcomingMovie";
 import Detail from "./component/view/movie/pages/Detail";
 import MovieStateProvider from "./component/view/movie/provider/MovieStateProvider";
-import SearchMovie from "./component/movie/SearchMovie";
+import UploadFreeBoard from "./component/freeboard/UploadFreeBoard";
+import FreeBoardList from "./component/freeboard/FreeBoardList";
+import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
 
 function App() {
+
+  // 전체적 디자인
   const theme = createTheme({
     palette: {
       mode: "light",
@@ -59,13 +60,16 @@ function App() {
     },
   });
 
+  // Login 페이지일 시 Header 안 보이기
+
+
   return (
     <>
       <AuthContextProvider>
         <MovieStateProvider>
           <ThemeProvider theme={theme}>
-            <Routes>
-              <Route path="/" element={<Main />} />
+            <Routes screenOptions={{ headerShown: false }}>
+              <Route path="/" element={<Home />} />
               <Route path="/join" element={<Join />} />
               <Route path="/login" element={<Login />} />
               <Route path="/myPage" element={<MyPage />} />
@@ -73,15 +77,15 @@ function App() {
               <Route path="/sights" element={<Sights />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
-              <Route path="/search" element={<SearchMovie />} />
-              <Route path="/map" element={<GooMap />} />
               <Route path="/hotels" element={<Hotels />} />
-              <Route path="/TodaysMovieDetail" element={<TodaysMovieDetail />} />
-              <Route path="/Home" element={<Home />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
-              <Route path="/upcoming" element={<UpcomingMovie />} />
+              <Route path="/topRated" element={<TopRatedMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
+              <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
+              <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
+              <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
             </Routes>
+            <Footer />
           </ThemeProvider>
         </MovieStateProvider>
       </AuthContextProvider>
