@@ -5,7 +5,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 const Wrapper = styled.div`
   position: relative;
   font-size: 16px; //fontawesome icon의 default size는 parent element의 font-size임.
-  width: 130px;
+  width: 125px;
   height: 20px;
   display: flex;
   align-items: center;
@@ -18,13 +18,12 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
   }
-
   
 `;
 
 const Inner = styled.div`
   overflow: hidden;
-  ${width => `width: ${width.width * 8}%;`}
+  ${width => `width: ${width.width * 9.95}%;`}
   position: absolute;
   top: 0;
   color: yellow;
