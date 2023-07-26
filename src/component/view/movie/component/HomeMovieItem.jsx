@@ -7,7 +7,7 @@ const IMAGE_URL = "https://image.tmdb.org/t/p/w300/";
 const Item = styled.div`
     margin: 25px;
     &:first-child {
-        margin-left:0;
+        margin-left:30px;
     }
     .container{
         position: relative; 
@@ -19,7 +19,13 @@ const Item = styled.div`
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: center;
-    
+        transition: 0.5s;
+        &:hover,
+        &:focus {
+          transform: scale3d(1.08, 1.08, 1);
+          opacity: 1;
+          box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .2);
+        }
         .rank{
             position: absolute;
             left: 10px;
@@ -74,9 +80,9 @@ export default function MovieItem({ movie, rank }) {
   }
   return (
     <Item url={poster_path}>
-      <div className="container" onClick={handleClick}>
+      <div className="container rounded" onClick={handleClick}>
         <div className="rank">{rank}</div>
-        <div className="info">
+        <div className="info rounded">
           <div className="rate">
             <Star vote_average={vote_average} />
             <div className="vote-average">({vote_average}/10)</div>
