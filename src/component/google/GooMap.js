@@ -107,6 +107,7 @@ const GooMap = ({ location }) => {
 
       window.google.maps.event.addListener(hotelMarker, "mouseout", () => {
         hotelMarker.setLabel("");
+
       });
 
       window.google.maps.event.addListener(hotelMarker, "click", () => {
@@ -134,7 +135,7 @@ const GooMap = ({ location }) => {
       {
         location: location,
         radius: 5000,
-        type: "lodging",
+        type: "hotel",
       },
       (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {

@@ -1,19 +1,16 @@
-import { useContext } from "react"
+import { useLocation } from 'react-router-dom';
 import FullList from "../component/FullList";
-import Loading from '../component/Loading';
-import Navbar from '../component/Navbar';
-import SearchMovieContext from "../contexts/SearchMovieContext";
 
+const SearchMovie = () => {
 
-export default function SearchMovie() {
-  const search = useContext(SearchMovieContext);
-
-  <Navbar />
-  if (search.loading) {
-    return <Loading />
-  }
+  const location = useLocation();
+  const searchData = location.state?.searchData || [];
+  console.log(searchData);
 
   return (
-    <FullList movieList={search.data} />
-  )
-}
+    <FullList movieList={searchData} />
+  );
+
+};
+
+export default SearchMovie;
