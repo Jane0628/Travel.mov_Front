@@ -3,6 +3,8 @@ import logo from '../../img/logo.png';
 import "../../design/layout/header.scss";
 import { Link, Router, useNavigate } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
+import axios from 'axios';
+import { useState } from 'react';
 
 const Header = () => {
 
@@ -21,10 +23,57 @@ const Header = () => {
 		redirection('/login');
 	};
 
+  const [text, setText] = useState('');
+
+  const instance = axios.create({
+    baseURL: "https://api.themoviedb.org/3",
+    params: {
+      api_key: process.env.REACT_APP_TMDBAPI_KEY,
+    },
+  });
+
+  const searchMovie = async (text) => {
+    let Data = [];
+    try {
+      const res = await instance.get(`/search/movie?language=ko-KR&page=1&query=${text}`, {
+        params: {
+          region: "KR"
+        },
+      });
+      Data.push(res.data.results);
+      console.log(Data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const inputHandler = e => {
+    setText(e.target.value);
+  };
+
+  const searchHandler = e => {
+    e.preventDefault();
+    searchMovie(text);
+    setText('');
+  };
+
 	return (
 		<>
 			<header>
 				<img src={logo} alt="logo" onClick={moveToMainPage} />
+          <form onSubmit={searchHandler}>
+            <input
+              placeholder='영화 제목을 입력하세요.'
+              type="text"
+              onChange={inputHandler}
+              value={text}
+            />
+            <button
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
 				<div className="spans">
 					<>
 						{isLoggedIn ?
