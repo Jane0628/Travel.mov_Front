@@ -63,6 +63,7 @@ export default function FullList({ movieList }) {
   const [page, setPage] = useState(1);
   const IMAGE_URL = "https://image.tmdb.org/t/p/w300/";
   const navigate = useNavigate();
+  console.log(movieList);
 
   const handlePagination = (currentPage) => {
     setPage(currentPage);

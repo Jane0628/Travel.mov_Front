@@ -41,9 +41,10 @@ const Header = () => {
         },
       });
       Data.push(res.data.results);
-      console.log(Data);
+      return Data;
     } catch (error) {
       console.log(error);
+      return [];
     }
   }
 
@@ -51,9 +52,10 @@ const Header = () => {
     setText(e.target.value);
   };
 
-  const searchHandler = e => {
+  const searchHandler = async (e) => {
     e.preventDefault();
-    searchMovie(text);
+    const searchData = await searchMovie(text);
+    redirection('/search', { state: { searchData }})
     setText('');
   };
 

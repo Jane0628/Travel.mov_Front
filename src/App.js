@@ -21,6 +21,7 @@ import UploadFreeBoard from "./component/freeboard/UploadFreeBoard";
 import FreeBoardList from "./component/freeboard/FreeBoardList";
 import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
 import MyFreeBoardList from "./component/freeboard/MyFreeBoardList";
+import SearchMovie from "./component/view/movie/pages/SearchMovie";
 
 function App() {
   // 전체적 디자인
@@ -84,6 +85,7 @@ function App() {
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
               <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
+              <Route path="/search" element={<SearchMovie />} />
             </Routes>
             <Footer />
           </ThemeProvider>
