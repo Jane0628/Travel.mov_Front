@@ -6,7 +6,7 @@ import Header from "../../../layout/Header";
 const GridContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 270px);
-    gap: 8px;
+    gap: 15px;
     justify-content: center;
     align-content: center;
     margin: 40px;
@@ -30,6 +30,13 @@ const Item = styled.div`
     img {
         width: 270px;
         height: 400px;
+        transition: 0.5s;
+        &:hover,
+        &:focus {
+          transform: scale3d(1.08, 1.08, 1);
+          opacity: 1;
+          box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .2);
+        }
     }
 `;
 
