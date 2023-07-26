@@ -22,7 +22,6 @@ import FreeBoardList from "./component/freeboard/FreeBoardList";
 import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
 
 function App() {
-
   // 전체적 디자인
   const theme = createTheme({
     palette: {
@@ -62,7 +61,6 @@ function App() {
 
   // Login 페이지일 시 Header 안 보이기
 
-
   return (
     <>
       <AuthContextProvider>
@@ -75,7 +73,7 @@ function App() {
               <Route path="/myPage" element={<MyPage />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/sights" element={<Sights />} />
-              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout/:id" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
               <Route path="/hotels" element={<Hotels />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
@@ -83,7 +81,10 @@ function App() {
               <Route path="/movie/:movie_id" element={<Detail />} />
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
-              <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
+              <Route
+                path="/freeBoardDetail/:id"
+                element={<FreeBoardDetail />}
+              />
             </Routes>
             <Footer />
           </ThemeProvider>

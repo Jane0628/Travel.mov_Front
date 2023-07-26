@@ -12,8 +12,9 @@ import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import { getLoginUserInfo } from "../../util/login-utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { API_BASE_URL } from "../../util/host-utils";
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -32,13 +33,34 @@ const steps = ["예약자 정보", "결제 정보", "예약 확인"];
 export default function Checkout() {
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
-  const [days, setDays] = React.useState();
+  const [days, setDays] = React.useState(1);
   const [name, setName] = React.useState();
-  const [discount, setDiscount] = React.useState();
+  const [discount, setDiscount] = React.useState(0);
   const redirection = useNavigate();
   const [product, setProduct] = React.useState();
   const [total, setTotal] = React.useState(22000);
   const [couponId, setCouponId] = React.useState();
+  const [hotel, setHotel] = React.useState();
+
+  //url에서 영화정보 얻어오기
+  const movie = useParams();
+  const id = movie.id;
+  //패치로 영화 정보 얻어오기
+  React.useEffect(() => {
+    fetch(`${API_BASE_URL}/hotels/id/${id}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setHotel(json);
+        setTotal(json.price);
+      });
+  }, []);
 
   function getStepContent(step) {
     switch (step) {
@@ -55,7 +77,7 @@ export default function Checkout() {
         return (
           <PaymentForm
             value={{
-              product,
+              hotel,
               days,
               point: discountHandler,
               coupon: counponHandler,
@@ -67,7 +89,7 @@ export default function Checkout() {
           <Review
             name={name}
             date={{ startDate, endDate, days }}
-            payment
+            payment={hotel.price}
             discount={discount}
             total={total}
           />
@@ -125,7 +147,7 @@ export default function Checkout() {
 
   const preparePayment = async () => {
     console.log(userNick);
-    const res = await fetch("http://localhost:8181/pay/ready", {
+    const res = await fetch(`${API_BASE_URL}/pay/ready`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -134,13 +156,13 @@ export default function Checkout() {
       body: JSON.stringify({
         partner_order_id: name, // 예약자이름
         partner_user_id: userNick, // 닉네임
-        item_name: "호텔이름",
-        item_code: "호텔id",
+        item_name: hotel.name,
+        item_code: hotel.id,
         quantity: 1,
-        total_amount: 22000 - discount, // 결제 금액
-        vat_amount: 200,
-        // total_amount: total, // 결제 금액
-        // vat_amount: total * 0.1,
+        // total_amount: 22000 - discount, // 결제 금액
+        // vat_amount: 200,
+        total_amount: total, // 결제 금액
+        vat_amount: total * 0.1,
         tax_free_amount: 0,
         start_date: startDate,
         end_date: endDate,
@@ -157,6 +179,10 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
+    if (!name) {
+      alert("예약자 이름을 입력하세요");
+      return;
+    }
     setActiveStep(activeStep + 1);
   };
 
