@@ -189,6 +189,10 @@ export default function Checkout() {
       alert("예약자 이름을 입력하세요");
       return;
     }
+    if (!days) {
+      alert("1박 이상 날짜를 선택하세요");
+      return;
+    }
     setActiveStep(activeStep + 1);
   };
 
