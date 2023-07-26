@@ -16,7 +16,7 @@ export default function PaymentForm({ value }) {
   const token = getLoginUserInfo().token;
   const redirection = useNavigate();
   const [couponList, setCouponList] = useState([]);
-  const [discount, setDiscount] = useState();
+  const [coupon, setCoupon] = useState();
 
   const requestHeader = {
     "content-type": "application/json",
@@ -47,11 +47,13 @@ export default function PaymentForm({ value }) {
         if (json) setCouponList(json.couponList);
       });
   }, []);
+  const total = value.hotel.price * value.days;
+  value.pay(total);
 
   const handleChange = (e) => {
-    setDiscount(e.target.value.discount);
-    console.log(e.target.value.discount);
-    value.point(e.target.value.discount);
+    setCoupon(e.target.value);
+    console.log(e.target.value.discountPrice);
+    value.point(e.target.value.discountPrice);
     console.log(e.target.value.id);
     value.coupon(e.target.value.id);
   };
@@ -59,37 +61,44 @@ export default function PaymentForm({ value }) {
   return (
     <React.Fragment>
       <Grid container spacing={3}>
-        <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-          {value.product}
-        </Typography>
+        <Grid item xs={12} md={6} sx={{ fontWeight: 700, fontSize: 30 }}>
+          가격
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {value.hotel.price}원
+        </Grid>
+        <Grid item xs={12} md={6} sx={{ fontWeight: 700, fontSize: 30 }}>
+          기간
+        </Grid>
         <Grid item xs={12} md={6}>
           {value.days}박 {value.days + 1}일
+        </Grid>
+        <Grid item xs={12} md={6} sx={{ fontWeight: 700, fontSize: 30 }}>
+          총 금액
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {total}원
         </Grid>
         <Typography variant="h6" gutterBottom>
           적용가능 쿠폰
         </Typography>
-        {couponList.map((coupon) => {
-          <div>{coupon.name}</div>;
-        })}
-        <Select
-          labelId="demo-simple-select-label"
+
+        <TextField
+          select
           id="demo-simple-select"
-          value={discount}
+          value={coupon}
           label="쿠폰"
           onChange={handleChange}
         >
           {couponList.map(
             (coupon) =>
               coupon.status === 1 && (
-                <MenuItem
-                  key={coupon.id}
-                  value={{ discount: coupon.discountPrice, id: coupon.id }}
-                >
+                <MenuItem key={coupon.id} value={coupon}>
                   {coupon.name}
                 </MenuItem>
               )
           )}
-        </Select>
+        </TextField>
 
         {/* <Grid item xs={12} md={6}>
           <TextField

@@ -11,8 +11,21 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function AddressForm({ start, end, name, days }) {
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date());
+  const [startDate, setStartDate] = React.useState();
+  const [endDate, setEndDate] = React.useState();
+
+  React.useEffect(() => {
+    // 오늘 날짜로 초기 날짜 설정
+    const currentDate = new Date();
+    currentDate.setHours(0);
+    currentDate.setMinutes(0);
+    currentDate.setSeconds(0);
+    currentDate.setMilliseconds(0);
+
+    // 초기 날짜를 상태로 설정
+    setStartDate(currentDate);
+    setEndDate(currentDate);
+  }, []);
   //체크인 날짜 설정
   function checkIn(date) {
     setStartDate(date);

@@ -81,6 +81,7 @@ export default function Checkout() {
               days,
               point: discountHandler,
               coupon: counponHandler,
+              pay: totalHandler,
             }}
           />
         );
@@ -134,11 +135,16 @@ export default function Checkout() {
   const discountHandler = (point) => {
     console.log(point);
     setDiscount(point);
-    setTotal(total - point);
   };
+  //쿠폰 아이디 받기
   const counponHandler = (id) => {
     console.log(id);
     setCouponId(id);
+  };
+  //총 금액
+  const totalHandler = (pay) => {
+    console.log(pay);
+    setTotal(pay);
   };
 
   // 로그인 인증 토큰 얻어오기
@@ -161,8 +167,8 @@ export default function Checkout() {
         quantity: 1,
         // total_amount: 22000 - discount, // 결제 금액
         // vat_amount: 200,
-        total_amount: total, // 결제 금액
-        vat_amount: total * 0.1,
+        total_amount: total - discount, // 결제 금액
+        vat_amount: (total - discount) * 0.1,
         tax_free_amount: 0,
         start_date: startDate,
         end_date: endDate,
