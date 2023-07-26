@@ -52,7 +52,7 @@ const Description = styled.div`
         display: flex;
         
           >div::after{
-            content: "|";
+            content: "";
             padding: 7px;
           }
         }
@@ -144,7 +144,7 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
           {genres.map(genre =>
             <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
         <div className="sub-info">
-          <div className="release-date">{release_date}</div>
+          <div className="release-date">개봉일: {release_date}</div>
         </div>
         <div className="vote-average">
           <Star vote_average={vote_average} />
