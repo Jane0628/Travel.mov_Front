@@ -25,6 +25,7 @@ export default function AddressForm({ start, end, name, days }) {
     // 초기 날짜를 상태로 설정
     setStartDate(currentDate);
     setEndDate(currentDate);
+    days(0);
   }, []);
   //체크인 날짜 설정
   function checkIn(date) {
