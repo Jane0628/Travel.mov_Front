@@ -24,7 +24,7 @@ export default function Review({
           <Typography variant="body2">{payment}</Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="쿠폰 할인가" />
+          <ListItemText primary="쿠폰 할인금액" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
             {discount}
           </Typography>

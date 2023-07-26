@@ -62,7 +62,7 @@ const ReservationCheck = () => {
             <TableCell>예약날짜</TableCell>
             <TableCell>체크인</TableCell>
             <TableCell>체크아웃</TableCell>
-            <TableCell>이름</TableCell>
+            <TableCell>예약자 이름</TableCell>
             <TableCell>숙소 이름</TableCell>
             <TableCell>결재 방식</TableCell>
             <TableCell align="right">가격</TableCell>
@@ -71,7 +71,7 @@ const ReservationCheck = () => {
         <TableBody>
           {reserveList.map((row) => (
             <TableRow key={row.aid}>
-              <TableCell>{row.resDate}</TableCell>
+              <TableCell>{row.resDate.split("T")[0]}</TableCell>
               <TableCell>{row.startDate}</TableCell>
               <TableCell>{row.endDate}</TableCell>
               <TableCell>{row.partnerOrderId}</TableCell>
