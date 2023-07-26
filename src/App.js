@@ -20,6 +20,7 @@ import MovieStateProvider from "./component/view/movie/provider/MovieStateProvid
 import UploadFreeBoard from "./component/freeboard/UploadFreeBoard";
 import FreeBoardList from "./component/freeboard/FreeBoardList";
 import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
+import SearchMovie from "./component/view/movie/pages/SearchMovie";
 
 function App() {
   // 전체적 디자인
@@ -81,6 +82,7 @@ function App() {
               <Route path="/movie/:movie_id" element={<Detail />} />
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
+              <Route path="/search" element={<SearchMovie />} />              
               <Route
                 path="/freeBoardDetail/:id"
                 element={<FreeBoardDetail />}
