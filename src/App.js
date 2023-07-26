@@ -67,7 +67,7 @@ function App() {
       <AuthContextProvider>
         <MovieStateProvider>
           <ThemeProvider theme={theme}>
-            <Routes screenOptions={{ headerShown: false }}>
+            <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/join" element={<Join />} />
               <Route path="/login" element={<Login />} />
@@ -83,10 +83,7 @@ function App() {
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
-              <Route
-                path="/freeBoardDetail/:id"
-                element={<FreeBoardDetail />}
-              />
+              <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
             </Routes>
             <Footer />
           </ThemeProvider>

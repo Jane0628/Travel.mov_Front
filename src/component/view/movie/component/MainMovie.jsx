@@ -48,7 +48,7 @@ const HeaderMovie = styled.div`
     bottom: 10%;
 
     .title {
-      margin-top: 0;
+      margin: 0;
       font-size: 50px;
       font-weight: 700;
       overflow-wrap: break-word;
@@ -57,7 +57,9 @@ const HeaderMovie = styled.div`
 
     .sub-info{
       display: flex;
+      align-items: center;
       font-size: 20px;
+      margin-bottom: 10px;
 
       .release-date {
         margin-right: 15px;
@@ -85,7 +87,7 @@ export default memo(function Header({ mainMovie }) {
         <div className='sub-info'>
           <div className='release-date'>{release_date}</div>
           <Star vote_average={vote_average}></Star>
-          <div className='vote-average'>{vote_average}</div>
+          <div className='vote-average'>({vote_average}/10)</div>
         </div>
         <p className="overview">{overview}</p>
       </div>
