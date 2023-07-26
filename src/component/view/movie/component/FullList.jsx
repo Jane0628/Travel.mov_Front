@@ -83,7 +83,7 @@ export default function FullList({ movieList }) {
       <GridContainer>
         {movieList[page - 1].map((movie) =>
           <Item key={movie.id} onClick={() => handleClick(movie.id)}>
-            <img src={IMAGE_URL + movie.poster_path} />
+            <img src={IMAGE_URL + movie.poster_path} className="shadow-lg p-3 mb-5 bg-white rounded" />
           </Item>
         )}
       </GridContainer>

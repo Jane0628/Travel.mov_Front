@@ -36,7 +36,7 @@ const Item = styled.div`
             background-color: rgba(20,20,20,0.3);
             backdrop-filter: blur(3px);
             padding: 15px;
-            margin-left: -12px;
+            margin-left: -16px;
             width:100%;
             height: 35%;
             position: absolute;
@@ -74,9 +74,9 @@ export default function MovieItem({ movie, rank }) {
   }
   return (
     <Item url={poster_path}>
-      <div className="container" onClick={handleClick}>
+      <div className="container shadow-lg p-3 mb-5 bg-white rounded" onClick={handleClick}>
         <div className="rank">{rank}</div>
-        <div className="info">
+        <div className="info rounded">
           <div className="rate">
             <Star vote_average={vote_average} />
             <div className="vote-average">({vote_average}/10)</div>
