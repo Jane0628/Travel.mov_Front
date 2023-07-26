@@ -11,20 +11,26 @@ const Wrapper = styled.div`
   align-items: center;
 
   .outer {
-  position: absolute;
-  top: 0;
-  color: gray;
+    position: absolute;
+    top: 0;
+    color: gray;
+
+    display: flex;
+    align-items: center;
   }
+
+  
 `;
 
 const Inner = styled.div`
-    color: yellow;
-    overflow:hidden;
-    ${width => `width: ${width.width * 8}%;`}
-    height: inherit;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
+  overflow: hidden;
+  ${width => `width: ${width.width * 8}%;`}
+  position: absolute;
+  top: 0;
+  color: yellow;
+  white-space: nowrap;
+
+  transform: translateY(-20%);
 `;
 
 export default function Star({ vote_average }) {
