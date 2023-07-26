@@ -48,6 +48,9 @@ const FreeBoardDetail = () => {
       });
   }, []);
   const deleteHandler = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+    } else return;
+
     fetch(`${API_BASE_URL}/freeBoard/${id}`, {
       method: "DELETE",
       headers: requestHeader,
