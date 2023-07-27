@@ -24,7 +24,7 @@ const LoadingWrapper = styled.div`
         margin: 10px;
         width: 20px;
         height: 20px;
-        background-color: crimson;
+        background-color: #b1bff9;
         border-radius: 50%;
         animation: loading 1s infinite;
         
