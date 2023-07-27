@@ -89,7 +89,7 @@ const Header = () => {
     >
       <List>
         <Image src={require('../../img/profileImage.png')} width={'80px'} />
-        <ListItemText onClick={redirection('/login')} primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} />
+        <ListItemText primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} />
       </List>
       <Divider />
       <List>
@@ -115,36 +115,37 @@ const Header = () => {
         {/* 로고 */}
         <Image src={require("../../img/long_logo.png")} onClick={moveToMainPage} />
 
-        {/* 검색 */}
-        <form onSubmit={searchHandler}>
-          <TextField
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: '25ch' }}
-            placeholder='영화 제목을 입력하세요.'
-            onChange={inputHandler}
-            value={text}
-            InputProps={{
-              startAdornment:
-                <InputAdornment position="start">
-                  <SearchIcon onClick={searchHandler} />
-                </InputAdornment>,
-            }}
-          />
-        </form>
-
-        {/* 햄버거 */}
-        {['right'].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
-            <Drawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-            >
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
-        ))}
+        <div class="right">
+          {/* 검색 */}
+          <form onSubmit={searchHandler}>
+            <TextField
+              id="outlined-start-adornment"
+              sx={{ width: '25ch', height: '' }}
+              placeholder='영화 제목을 입력하세요.'
+              onChange={inputHandler}
+              value={text}
+              InputProps={{
+                startAdornment:
+                  <InputAdornment position="start">
+                    <SearchIcon onClick={searchHandler} />
+                  </InputAdornment>,
+              }}
+            />
+          </form>
+          {/* 햄버거 */}
+          {['right'].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+              <Drawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))}
+        </div>
       </header>
     </>
   );
