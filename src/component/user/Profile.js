@@ -255,7 +255,7 @@ const Profile = () => {
 						</div>
 						<div className='profile'>
 							<div className="right">
-								{isLoggedIn === 2 ? (
+								{isLoggedIn === 1 ? (
 									<>
 										<Grid item xs={8}>
 											<TextField
