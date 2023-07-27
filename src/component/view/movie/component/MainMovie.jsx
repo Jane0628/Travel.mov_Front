@@ -17,6 +17,7 @@ const HeaderMovie = styled.div`
 
   height: 600px;
   position: relative;
+  margin-top: 80px;
   
   .frame {
     position: absolute;
@@ -27,8 +28,8 @@ const HeaderMovie = styled.div`
     display: flex;
     align-items: start;
     background: linear-gradient(
-      rgba(27, 26, 26, 1) 5%,
-      rgba(20, 20, 20, 0.5) 20%,
+      rgba(27, 26, 26, 1) 0%,
+      rgba(20, 20, 20, 0.2) 30%,
       rgba(20, 20, 20, 0) 50%,
       rgba(20, 20, 20, 0.2) 70%,
       rgba(27, 26, 26, 1) 100%
@@ -72,7 +73,12 @@ const HeaderMovie = styled.div`
       width: 45%;
       font-size: 20x;
       font-weight: 300;
-      overflow-wrap: break-word;
+
+      /* 2줄로 제한 두기 */
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
   }
 `;
