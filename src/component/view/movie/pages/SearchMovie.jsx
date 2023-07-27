@@ -5,7 +5,6 @@ const SearchMovie = () => {
 
   const location = useLocation();
   const searchData = location.state?.searchData || [];
-  console.log(searchData);
 
   return (
     <FullList movieList={searchData} />
