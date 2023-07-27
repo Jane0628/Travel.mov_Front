@@ -12,7 +12,7 @@ import { getLoginUserInfo } from '../../util/login-utils';
 import AuthContext from '../../util/AuthContext';
 
 const Profile = () => {
-	const fileInputRef = useRef(null);
+	const $fileTag = useRef();
 
 	const REQUEST_URL = API_BASE_URL + USER;
 
@@ -153,13 +153,13 @@ const Profile = () => {
 	const showPasswordHandler = () => {
 		setShowPassword(!showPassword);
 	};
+	
+	// 새로운 이미지 파일과 그 썸네일을 다루기 위한 상태를 추가합니다.
+	const [imgFile, setImgFile] = useState();
 
-	// 이미지
-	const [selectedImage, setSelectedImage] = useState(null);
-
-	// 기본 프사 설정
+	// 이미지를 가져오는 작업.
 	const imgHandler = () => {
-		if (selectedImage) return selectedImage;
+		if (imgFile) return imgFile;
 		else if (isLoggedIn === 1) {
 			// 일반 로그인 유저
 			return require("../../img/profileImage.png");
@@ -167,14 +167,20 @@ const Profile = () => {
 			// 카카오 로그인 유저
 			return localStorage.getItem("LOGIN_USER_PFP");
 		}
-	}
+	};
 
-	const handleImageChange = (e) => {
-		const file = e.target.files[0];
-		const imageUrl = URL.createObjectURL(file);
+	// 이미지 선택 및 썸네일 표시를 다루는 함수를 수정합니다.
+	const showThumbnailHandler = (e) => {
+		const file = $fileTag .current.files[0];
 
-		if (file) setSelectedImage(imageUrl);
-		else return;
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+
+		reader.onloadend = () => {
+			setImgFile(reader.result);
+		};
+
+		console.log(file);
 	};
 
 	const isValid = () => {
@@ -193,7 +199,7 @@ const Profile = () => {
 
 		const userFormData = new FormData();
 		userFormData.append('user', userJsonBlob);
-		userFormData.append('profileImage', fileInputRef.current.files[0]);
+		userFormData.append('profileImage', $fileTag.current.files[0]);
 
 		fetch(REQUEST_URL, {
 			method: 'PUT',
@@ -242,20 +248,27 @@ const Profile = () => {
 					<h1>프로필 수정</h1>
 					<div className='prof-main'>
 						<div className='image'>
-							<div class="frame">
-								<img id='pfp' src={imgHandler()} alt="" />
+							<div className="frame" onClick={() => $fileTag.current.click()}>
+								<img id='pfp' src={imgFile ? imgFile : imgHandler()} alt="" />										
 							</div>
 							<Fab color="secondary">
 								<label htmlFor="fileInput-hidden">
 									<EditIcon />
-									<input id="fileInput-hidden" type="file" onChange={handleImageChange} accept="image/*" className="file-input" ref={fileInputRef} />
+									<input 
+										id="fileInput-hidden" 
+										type="file" 
+										className="file-input" 
+										accept="image/*" 
+										ref={$fileTag} 
+										onChange={showThumbnailHandler}
+									/>
 								</label>
 							</Fab>
 							<span className='recommendation'>※ 1:1 비율의 사진 사용을 권장합니다.</span>
 						</div>
 						<div className='profile'>
 							<div className="right">
-								{isLoggedIn === 2 ? (
+								{isLoggedIn === 1 ? (
 									<>
 										<Grid item xs={8}>
 											<TextField
