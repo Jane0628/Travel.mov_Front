@@ -2,8 +2,6 @@ import { React, memo } from 'react';
 import styled from 'styled-components';
 import Star from './Star';
 
-const IMAGE_URL = require("../../../../img/barbie.jpg");
-
 const HeaderMovie = styled.div`
   @keyframes transform {
     from {
@@ -26,14 +24,21 @@ const HeaderMovie = styled.div`
     height: 600px;
     overflow: hidden;
     display: flex;
-    align-items: start;
     background: linear-gradient(
-      rgba(27, 26, 26, 1) 0%,
-      rgba(20, 20, 20, 0.2) 30%,
-      rgba(20, 20, 20, 0) 50%,
-      rgba(20, 20, 20, 0.2) 70%,
-      rgba(27, 26, 26, 1) 100%
+    rgba(27, 26, 26, 1) 0%,
+    rgba(20, 20, 20, 0.2) 30%,
+    rgba(20, 20, 20, 0) 50%,
+    rgba(20, 20, 20, 0.2) 70%,
+    rgba(27, 26, 26, 1) 100%
     );
+      
+    &#바비 {
+      align-items: start;
+    }
+
+    &#플래시 {
+      align-items: center;
+    }
       
     img {
       width: 100%;
@@ -83,12 +88,22 @@ const HeaderMovie = styled.div`
   }
 `;
 
+const imageHandler = (title) => {
+  if (title === '바비') {
+    return require("../../../../img/barbie.jpg");
+  }
+
+  if (title === '플래시') {
+    return require("../../../../img/flash.jpg");
+  }
+}
+
 export default memo(function Header({ mainMovie }) {
   const { title, backdrop_path, overview, release_date, vote_average } = mainMovie;
   return (
     <HeaderMovie backdrop_path={backdrop_path}>
-      <div className="frame">
-        <img src={IMAGE_URL} alt="" />
+      <div className="frame" id={title}>
+        <img src={imageHandler(title)} alt="" />
       </div>
       <div className="info">
         <p className='title'>{title}</p>

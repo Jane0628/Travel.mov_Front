@@ -5,9 +5,11 @@ import { Link, Router, useNavigate } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
 import axios from 'axios';
 import { useState } from 'react';
-import { InputAdornment, TextField } from '@mui/material';
+import { Box, Button, Divider, Drawer, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import { Image } from 'react-bootstrap';
 
 const Header = () => {
@@ -62,32 +64,42 @@ const Header = () => {
     redirection('/search', { state: { searchData } })
   };
 
+  // 햄버거
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      sx={{ width: '400px' }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <Image src={require('../../img/profileImage.png')} width={'80px'} />
+        <ListItemText onClick={redirection('/login')} primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} />
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {['로그인', '회원가입', 'Spam'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 && <LockOutlinedIcon />}
+                {index === 1 && <AssignmentIcon />}
+                {index === 2 && <LockOutlinedIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -100,7 +112,10 @@ const Header = () => {
   return (
     <>
       <header>
+        {/* 로고 */}
         <Image src={require("../../img/long_logo.png")} onClick={moveToMainPage} />
+
+        {/* 검색 */}
         <form onSubmit={searchHandler}>
           <TextField
             id="outlined-start-adornment"
@@ -116,7 +131,20 @@ const Header = () => {
             }}
           />
         </form>
-        <MenuIcon />
+
+        {/* 햄버거 */}
+        {['right'].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+            <Drawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))}
       </header>
     </>
   );

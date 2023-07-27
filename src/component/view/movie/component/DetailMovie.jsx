@@ -131,7 +131,7 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
   return (
     <DetailMovieWrapper>
       <div>
-        <img src={imageUrl + poster_path} />
+        <img class="rounded" src={imageUrl + poster_path} />
         {
           locations.map((location, index) => (
             <Button key={index} onClick={searchLocation}>{location}</Button>
