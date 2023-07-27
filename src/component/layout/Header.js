@@ -5,7 +5,7 @@ import { Link, Router, useNavigate } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
 import axios from 'axios';
 import { useState } from 'react';
-import { InputAdornment, TextField } from '@mui/material';
+import { Box, Divider, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Image } from 'react-bootstrap';
