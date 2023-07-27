@@ -7,11 +7,13 @@ import "../../design/uploadFreeBoard.scss";
 import { API_BASE_URL } from "../../util/host-utils";
 import { useNavigate, useParams } from "react-router-dom";
 import { getLoginUserInfo } from "../../util/login-utils";
+import { useHistory } from "react-router-dom";
 
 const UploadFreeBoard = () => {
-  //url에서 영화 정보 얻어오기
-  const movie = useParams();
-  const movieId = movie.id;
+  const direction = useNavigate();
+  //url에서 호텔 정보 얻어오기
+  const hotel = useParams();
+  const hotelId = hotel.id;
   const starArr = [1, 2, 3, 4, 5];
   const [hover, setHover] = useState(0);
   const [starNum, setStarNum] = useState(0);
@@ -49,7 +51,8 @@ const UploadFreeBoard = () => {
       body: JSON.stringify({
         title: movieContent.title,
         content: movieContent.content,
-        movie: movieId,
+        // movie: "",
+        hotel: hotelId,
         userNick: nick,
         star: starNum,
       }),
@@ -62,7 +65,7 @@ const UploadFreeBoard = () => {
     }
     if (res.status === 200) {
       alert("게시글이 등록되었습니다.");
-      redirection(`/freeBoardList/${movieId}`);
+      redirection(`/freeBoardList/${hotelId}`);
     }
   };
 
@@ -72,6 +75,9 @@ const UploadFreeBoard = () => {
       ...movieContent,
       [name]: value,
     });
+  };
+  const cancelHandler = () => {
+    direction(-1);
   };
   return (
     <>
@@ -114,7 +120,6 @@ const UploadFreeBoard = () => {
           />
           <CKEditor
             editor={ClassicEditor}
-            data="<p>Hello from CKEditor 5!</p>"
             onReady={(editor) => {
               // You can store the "editor" and use when it is needed.
               console.log("Editor is ready to use!", editor);
@@ -130,16 +135,25 @@ const UploadFreeBoard = () => {
             onBlur={(event, editor) => {}}
             onFocus={(event, editor) => {}}
           />
+          <button
+            className="submit-button"
+            //   onClick={() => {
+            //     setViewContent(viewContent.concat({ ...movieContent }));
+            //   }}
+            onClick={submitReview}
+          >
+            후기 작성
+          </button>
+          <button
+            className="submit-button"
+            //   onClick={() => {
+            //     setViewContent(viewContent.concat({ ...movieContent }));
+            //   }}
+            onClick={cancelHandler}
+          >
+            취소
+          </button>
         </div>
-        <button
-          className="submit-button"
-          //   onClick={() => {
-          //     setViewContent(viewContent.concat({ ...movieContent }));
-          //   }}
-          onClick={submitReview}
-        >
-          입력
-        </button>
       </div>
     </>
   );

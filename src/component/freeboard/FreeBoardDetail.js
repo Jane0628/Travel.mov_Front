@@ -3,9 +3,39 @@ import { API_BASE_URL } from "../../util/host-utils";
 import { getLoginUserInfo } from "../../util/login-utils";
 import { useNavigate, useParams } from "react-router-dom";
 import { Title } from "@mui/icons-material";
-import { Button, Grid } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from "@mui/material";
 
 const FreeBoardDetail = () => {
+  //sns형식 날짜 바꾸는 함수
+  function formatDateToSNS(dateString) {
+    const inputDate = new Date(dateString);
+    const now = new Date();
+
+    const diffInMilliseconds = now - inputDate;
+    const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInDays > 0) {
+      return `${diffInDays} 일 전`;
+    } else if (diffInHours > 0) {
+      return `${diffInHours} 시간 전`;
+    } else if (diffInMinutes > 0) {
+      return `${diffInMinutes} 분 전`;
+    } else {
+      return "방금 전";
+    }
+  }
+
   //url에서 게시글 번호 얻어오기
   const board = useParams();
   const id = board.id;
@@ -15,6 +45,7 @@ const FreeBoardDetail = () => {
   const nick = getLoginUserInfo().username;
 
   const [freeBoard, setFreeBoard] = useState([]);
+  const [img, setImg] = useState();
 
   const redirection = useNavigate();
 
@@ -44,7 +75,10 @@ const FreeBoardDetail = () => {
         console.log(json);
 
         //fetch를 통해 받아온 데이터를 상태 변수에 할당.
-        if (json) setFreeBoard(json);
+        if (json) {
+          setFreeBoard(json);
+          setImg(json.hotel.img);
+        }
       });
   }, []);
   const deleteHandler = () => {
@@ -72,18 +106,18 @@ const FreeBoardDetail = () => {
       });
   };
   const listHandler = () => {
-    redirection(`/freeBoardList/${freeBoard.movie}`);
+    redirection(`/freeBoardList/${freeBoard.hotel.id}`);
   };
   return (
     <>
-      <Title>{freeBoard.title}</Title>
+      {/* <Title>{freeBoard.title}</Title>
       <Grid>
         <h2>작성자</h2>
         <p>{freeBoard.userNick}</p>
       </Grid>
       <Grid>
         <h2>작성일자</h2>
-        <p>{freeBoard.uploadDate}</p>
+        <p>{formatDateToSNS(freeBoard.uploadDate)}</p>
       </Grid>
       <div dangerouslySetInnerHTML={{ __html: freeBoard.content }}></div>
       <Grid>
@@ -99,6 +133,45 @@ const FreeBoardDetail = () => {
         ) : (
           <></>
         )}
+      </Grid> */}
+      <Grid item xs={12} md={6}>
+        <Card sx={{ display: "flex" }}>
+          <CardContent sx={{ flex: 1 }}>
+            <Typography component="h2" variant="h5">
+              {freeBoard.title}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary">
+              {freeBoard.userNick}
+              <span style={{ color: "lightgray", fontSize: "16px" }}>
+                {formatDateToSNS(freeBoard.uploadDate)}
+              </span>
+            </Typography>
+            <Typography variant="subtitle1" paragraph>
+              <div
+                dangerouslySetInnerHTML={{ __html: freeBoard.content }}
+              ></div>
+            </Typography>
+            <Grid>
+              <Button type="button" color="primary" onClick={listHandler}>
+                {" "}
+                촬영지 여행 후기목록으로
+              </Button>
+              {nick === freeBoard.userNick ? (
+                <Button type="button" color="primary" onClick={deleteHandler}>
+                  {" "}
+                  삭제하기
+                </Button>
+              ) : (
+                <></>
+              )}
+            </Grid>
+          </CardContent>
+          <img
+            src={img}
+            alt={"호텔사진"}
+            style={{ width: "300px", height: "225px", objectFit: "cover" }}
+          />
+        </Card>
       </Grid>
     </>
   );

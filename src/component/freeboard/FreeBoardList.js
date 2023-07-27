@@ -11,9 +11,9 @@ import TableRow from "@mui/material/TableRow";
 import { Title } from "@mui/icons-material";
 
 const FreeBoardList = () => {
-  //url에서 영화정보 얻어오기
-  const movie = useParams();
-  const id = movie.id;
+  //url에서 호텔id 얻어오기
+  const hotel = useParams();
+  const id = hotel.id;
   // 로그인 인증 토큰 얻어오기
   const token = getLoginUserInfo().token;
   const nick = getLoginUserInfo().username;
@@ -30,7 +30,6 @@ const FreeBoardList = () => {
   useEffect(() => {
     //페이지가 렌더링 되면 후기목록 보여주기.
     fetch(`${API_BASE_URL}/freeBoard/${id}`, {
-      //movie로 고칠 예정
       method: "GET",
       headers: requestHeader,
     })
@@ -56,12 +55,14 @@ const FreeBoardList = () => {
 
   return (
     <React.Fragment>
-      <Title>??영화 여행 후기 게시판</Title>
+      <Title>호텔 후기</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>후기 등록일</TableCell>
             <TableCell>제목</TableCell>
+            <TableCell>호텔이름</TableCell>
+            <TableCell>호텔사진</TableCell>
             <TableCell>작성자</TableCell>
             <TableCell align="right">평점</TableCell>
           </TableRow>
@@ -84,6 +85,8 @@ const FreeBoardList = () => {
                   {row.title}
                 </Link>
               </TableCell>
+              <TableCell>{row.hotel.name}</TableCell>
+              <TableCell>{row.hotel.image}</TableCell>
               <TableCell>{row.userNick}</TableCell>
               <TableCell align="right">{row.star}</TableCell>
             </TableRow>
