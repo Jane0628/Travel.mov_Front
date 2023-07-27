@@ -22,6 +22,7 @@ import FreeBoardList from "./component/freeboard/FreeBoardList";
 import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
 import MyFreeBoardList from "./component/freeboard/MyFreeBoardList";
 import SearchMovie from "./component/view/movie/pages/SearchMovie";
+import ChangePw from "./component/user/ChangePw";
 
 function App() {
   // 전체적 디자인
@@ -86,6 +87,7 @@ function App() {
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
               <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
               <Route path="/search" element={<SearchMovie />} />
+              <Route path="/changePw" element={<ChangePw />} />
             </Routes>
             <Footer />
           </ThemeProvider>
