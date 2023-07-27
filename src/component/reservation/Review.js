@@ -21,10 +21,12 @@ export default function Review({
       <List disablePadding>
         <ListItem key={product} sx={{ py: 1, px: 0 }}>
           <ListItemText primary="상품가격" />
-          <Typography variant="body2">{payment}</Typography>
+          <Typography variant="body2">
+            {payment} x {date.days}
+          </Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="쿠폰 할인가" />
+          <ListItemText primary="쿠폰 할인금액" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
             {discount}
           </Typography>
@@ -58,7 +60,7 @@ export default function Review({
           <Grid container>
             <React.Fragment key={payment}>
               <Grid item xs={6}>
-                <Typography gutterBottom>{total}</Typography>
+                <Typography gutterBottom>{total - discount}</Typography>
               </Grid>
             </React.Fragment>
           </Grid>

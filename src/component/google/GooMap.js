@@ -107,6 +107,7 @@ const GooMap = ({ location }) => {
 
       window.google.maps.event.addListener(hotelMarker, "mouseout", () => {
         hotelMarker.setLabel("");
+
       });
 
       window.google.maps.event.addListener(hotelMarker, "click", () => {
@@ -134,7 +135,7 @@ const GooMap = ({ location }) => {
       {
         location: location,
         radius: 5000,
-        type: "lodging",
+        type: "hotel",
       },
       (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
@@ -166,14 +167,15 @@ const GooMap = ({ location }) => {
             style={{ maxWidth: "500px", maxHeight: "375px" }}
           />
           <h3>{selectedHotel.name}</h3>
-          <p>{selectedHotel.formatted_address}</p> {/* 주소친구가 안나옴.. */}
-          {/* {selectedHotel.website && (
+          <p>{selectedHotel.formatted_address}</p>
+          {selectedHotel.website && (
             <p>
               <a href={selectedHotel.website} target="_blank" rel="noopener noreferrer">
                 {selectedHotel.website}
               </a>
             </p>
-          )} */}
+          )}
+          <button>예약하기</button>
         </div>
       )}
     </div>

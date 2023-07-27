@@ -265,10 +265,6 @@ export default function SignInSide() {
                 label="Password"
               />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="아이디 저장"
-            />
             <Button
               type="submit"
               fullWidth

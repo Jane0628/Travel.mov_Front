@@ -48,6 +48,9 @@ const FreeBoardDetail = () => {
       });
   }, []);
   const deleteHandler = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+    } else return;
+
     fetch(`${API_BASE_URL}/freeBoard/${id}`, {
       method: "DELETE",
       headers: requestHeader,
@@ -86,7 +89,7 @@ const FreeBoardDetail = () => {
       <Grid>
         <Button type="button" color="primary" onClick={listHandler}>
           {" "}
-          후기목록으로
+          촬영지 여행 후기목록으로
         </Button>
         {nick === freeBoard.userNick ? (
           <Button type="button" color="primary" onClick={deleteHandler}>

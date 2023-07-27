@@ -1,9 +1,8 @@
-import { Link } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import { API_BASE_URL } from "../../util/host-utils";
 import { getLoginUserInfo } from "../../util/login-utils";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,11 +10,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Title } from "@mui/icons-material";
 
-const ReservationCheck = () => {
+const MyFreeBoardList = () => {
   // 로그인 인증 토큰 얻어오기
   const token = getLoginUserInfo().token;
+  const nick = getLoginUserInfo().username;
 
-  const [reserveList, setReserveList] = useState([]);
+  const [freeBoardList, setFreeBoardList] = useState([]);
 
   const redirection = useNavigate();
 
@@ -25,8 +25,9 @@ const ReservationCheck = () => {
   };
 
   useEffect(() => {
-    //페이지가 렌더링 되면 예약목록 보여주기.
-    fetch(`${API_BASE_URL}/reservation`, {
+    //페이지가 렌더링 되면 후기목록 보여주기.
+    fetch(`${API_BASE_URL}/freeBoard/my/${nick}`, {
+      //movie로 고칠 예정
       method: "GET",
       headers: requestHeader,
     })
@@ -43,50 +44,51 @@ const ReservationCheck = () => {
       })
       .then((json) => {
         console.log(json);
-        console.log(json.reservationDTOS);
+        console.log(json.freeBoards);
 
         //fetch를 통해 받아온 데이터를 상태 변수에 할당.
-        if (json) setReserveList(json.reservationDTOS);
+        if (json) setFreeBoardList(json.freeBoards);
       });
   }, []);
 
-  function preventDefault(event) {
-    event.preventDefault();
-  }
   return (
     <React.Fragment>
-      <Title>예약 내역</Title>
+      <Title>??영화 여행 후기 게시판</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>예약날짜</TableCell>
-            <TableCell>체크인</TableCell>
-            <TableCell>체크아웃</TableCell>
-            <TableCell>예약자 이름</TableCell>
-            <TableCell>숙소 이름</TableCell>
-            <TableCell>결재 방식</TableCell>
-            <TableCell align="right">가격</TableCell>
+            <TableCell>후기 등록일</TableCell>
+            <TableCell>제목</TableCell>
+            <TableCell>작성자</TableCell>
+            <TableCell align="right">평점</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {reserveList.map((row) => (
-            <TableRow key={row.aid}>
-              <TableCell>{row.resDate.split("T")[0]}</TableCell>
-              <TableCell>{row.startDate}</TableCell>
-              <TableCell>{row.endDate}</TableCell>
-              <TableCell>{row.partnerOrderId}</TableCell>
-              <TableCell>{row.itemName}</TableCell>
-              <TableCell>카카오페이</TableCell>
-              <TableCell align="right">{`${row.totalAmount}원`}</TableCell>
+          {freeBoardList.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell>
+                {row.uploadDate.toLocaleString("ko-KR", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </TableCell>
+              <TableCell>
+                <Link
+                  style={{ color: "black" }}
+                  to={`/freeBoardDetail/${row.id}`}
+                >
+                  {row.title}
+                </Link>
+              </TableCell>
+              <TableCell>{row.userNick}</TableCell>
+              <TableCell align="right">{row.star}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
     </React.Fragment>
   );
 };
 
-export default ReservationCheck;
+export default MyFreeBoardList;
