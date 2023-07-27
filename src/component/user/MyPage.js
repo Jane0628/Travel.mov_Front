@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../design/mypage.scss";
 import { Button, Grid, Container } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -8,14 +8,50 @@ import { API_BASE_URL, USER } from "../../util/host-utils";
 import Header from "../layout/Header";
 
 const MyPage = () => {
-  const { onLogout, nick, id } = useContext(AuthContext);
+  const { onLogout, nick, id, isLoggedIn } = useContext(AuthContext);
+  
+  const REQUEST_URL = API_BASE_URL + USER;
+
+  //프로필 이미지 url 상태 변수
+  const [profileUrl, setProfileUrl] = useState(null);
+
+  const fetchProfileImage = async() => {
+    const res = await fetch(REQUEST_URL, {
+        method: 'GET',
+        headers: { 'Authorization' : 'Bearer ' +  localStorage.getItem('ACCESS_TOKEN')}
+    });
+
+    if (res.status === 200) {
+        // 서버에서는 이제 s3 url이 응답된다.
+        const imgUrl = await res.text();
+        setProfileUrl(imgUrl);
+
+
+        /*
+        // 서버에서는 직렬화된 이미지가 응답된다.
+        const profileBlob = await res.blob();
+        // 해당 이미지를 imgUrl로 변경
+        const imgUrl = window.URL.createObjectURL(profileBlob);
+        setProfileUrl(imgUrl);
+        */
+    } else {
+        const err = await res.text();
+        setProfileUrl(null);
+    }
+
+}
+
+useEffect(() => {
+
+    fetchProfileImage();
+
+}, [isLoggedIn]);
 
   // 닉네임이 수정될 때마다 MyPage 컴포넌트를 리렌더링
   useEffect(() => {
     console.log("닉네임이 변경되었습니다:", nick);
   }, [nick]);
 
-  const REQUEST_URL = API_BASE_URL + USER;
   console.log("API_BASE_URL:", API_BASE_URL);
   console.log("USER:", USER);
 
@@ -66,7 +102,7 @@ const MyPage = () => {
         <div className="my-page">
           <div className="welcome">
             <Grid item xs={8} /*</div>style={{ backgroundColor: 'blue' }}*/>
-              <img src={require("../../img/profileImage.png")} alt="profile" />
+            <img src={profileUrl || require("../../img/profileImage.png")} alt='프사프사' />
             </Grid>
             <div className="nick">
               <span>{nick}</span>님 환영합니다!
