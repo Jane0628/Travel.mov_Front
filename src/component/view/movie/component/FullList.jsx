@@ -80,7 +80,7 @@ export default function FullList({ movieList }) {
   }
   const pagination = () => {
     let pageButton = [];
-    for (let i = 1; i < movieList.length + 1; i++) {
+    for (let i = 1; i < 6; i++) {
       pageButton.push(<button key={i} onClick={() => handlePagination(i)}>{i}</button>)
     }
     return pageButton;
