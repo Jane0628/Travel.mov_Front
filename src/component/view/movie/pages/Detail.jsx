@@ -4,8 +4,21 @@ import { getDetail } from "../api";
 import Loading from "../component/Loading";
 import styled from "styled-components";
 import DetailMovie from '../component/DetailMovie';
+import Header from "../../../layout/Header";
 
 const MovieContainer = styled.div`
+    @keyframes trans {
+      from {
+          opacity: 0;
+          visibility: hidden;
+      }
+      to {
+          opacity: 1;
+          visibility: visible;
+      }
+    }
+    animation: trans 1s linear;
+
     position: relative;
     width: 100%;
     height: 100%;
@@ -36,23 +49,40 @@ export default function Detail() {
   const [movieId, setMovieId] = useState(path.movie_id);
   const [movie, setMovie] = useState({});
 
+  // 로딩 상태를 추가하여 컴포넌트의 로딩 상태를 처리합니다.
+  const [loading, setLoading] = useState(true);
+
   const getData = async () => {
-    const res = await getDetail(movieId);
-    setMovie(prev => ({ ...prev }, res));
-  }
+    try {
+      const res = await getDetail(movieId);
+      setMovie(prev => ({ ...prev }, res));
+      setLoading(false); // 데이터를 성공적으로 가져온 후 로딩 상태를 false로 설정합니다.
+    } catch (error) {
+      console.error(error);
+      setLoading(false); // 오류가 발생할 경우 로딩 상태를 false로 설정합니다.
+    }
+  };
+
   useEffect(() => {
     getData();
   }, [movieId]);
 
-  if (!Object.keys(movie).length) {
-    return <Loading />
+  if (loading) {
+    return <Loading />;
   }
+
+  // if (!Object.keys(movie).length) {
+  //   return <Loading />
+  // }
   return (
-    <MovieContainer imgUrl={IMAGE_URL + movie.poster_path}>
-      <DetailMovie
-        movieInfo={movie}
-        imageUrl={IMAGE_URL}
-      />
-    </MovieContainer>
+    <>
+      <Header />
+      <MovieContainer imgUrl={IMAGE_URL + movie.poster_path}>
+        <DetailMovie
+          movieInfo={movie}
+          imageUrl={IMAGE_URL}
+        />
+      </MovieContainer>
+    </>
   )
 }

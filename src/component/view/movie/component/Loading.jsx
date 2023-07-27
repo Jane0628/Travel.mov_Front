@@ -1,48 +1,45 @@
+import { Image } from "react-bootstrap";
 import styled from "styled-components"
 
 const LoadingWrapper = styled.div`
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    
-    @keyframes loading {
-        0 {
-            transform: translate(0, 0);
-          }
-          50% {
-            transform: translate(0, 15px);
-          }
-          100% {
-            transform: translate(0, 0);
-          }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  position: relative;
+  
+  @keyframes loading {
+    0% {
+      transform: translate(-50%, -50%) rotateZ(0deg);
     }
-    
-    .circle {
-        margin: 10px;
-        width: 20px;
-        height: 20px;
-        background-color: #b1bff9;
-        border-radius: 50%;
-        animation: loading 1s infinite;
-        
-        &:nth-child(2) {
-            animation-delay: .2s;
-        }
-        &:nth-child(3) {
-            animation-delay: .4s;
-        }
+    100% {
+      transform: translate(-50%, -50%) rotateZ(360deg);
     }
+  }
+
+  img {
+    width: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    &#text {
+      transform-origin: 50% 58%;
+      animation: loading 1s infinite;
+    }
+  }
+    
+   
 `;
 export default function Loading() {
 
   return (
     <LoadingWrapper>
-      <div className="circle"></div>
-      <div className="circle"></div>
-      <div className="circle"></div>
+      <Image src={require("../../../../img/loading_img_1.png")} />
+      <Image id="text" src={require("../../../../img/loading_img_2.png")} />
     </LoadingWrapper>
   )
 }
