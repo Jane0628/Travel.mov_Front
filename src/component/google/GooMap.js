@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const GooMap = ({ location }) => {
   const [map, setMap] = useState(null);
@@ -145,6 +146,12 @@ const GooMap = ({ location }) => {
     );
   };
 
+  const redirection = useNavigate();
+
+  const reserveHotel = () => {
+    redirection(`/hotels/${selectedHotel.name}`);
+  }
+
   return (
     <div>
       <div id="map" style={{ width: "800px", height: "480px" }}></div>
@@ -175,11 +182,12 @@ const GooMap = ({ location }) => {
               </a>
             </p>
           )}
-          <button>예약하기</button>
+          <button onClick={reserveHotel}>예약하기</button>
         </div>
       )}
     </div>
   );
+
 };
 
 export default GooMap;
