@@ -73,8 +73,8 @@ const ReservationCheck = () => {
           {reserveList.map((row) => (
             <TableRow key={row.aid}>
               <TableCell>{row.resDate.split("T")[0]}</TableCell>
-              <TableCell>{row.startDate}</TableCell>
-              <TableCell>{row.endDate}</TableCell>
+              <TableCell>{row.startDate.split("T")[0]}</TableCell>
+              <TableCell>{row.endDate.split("T")[0]}</TableCell>
               <TableCell>{row.partnerOrderId}</TableCell>
               <TableCell>{row.itemName}</TableCell>
               <TableCell>카카오페이</TableCell>

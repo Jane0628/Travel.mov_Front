@@ -12,6 +12,7 @@ import ReservationCheck from "./component/reservation/ReservationCheck";
 import Login from "./component/user/Login";
 import Checkout from "./component/reservation/Checkout";
 import Hotels from "./component/view/Hotels";
+import HotelList from "./component/view/HotelList";
 import Home from "./component/view/movie/pages/Home";
 import TopRatedMovie from "./component/view/movie/pages/TopRatedMovie";
 import NowPlayingMovie from "./component/view/movie/pages/NowPlayingMovie";
@@ -77,14 +78,18 @@ function App() {
               <Route path="/sights" element={<Sights />} />
               <Route path="/checkout/:id" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
-              <Route path="/hotels" element={<Hotels />} />
+              <Route path="/hotels/:name" element={<Hotels />} />
+              <Route path="/hotels" element={<HotelList />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
               <Route path="/topRated" element={<TopRatedMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
-              <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
+              <Route
+                path="/freeBoardDetail/:id"
+                element={<FreeBoardDetail />}
+              />
               <Route path="/search" element={<SearchMovie />} />
             </Routes>
             <Footer />
