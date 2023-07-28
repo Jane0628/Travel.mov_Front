@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
-import logo from '../../img/logo.png';
+import React, { useContext, useState } from 'react';
 import "../../design/layout/header.scss";
 import { Link, Router, useNavigate } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
 import axios from 'axios';
-import { useState } from 'react';
 import { Box, Button, Divider, Drawer, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -67,7 +65,7 @@ const Header = () => {
   };
 
   // 햄버거
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     top: false,
     left: false,
     bottom: false,
@@ -129,8 +127,7 @@ const Header = () => {
                   <InputAdornment position="start">
                     <SearchIcon onClick={searchHandler} />
                   </InputAdornment>,
-              }}
-            />
+              }} />
           </form>
           {/* 햄버거 */}
           {['right'].map((anchor) => (
