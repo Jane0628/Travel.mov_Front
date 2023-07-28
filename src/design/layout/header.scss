@@ -56,19 +56,16 @@ header {
       border-radius: 5px;
       z-index: 100;
 
-      div.css-190z5dc-MuiInputBase-root-MuiOutlinedInput-root {
-        border: #424180 1px solid;
+
+      div.css-szwkwu-MuiInputBase-root-MuiOutlinedInput-root {
         height: 50px;
         font-size: 18px;
+        position: relative;
 
         input {
-          padding: 0;
-          height: inherit;
+          padding: 5px 0;
         }
 
-        fieldset {
-          height: inherit;
-        }
       }
     }
 

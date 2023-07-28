@@ -42,6 +42,8 @@ const HeaderMovie = styled.div`
       
     img {
       width: 100%;
+      min-width: 1068px;
+      min-height: 600px;
       z-index: -5;
     }
   }
@@ -51,7 +53,7 @@ const HeaderMovie = styled.div`
     color: white;
     position: absolute;
     left: 3%;
-    bottom: 10%;
+    bottom: 5%;
 
     .title {
       margin: 0;
@@ -96,6 +98,8 @@ const imageHandler = (title) => {
   if (title === '플래시') {
     return require("../../../../img/flash.jpg");
   }
+
+  return "https://image.tmdb.org/t/p/w1280";
 }
 
 export default memo(function Header({ mainMovie }) {

@@ -60,6 +60,8 @@ const Header = () => {
 
   const searchHandler = async (e) => {
     e.preventDefault();
+
+
     const searchData = await searchMovie(text);
     redirection('/search', { state: { searchData } })
   };
@@ -120,7 +122,8 @@ const Header = () => {
           <form onSubmit={searchHandler}>
             <TextField
               id="outlined-start-adornment"
-              sx={{ width: '25ch', height: '' }}
+              color='secondary'
+              sx={{ width: '25ch', height: '50px' }}
               placeholder='영화 제목을 입력하세요.'
               onChange={inputHandler}
               value={text}
