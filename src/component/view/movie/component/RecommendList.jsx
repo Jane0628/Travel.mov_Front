@@ -4,33 +4,34 @@ import Navbar from "../component/Navbar"
 import Header from "../../../layout/Header";
 
 const GridContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4, 270px);
-    gap: 8px;
-    justify-content: center;
-    align-content: center;
-    margin: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 270px);
+  gap: 8px;
+  justify-content: center;
+  align-content: center;
+  margin: 40px;
 `;
 const Item = styled.div`
-    @keyframes trans {
-        from {
-            opacity: 0;
-            transform: translateY(-30%);
-            visibility: hidden;
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-            visibility: visible;
-        }
+  @keyframes trans {
+    from {
+      opacity: 0;
+      transform: translateY(-30%);
+      visibility: hidden;
     }
-    animation: trans .6s linear;
-    
-    justify-self: center;
-    img {
-        width: 270px;
-        height: 400px;
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
     }
+  }
+
+  animation: trans .6s linear;
+  justify-self: center;
+
+  img {
+    width: 270px;
+    height: 400px;
+  }
 `;
 
 const PageBtn = styled.div`

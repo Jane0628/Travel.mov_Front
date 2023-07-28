@@ -85,7 +85,6 @@ const Header = () => {
   const list = (anchor) => (
     <Box
       sx={{ width: '400px' }}
-      role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
@@ -95,18 +94,16 @@ const Header = () => {
       </List>
       <Divider />
       <List>
-        {['로그인', '회원가입', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index === 0 && <LockOutlinedIcon />}
-                {index === 1 && <AssignmentIcon />}
-                {index === 2 && <LockOutlinedIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <LockOutlinedIcon />
+            </ListItemIcon>
+            <Link to={'/login'}>
+              <span color='primary'>로그인</span>
+            </Link>
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -119,7 +116,7 @@ const Header = () => {
 
         <div class="right">
           {/* 검색 */}
-          <form onSubmit={searchHandler}>
+          <form onSubmit={searchHandler} autocomplete="off">
             <TextField
               id="outlined-start-adornment"
               color='secondary'
