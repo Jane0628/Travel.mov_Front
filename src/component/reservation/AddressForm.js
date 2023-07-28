@@ -54,7 +54,7 @@ export default function AddressForm({ start, end, name, days }) {
   //날짜 차이 계산
   function dateDiffInDays(date1, date2) {
     const oneDay = 24 * 60 * 60 * 1000; // 1일 = 24시간 * 60분 * 60초 * 1000밀리초
-    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const timeDiff = date2.getTime() - date1.getTime();
     return Math.floor(timeDiff / oneDay);
   }
   //useEffect반응이 느려서 두가지로 구현

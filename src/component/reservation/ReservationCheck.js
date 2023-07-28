@@ -1,4 +1,3 @@
-import { Link } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import { API_BASE_URL } from "../../util/host-utils";
@@ -10,6 +9,7 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Title } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const ReservationCheck = () => {
   // 로그인 인증 토큰 얻어오기
@@ -65,7 +65,8 @@ const ReservationCheck = () => {
             <TableCell>예약자 이름</TableCell>
             <TableCell>숙소 이름</TableCell>
             <TableCell>결재 방식</TableCell>
-            <TableCell align="right">가격</TableCell>
+            <TableCell>가격</TableCell>
+            <TableCell align="right">후기</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -77,7 +78,15 @@ const ReservationCheck = () => {
               <TableCell>{row.partnerOrderId}</TableCell>
               <TableCell>{row.itemName}</TableCell>
               <TableCell>카카오페이</TableCell>
-              <TableCell align="right">{`${row.totalAmount}원`}</TableCell>
+              <TableCell>{`${row.totalAmount}원`}</TableCell>
+              <TableCell align="right">
+                <Link
+                  style={{ color: "#b1bff9" }}
+                  to={`/freeBoard/${row.itemCode}`}
+                >
+                  후기쓰기
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

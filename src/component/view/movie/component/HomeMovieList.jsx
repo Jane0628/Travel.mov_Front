@@ -17,6 +17,12 @@ const MovieListContainer = styled.div`
         margin: auto 0;
         font-weight: 700;
         cursor: pointer;
+        transition: 0.5s;
+        &:hover,
+        &:focus {
+          transform: scale3d(1.1, 1.1, 1);
+          opacity: 1;
+        }
     }
 `;
 const MovieListWrapper = styled.div`
