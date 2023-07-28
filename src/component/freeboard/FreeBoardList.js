@@ -10,6 +10,28 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Title } from "@mui/icons-material";
 
+//sns형식 날짜 바꾸는 함수
+function formatDateToSNS(dateString) {
+  const inputDate = new Date(dateString);
+  const now = new Date();
+
+  const diffInMilliseconds = now - inputDate;
+  const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  const diffInDays = Math.floor(diffInHours / 24);
+
+  if (diffInDays > 0) {
+    return `${diffInDays} 일 전`;
+  } else if (diffInHours > 0) {
+    return `${diffInHours} 시간 전`;
+  } else if (diffInMinutes > 0) {
+    return `${diffInMinutes} 분 전`;
+  } else {
+    return "방금 전";
+  }
+}
+
 const FreeBoardList = () => {
   //url에서 호텔id 얻어오기
   const hotel = useParams();
@@ -59,10 +81,10 @@ const FreeBoardList = () => {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>후기 등록일</TableCell>
+            <TableCell>날짜</TableCell>
             <TableCell>제목</TableCell>
             <TableCell>호텔이름</TableCell>
-            <TableCell>호텔사진</TableCell>
+            {/* <TableCell>호텔사진</TableCell> */}
             <TableCell>작성자</TableCell>
             <TableCell align="right">평점</TableCell>
           </TableRow>
@@ -70,13 +92,7 @@ const FreeBoardList = () => {
         <TableBody>
           {freeBoardList.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>
-                {row.uploadDate.toLocaleString("ko-KR", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </TableCell>
+              <TableCell>{formatDateToSNS(row.uploadDate)}</TableCell>
               <TableCell>
                 <Link
                   style={{ color: "black" }}
@@ -86,7 +102,7 @@ const FreeBoardList = () => {
                 </Link>
               </TableCell>
               <TableCell>{row.hotel.name}</TableCell>
-              <TableCell>{row.hotel.image}</TableCell>
+              {/* <TableCell>{row.hotel.image}</TableCell> */}
               <TableCell>{row.userNick}</TableCell>
               <TableCell align="right">{row.star}</TableCell>
             </TableRow>
