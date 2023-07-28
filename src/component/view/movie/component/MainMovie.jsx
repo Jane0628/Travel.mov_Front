@@ -44,7 +44,23 @@ const HeaderMovie = styled.div`
       width: 100%;
       z-index: -5;
     }
+    .video-container{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -5;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .header-video{
+        width: 100%
+      }
+    }
   }
+
     
   .info{
     z-index: 100;
@@ -88,22 +104,30 @@ const HeaderMovie = styled.div`
   }
 `;
 
-const imageHandler = (title) => {
+const videoHandler = (title) => {
   if (title === '바비') {
-    return require("../../../../img/barbie.jpg");
+    return require("../../../../video/barbie.mp4");
   }
 
-  if (title === '플래시') {
-    return require("../../../../img/flash.jpg");
-  }
+  // if (title === '플래시') {
+  //   return require("../../../../img/flash.jpg");
+  // }
 }
 
 export default memo(function Header({ mainMovie }) {
   const { title, backdrop_path, overview, release_date, vote_average } = mainMovie;
+  const videoSrc = videoHandler(title);
+
   return (
     <HeaderMovie backdrop_path={backdrop_path}>
       <div className="frame" id={title}>
-        <img src={imageHandler(title)} alt="" />
+        {/* <img src={imageHandler(title)} alt="" /> */}
+        <div className="video-container">
+          <video className="header-video" autoPlay muted loop >
+            <source src={videoSrc} type="video/mp4" />
+            브라우저가 비디오 태그를 지원하지 않습니다.
+          </video>
+        </div>
       </div>
       <div className="info">
         <p className='title'>{title}</p>
