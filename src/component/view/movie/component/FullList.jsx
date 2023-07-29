@@ -11,6 +11,7 @@ const GridContainer = styled.div`
     align-content: center;
     margin: 40px;
 `;
+
 const Item = styled.div`
     @keyframes trans {
         from {

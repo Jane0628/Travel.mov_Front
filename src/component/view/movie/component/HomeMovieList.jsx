@@ -4,15 +4,23 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MovieListContainer = styled.div`
-    margin-bottom: 50px;
-    .main-title{
-        display:flex;
-        justify-content: space-between;
-        color: #424180;
-        .title{
-            font-size: 30px;
-        }
+  margin-bottom: 50px;
+
+  .main-title{
+    display:flex;
+    justify-content: space-between;
+    color: #424180;
+
+    .title{
+      font-size: 30px;
+      font-weight: 500;
     }
+  }
+
+  .movieList {
+    overflow: auto;
+  }
+
     .moreBtn {
         margin: auto 0;
         font-weight: 700;
@@ -52,7 +60,7 @@ export default function HomeMovieList({ title, movieList, navLink }) {
             </div>
             <div className="moreBtn" type="button" onClick={handleClick}>더보기 {'>'}</div>
           </div>
-          <MovieListWrapper>
+          <MovieListWrapper className='movieList'>
             {movieList.length !== 0 &&
               movieList.map((movie, idx) =>
                 <HomeMovieItem key={movie.id} movie={movie} rank={idx + 1}></HomeMovieItem>

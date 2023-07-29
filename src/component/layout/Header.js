@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
-import logo from '../../img/logo.png';
+import React, { useContext, useState } from 'react';
 import "../../design/layout/header.scss";
 import { Link, Router, useNavigate } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
 import axios from 'axios';
-import { useState } from 'react';
 import { Box, Button, Divider, Drawer, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -60,12 +58,14 @@ const Header = () => {
 
   const searchHandler = async (e) => {
     e.preventDefault();
+
+
     const searchData = await searchMovie(text);
     redirection('/search', { state: { searchData } })
   };
 
   // 햄버거
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     top: false,
     left: false,
     bottom: false,
@@ -83,7 +83,6 @@ const Header = () => {
   const list = (anchor) => (
     <Box
       sx={{ width: '400px' }}
-      role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
@@ -93,18 +92,16 @@ const Header = () => {
       </List>
       <Divider />
       <List>
-        {['로그인', '회원가입', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index === 0 && <LockOutlinedIcon />}
-                {index === 1 && <AssignmentIcon />}
-                {index === 2 && <LockOutlinedIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <LockOutlinedIcon />
+            </ListItemIcon>
+            <Link to={'/login'}>
+              <span color='primary'>로그인</span>
+            </Link>
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -117,10 +114,11 @@ const Header = () => {
 
         <div class="right">
           {/* 검색 */}
-          <form onSubmit={searchHandler}>
+          <form onSubmit={searchHandler} autocomplete="off">
             <TextField
               id="outlined-start-adornment"
-              sx={{ width: '25ch', height: '' }}
+              color='secondary'
+              sx={{ width: '25ch', height: '50px' }}
               placeholder='영화 제목을 입력하세요.'
               onChange={inputHandler}
               value={text}
@@ -129,8 +127,7 @@ const Header = () => {
                   <InputAdornment position="start">
                     <SearchIcon onClick={searchHandler} />
                   </InputAdornment>,
-              }}
-            />
+              }} />
           </form>
           {/* 햄버거 */}
           {['right'].map((anchor) => (

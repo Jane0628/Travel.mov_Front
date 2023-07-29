@@ -3,20 +3,33 @@ import { Link, useParams } from "react-router-dom";
 import { API_BASE_URL } from "../../util/host-utils";
 import { useEffect } from "react";
 import { getLoginUserInfo } from "../../util/login-utils";
+import { MenuItem, TextField } from "@mui/material";
+
+const nameList = [
+  { name: "전체", value: "전체", key: "전체" },
+  { name: "서울", value: "서울", key: "서울" },
+  { name: "경기", value: "경기", key: "경기" },
+  { name: "강원", value: "강원", key: "강원" },
+  { name: "충청", value: "충청", key: "충청" },
+  { name: "전라", value: "전라", key: "전라" },
+  { name: "경상", value: "경상", key: "경상" },
+];
 
 const HotelCarousel = () => {
   const [hotels, setHotels] = useState([]);
-  //url에서 호텔name 얻어오기
-  const hotelName = useParams();
-  const name = hotelName.name;
-
+  const [name, setName] = useState();
   const token = getLoginUserInfo().token;
   const requestHeader = {
     "content-type": "application/json",
     Authorization: "Bearer " + token,
   };
   useEffect(() => {
-    fetch(`${API_BASE_URL}/hotels/name/${name}`, {
+    allHotel();
+  }, []);
+
+  //모든 호텔 리스트
+  const allHotel = () =>
+    fetch(`${API_BASE_URL}/hotels`, {
       method: "GET",
       headers: requestHeader,
     })
@@ -25,7 +38,18 @@ const HotelCarousel = () => {
         console.log(json);
         setHotels(json);
       });
-  }, []);
+
+  //호텔 검색 리스트
+  const searchHotel = (name) =>
+    fetch(`${API_BASE_URL}/hotels/address/${name}`, {
+      method: "GET",
+      headers: requestHeader,
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setHotels(json);
+      });
 
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 6;
@@ -43,8 +67,32 @@ const HotelCarousel = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
+  const handleChange = (e) => {
+    setName(e.target.value);
+    if (e.target.value === "전체") {
+      allHotel();
+      return;
+    } else {
+      searchHotel(e.target.value);
+    }
+  };
+
   return (
     <div>
+      <TextField
+        select
+        id="demo-simple-select"
+        defaultValue="전체"
+        value={name}
+        label="지역"
+        onChange={handleChange}
+      >
+        {nameList.map((name) => (
+          <MenuItem key={name.id} value={name.value}>
+            {name.name}
+          </MenuItem>
+        ))}
+      </TextField>
       <div
         style={{
           display: "grid",

@@ -102,23 +102,11 @@ export default function Checkout() {
   //체크인 날짜
   const startHandler = (date) => {
     // console.log(date);
-    setStartDate(
-      date.toLocaleString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    );
+    setStartDate(date);
   };
   //체크아웃 날짜
   const endHandler = (date) => {
-    setEndDate(
-      date.toLocaleString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    );
+    setEndDate(date);
     console.log(date);
   };
   //몇박
