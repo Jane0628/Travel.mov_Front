@@ -136,7 +136,7 @@ const GooMap = ({ location }) => {
       {
         location: location,
         radius: 5000,
-        type: "hotel",
+        type: "lodging",
       },
       (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {

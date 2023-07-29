@@ -23,6 +23,8 @@ import FreeBoardList from "./component/freeboard/FreeBoardList";
 import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
 import MyFreeBoardList from "./component/freeboard/MyFreeBoardList";
 import SearchMovie from "./component/view/movie/pages/SearchMovie";
+import HotelCheck from "./component/view/HotelCheck";
+import HotelJoin from "./component/view/HotelJoin";
 
 function App() {
   // 전체적 디자인
@@ -91,6 +93,8 @@ function App() {
                 element={<FreeBoardDetail />}
               />
               <Route path="/search" element={<SearchMovie />} />
+              <Route path="/hotelJoin" element={<HotelJoin />} />
+              <Route path="/hotelCheck" element={<HotelCheck />} />
             </Routes>
             <Footer />
           </ThemeProvider>
