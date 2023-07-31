@@ -76,7 +76,7 @@ function App() {
               <Route path="/sights" element={<Sights />} />
               <Route path="/checkout/:id" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
-              <Route path="/hotels/:name" element={<Hotels />} />
+              <Route path="/hotelSearch" element={<Hotels />} />
               <Route path="/hotels" element={<HotelList />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
               <Route path="/topRated" element={<TopRatedMovie />} />
