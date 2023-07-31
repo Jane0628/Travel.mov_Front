@@ -10,15 +10,19 @@ const DetailMovieWrapper = styled.div`
   height: auto;
   margin: auto;
   padding: 7%;
-  
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 
-  img {
-    height: 600px;
-    margin: auto 0;
-  }
+  .movie {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: start;
+    height: 700px;
+    margin-bottom: 100px;
+    
+    img {
+      height: inherit;
+      margin: auto 0;
+    }
+  } 
 `;
 
 const Description = styled.div`
@@ -27,7 +31,6 @@ const Description = styled.div`
     display: flex;
     flex-direction: column;
   
-    padding: 30px;
     >div{
         margin-top: 18px;
     }
