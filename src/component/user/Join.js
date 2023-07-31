@@ -6,24 +6,17 @@ import {
   Checkbox,
   Container,
   CssBaseline,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
   Grid,
   IconButton,
   InputAdornment,
-  InputLabel,
   Link,
-  OutlinedInput,
   TextField,
-  ThemeProvider,
   Typography,
-  createTheme,
 } from "@mui/material";
 import "../../design/join.scss";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Copyright, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import AuthContext from "../../util/AuthContext";
 import { API_BASE_URL, USER } from "../../util/host-utils";
 import AssignmentIcon from "@mui/icons-material/Assignment";
@@ -45,7 +38,7 @@ const Join = () => {
     }
   });
 
-  //회원가입 요청 함수
+  // 회원가입 요청 함수
   const fetchJoin = async () => {
     const $id = document.getElementById("id");
     const $pw = document.getElementById("pw");

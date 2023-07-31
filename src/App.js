@@ -1,10 +1,8 @@
 import "./App.css";
-import Header from "./component/layout/Header";
 import { Route, Routes } from "react-router-dom";
 import Join from "./component/user/Join";
 import MyPage from "./component/user/MyPage";
 import Profile from "./component/user/Profile";
-import Footer from "./component/layout/Footer";
 import Sights from "./component/view/Sights";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AuthContextProvider } from "./util/AuthContext";
@@ -64,8 +62,6 @@ function App() {
     },
   });
 
-  // Login 페이지일 시 Header 안 보이기
-
   return (
     <>
       <AuthContextProvider>
@@ -88,15 +84,11 @@ function App() {
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
-              <Route
-                path="/freeBoardDetail/:id"
-                element={<FreeBoardDetail />}
-              />
+              <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
               <Route path="/search" element={<SearchMovie />} />
               <Route path="/hotelJoin" element={<HotelJoin />} />
               <Route path="/hotelCheck" element={<HotelCheck />} />
             </Routes>
-            <Footer />
           </ThemeProvider>
         </MovieStateProvider>
       </AuthContextProvider>

@@ -87,20 +87,28 @@ const Header = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <Image src={require('../../img/profileImage.png')} width={'80px'} />
-        <ListItemText primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} />
+        <ListItem>
+          <Image src={require('../../img/profileImage.png')} width={'80px'} />
+          <ListItemText primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} sx={{ marginLeft: '20px' }} />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem disablePadding>
-          <ListItemButton>
+        <ListItem>
+          <Link to={'/login'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
             <ListItemIcon>
-              <LockOutlinedIcon />
+              <LockOutlinedIcon color='primary' />
             </ListItemIcon>
-            <Link to={'/login'}>
-              <span color='primary'>로그인</span>
-            </Link>
-          </ListItemButton>
+            로그인
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link to={'/join'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+            <ListItemIcon>
+              <AssignmentIcon color='primary' />
+            </ListItemIcon>
+            회원가입
+          </Link>
         </ListItem>
       </List>
     </Box>
