@@ -28,7 +28,6 @@ const MyFreeBoardList = () => {
   useEffect(() => {
     //페이지가 렌더링 되면 후기목록 보여주기.
     fetch(`${API_BASE_URL}/freeBoard/my/${id}`, {
-      //movie로 고칠 예정
       method: "GET",
       headers: requestHeader,
     })
