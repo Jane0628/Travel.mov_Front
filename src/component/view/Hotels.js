@@ -8,7 +8,7 @@ import Header from "../layout/Header";
 const HotelCarousel = () => {
   const [hotels, setHotels] = useState([]);
   const location = useLocation();
-  const searchData = location.state?.searchData || [];
+  const hotel = location.state?.hotelName || '';
 
   const token = getLoginUserInfo().token;
   const requestHeader = {
@@ -16,7 +16,7 @@ const HotelCarousel = () => {
     Authorization: "Bearer " + token,
   };
   useEffect(() => {
-    fetch(`${API_BASE_URL}/hotels/name/${searchData}`, {
+    fetch(`${API_BASE_URL}/hotels/name/${hotel}`, {
       method: "GET",
       headers: requestHeader,
     })
