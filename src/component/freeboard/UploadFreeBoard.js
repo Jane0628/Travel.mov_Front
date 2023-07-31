@@ -23,7 +23,7 @@ const UploadFreeBoard = () => {
     content: "",
   });
   const token = getLoginUserInfo().token;
-  const nick = getLoginUserInfo().username;
+  const id = getLoginUserInfo().id;
 
   //   const [viewContent, setViewContent] = useState([]);
 
@@ -53,7 +53,7 @@ const UploadFreeBoard = () => {
         content: movieContent.content,
         // movie: "",
         hotel: hotelId,
-        userNick: nick,
+        id: id,
         star: starNum,
       }),
     });
