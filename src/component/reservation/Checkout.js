@@ -158,8 +158,16 @@ export default function Checkout() {
         total_amount: total - discount, // 결제 금액
         vat_amount: (total - discount) * 0.1,
         tax_free_amount: 0,
-        start_date: startDate,
-        end_date: endDate,
+        start_date: startDate.toLocaleString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+        end_date: endDate.toLocaleString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
         coupon: couponId,
       }),
     });
