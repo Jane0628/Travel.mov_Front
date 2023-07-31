@@ -9,11 +9,12 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Title } from "@mui/icons-material";
+import Header from "../layout/Header";
 
 const MyFreeBoardList = () => {
   // 로그인 인증 토큰 얻어오기
   const token = getLoginUserInfo().token;
-  const nick = getLoginUserInfo().username;
+  const id = getLoginUserInfo().id;
 
   const [freeBoardList, setFreeBoardList] = useState([]);
 
@@ -26,7 +27,7 @@ const MyFreeBoardList = () => {
 
   useEffect(() => {
     //페이지가 렌더링 되면 후기목록 보여주기.
-    fetch(`${API_BASE_URL}/freeBoard/my/${nick}`, {
+    fetch(`${API_BASE_URL}/freeBoard/my/${id}`, {
       //movie로 고칠 예정
       method: "GET",
       headers: requestHeader,
@@ -53,7 +54,9 @@ const MyFreeBoardList = () => {
 
   return (
     <React.Fragment>
-      <Title>??영화 여행 후기 게시판</Title>
+      <Title>나의 여행 후기 게시판</Title>
+      <Header />
+      <div style={{ margin: 20, marginTop: 100 }}></div>
       <Table size="small">
         <TableHead>
           <TableRow>
