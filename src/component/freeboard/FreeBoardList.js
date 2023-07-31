@@ -8,7 +8,23 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Title } from "@mui/icons-material";
+import {
+  ExpandLess,
+  ExpandMore,
+  Inbox,
+  StarBorder,
+  Title,
+} from "@mui/icons-material";
+import FreeBoardDetail from "./FreeBoardDetail";
+import {
+  Button,
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import Header from "../layout/Header";
 
 //sns형식 날짜 바꾸는 함수
 function formatDateToSNS(dateString) {
@@ -33,6 +49,7 @@ function formatDateToSNS(dateString) {
 }
 
 const FreeBoardList = () => {
+  const [open, setOpen] = useState(-1);
   //url에서 호텔id 얻어오기
   const hotel = useParams();
   const id = hotel.id;
@@ -47,6 +64,9 @@ const FreeBoardList = () => {
   const requestHeader = {
     "content-type": "application/json",
     Authorization: "Bearer " + token,
+  };
+  const handleClick = (index) => {
+    setOpen((prevIndex) => (prevIndex === index ? -1 : index));
   };
 
   useEffect(() => {
@@ -78,6 +98,8 @@ const FreeBoardList = () => {
   return (
     <React.Fragment>
       <Title>호텔 후기</Title>
+      <Header />
+      <div style={{ margin: 20, marginTop: 100 }}></div>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -86,26 +108,33 @@ const FreeBoardList = () => {
             <TableCell>호텔이름</TableCell>
             {/* <TableCell>호텔사진</TableCell> */}
             <TableCell>작성자</TableCell>
-            <TableCell align="right">평점</TableCell>
+            <TableCell>평점</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {freeBoardList.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{formatDateToSNS(row.uploadDate)}</TableCell>
-              <TableCell>
-                <Link
-                  style={{ color: "black" }}
-                  to={`/freeBoardDetail/${row.id}`}
-                >
-                  {row.title}
-                </Link>
-              </TableCell>
-              <TableCell>{row.hotel.name}</TableCell>
-              {/* <TableCell>{row.hotel.image}</TableCell> */}
-              <TableCell>{row.userNick}</TableCell>
-              <TableCell align="right">{row.star}</TableCell>
-            </TableRow>
+          {freeBoardList.map((row, index) => (
+            <>
+              <TableRow key={row.id}>
+                <TableCell>{formatDateToSNS(row.uploadDate)}</TableCell>
+                <TableCell>{row.title}</TableCell>
+                <TableCell>{row.hotel.name}</TableCell>
+                {/* <TableCell>{row.hotel.image}</TableCell> */}
+                <TableCell>{row.user.nick}</TableCell>
+                <TableCell>{row.star}</TableCell>
+                <ListItemButton onClick={() => handleClick(index)}>
+                  {open === index ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+              </TableRow>
+              <TableRow key={index}>
+                <TableCell colSpan={5}>
+                  <Collapse in={open === index} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <FreeBoardDetail freeBoard={row} />
+                    </List>
+                  </Collapse>
+                </TableCell>
+              </TableRow>
+            </>
           ))}
         </TableBody>
       </Table>

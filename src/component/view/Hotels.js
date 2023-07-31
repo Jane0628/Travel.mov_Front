@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../../util/host-utils";
 import { useEffect } from "react";
 import { getLoginUserInfo } from "../../util/login-utils";
+import Header from "../layout/Header";
 
 const HotelCarousel = () => {
   const [hotels, setHotels] = useState([]);
-  //url에서 호텔name 얻어오기
-  const hotelName = useParams();
-  const name = hotelName.name;
+  const location = useLocation();
+  const searchData = location.state?.searchData || [];
 
   const token = getLoginUserInfo().token;
   const requestHeader = {
@@ -16,7 +16,7 @@ const HotelCarousel = () => {
     Authorization: "Bearer " + token,
   };
   useEffect(() => {
-    fetch(`${API_BASE_URL}/hotels/name/${name}`, {
+    fetch(`${API_BASE_URL}/hotels/name/${searchData}`, {
       method: "GET",
       headers: requestHeader,
     })
@@ -45,6 +45,8 @@ const HotelCarousel = () => {
 
   return (
     <div>
+      <Header />
+      <div style={{ margin: 20, marginTop: 100 }}></div>
       <div
         style={{
           display: "grid",
