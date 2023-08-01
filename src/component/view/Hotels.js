@@ -78,10 +78,40 @@ const HotelCarousel = () => {
               <p style={{ margin: "10px" }}>{hotel.address}</p>
               <p style={{ margin: "10px" }}>{hotel.price}원</p>
             </div>
-            {hotel.reservation ? (
+            <div>
+              {hotel.reservation ? (
+                <button
+                  style={{
+                    marginTop: "auto",
+                    padding: "5px 10px",
+                    backgroundColor: "#b1bff9",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "7px",
+                  }}
+                >
+                  <Link to={`/checkOut/${hotel.id}`} className="out">
+                    예약하기
+                  </Link>
+                </button>
+              ) : (
+                <button
+                  style={{
+                    marginTop: "auto",
+                    padding: "5px 10px",
+                    backgroundColor: "#c0c0c0",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "7px",
+                  }}
+                >
+                  <Link className="out">예약완료</Link>
+                </button>
+              )}
               <button
                 style={{
                   marginTop: "auto",
+                  marginLeft: 10,
                   padding: "5px 10px",
                   backgroundColor: "#b1bff9",
                   color: "#fff",
@@ -89,24 +119,11 @@ const HotelCarousel = () => {
                   borderRadius: "7px",
                 }}
               >
-                <Link to={`/checkOut/${hotel.id}`} className="out">
-                  예약하기
+                <Link to={`/freeboardList/${hotel.id}`} className="out">
+                  후기보기
                 </Link>
               </button>
-            ) : (
-              <button
-                style={{
-                  marginTop: "auto",
-                  padding: "5px 10px",
-                  backgroundColor: "#c0c0c0",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "7px",
-                }}
-              >
-                <Link className="out">예약완료</Link>
-              </button>
-            )}
+            </div>
           </div>
         ))}
       </div>
