@@ -136,7 +136,7 @@ const GooMap = ({ location }) => {
       {
         location: location,
         radius: 5000,
-        type: "hotel",
+        type: "lodging",
       },
       (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
@@ -147,9 +147,8 @@ const GooMap = ({ location }) => {
   };
 
   const redirection = useNavigate();
-
-  const reserveHotel = () => {
-    redirection(`/hotels/${selectedHotel.name}`);
+  const reserveHotel = (hotelName) => {
+    redirection('/hotelSearch', { state: { hotelName } });
   }
 
   return (
@@ -182,7 +181,7 @@ const GooMap = ({ location }) => {
               </a>
             </p>
           )}
-          <button onClick={reserveHotel}>예약하기</button>
+          <button onClick={()=>reserveHotel(selectedHotel.name)}>예약하기</button>
         </div>
       )}
     </div>

@@ -1,10 +1,8 @@
 import "./App.css";
-import Header from "./component/layout/Header";
 import { Route, Routes } from "react-router-dom";
 import Join from "./component/user/Join";
 import MyPage from "./component/user/MyPage";
 import Profile from "./component/user/Profile";
-import Footer from "./component/layout/Footer";
 import Sights from "./component/view/Sights";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AuthContextProvider } from "./util/AuthContext";
@@ -23,6 +21,8 @@ import FreeBoardList from "./component/freeboard/FreeBoardList";
 import FreeBoardDetail from "./component/freeboard/FreeBoardDetail";
 import MyFreeBoardList from "./component/freeboard/MyFreeBoardList";
 import SearchMovie from "./component/view/movie/pages/SearchMovie";
+import HotelCheck from "./component/view/HotelCheck";
+import HotelJoin from "./component/view/HotelJoin";
 
 function App() {
   // 전체적 디자인
@@ -62,8 +62,6 @@ function App() {
     },
   });
 
-  // Login 페이지일 시 Header 안 보이기
-
   return (
     <>
       <AuthContextProvider>
@@ -78,7 +76,7 @@ function App() {
               <Route path="/sights" element={<Sights />} />
               <Route path="/checkout/:id" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
-              <Route path="/hotels/:name" element={<Hotels />} />
+              <Route path="/hotelSearch" element={<Hotels />} />
               <Route path="/hotels" element={<HotelList />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
               <Route path="/topRated" element={<TopRatedMovie />} />
@@ -86,13 +84,11 @@ function App() {
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
-              <Route
-                path="/freeBoardDetail/:id"
-                element={<FreeBoardDetail />}
-              />
+              <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
               <Route path="/search" element={<SearchMovie />} />
+              <Route path="/hotelJoin" element={<HotelJoin />} />
+              <Route path="/hotelCheck" element={<HotelCheck />} />
             </Routes>
-            <Footer />
           </ThemeProvider>
         </MovieStateProvider>
       </AuthContextProvider>

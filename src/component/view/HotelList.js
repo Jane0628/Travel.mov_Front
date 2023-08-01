@@ -4,6 +4,7 @@ import { API_BASE_URL } from "../../util/host-utils";
 import { useEffect } from "react";
 import { getLoginUserInfo } from "../../util/login-utils";
 import { MenuItem, TextField } from "@mui/material";
+import Header from "../layout/Header";
 
 const nameList = [
   { name: "전체", value: "전체", key: "전체" },
@@ -71,28 +72,33 @@ const HotelCarousel = () => {
     setName(e.target.value);
     if (e.target.value === "전체") {
       allHotel();
+      setCurrentPage(0);
       return;
     } else {
       searchHotel(e.target.value);
     }
+    setCurrentPage(0);
   };
 
   return (
     <div>
-      <TextField
-        select
-        id="demo-simple-select"
-        defaultValue="전체"
-        value={name}
-        label="지역"
-        onChange={handleChange}
-      >
-        {nameList.map((name) => (
-          <MenuItem key={name.id} value={name.value}>
-            {name.name}
-          </MenuItem>
-        ))}
-      </TextField>
+      <Header />
+      <div style={{ margin: 20, marginTop: 100 }}>
+        <TextField
+          select
+          id="demo-simple-select"
+          defaultValue="전체"
+          value={name}
+          label="지역"
+          onChange={handleChange}
+        >
+          {nameList.map((name) => (
+            <MenuItem key={name.id} value={name.value}>
+              {name.name}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
       <div
         style={{
           display: "grid",
