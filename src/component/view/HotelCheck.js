@@ -22,16 +22,17 @@ const HotelCheck = () => {
   const [hotelList, setHotelList] = useState([]);
 
   const redirection = useNavigate();
-  if (role !== "관리자") {
-    alert("관리자만 접근할 수 있습니다.");
-    redirection("/");
-  }
+
   const requestHeader = {
     "content-type": "application/json",
     Authorization: "Bearer " + token,
   };
 
   useEffect(() => {
+    if (role !== "관리자") {
+      alert("관리자만 접근할 수 있습니다.");
+      redirection("/");
+    }
     getHotelList();
   }, []);
 
