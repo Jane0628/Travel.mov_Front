@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const GooMap = ({ location }) => {
   const [map, setMap] = useState(null);
@@ -135,7 +136,7 @@ const GooMap = ({ location }) => {
       {
         location: location,
         radius: 5000,
-        type: "hotel",
+        type: "lodging",
       },
       (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
@@ -144,6 +145,11 @@ const GooMap = ({ location }) => {
       }
     );
   };
+
+  const redirection = useNavigate();
+  const reserveHotel = (hotelName) => {
+    redirection('/hotelSearch', { state: { hotelName } });
+  }
 
   return (
     <div>
@@ -175,11 +181,12 @@ const GooMap = ({ location }) => {
               </a>
             </p>
           )}
-          <button>예약하기</button>
+          <button onClick={()=>reserveHotel(selectedHotel.name)}>예약하기</button>
         </div>
       )}
     </div>
   );
+
 };
 
 export default GooMap;

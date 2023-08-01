@@ -11,6 +11,7 @@ const GridContainer = styled.div`
     align-content: center;
     margin: 40px;
 `;
+
 const Item = styled.div`
     @keyframes trans {
         from {
@@ -78,9 +79,9 @@ export default function FullList({ movieList }) {
   const handleClick = (id) => {
     navigate(`/movie/${id}`);
   }
-  const pagination = () => {
+  const pagination = (length) => {
     let pageButton = [];
-    for (let i = 1; i < 6; i++) {
+    for (let i = 1; i < length + 1; i++) {
       pageButton.push(<button key={i} onClick={() => handlePagination(i)}>{i}</button>)
     }
     return pageButton;
@@ -95,7 +96,7 @@ export default function FullList({ movieList }) {
           </Item>
         )}
       </GridContainer>
-      <PageBtn>{pagination()}</PageBtn>
+      <PageBtn>{pagination(movieList.length)}</PageBtn>
     </>
   )
 }

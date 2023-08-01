@@ -1,28 +1,63 @@
- form.css-178yklu {
- 	margin-top: 70px;
+main.css-nzinn5-MuiContainer-root {
+	margin-top: 150px;
+}
 
- 	div.css-1idn90j-MuiGrid-root {
- 		margin-bottom: 30px;
- 		padding: 0;
- 		display: flex;
- 		justify-content: center;
+form.css-178yklu {
+	margin-top: 70px;
 
- 		button.check-btn {
- 			width: 135px;
- 			height: 65.85px;
- 			margin: 0 0 0 10px;
- 		}
- 	}
+	div.css-1idn90j-MuiGrid-root {
+		margin-bottom: 30px;
+		padding: 0;
+		display: flex;
+		justify-content: center;
 
- 	.buttons {
- 		width: 500px;
- 		display: flex;
- 		justify-content: space-between;
- 		margin-top: 30px;
- 	}
- }
+		button.check-btn {
+			width: 135px;
+			height: 65.85px;
+			margin: 0 0 0 10px;
+		}
+	}
 
- .check-btn {
- 	margin-top: 10px;
- 	height: 40%;
- }
+	.buttons {
+		width: 500px;
+		display: flex;
+		justify-content: space-between;
+		margin-top: 30px;
+	}
+}
+
+div.css-wb57ya-MuiFormControl-root-MuiTextField-root {
+	.css-1qkuarz-MuiInputBase-root-MuiOutlinedInput-root {
+		height: inherit;
+		padding: 20px 9px 5px;
+	}
+
+	span {
+		margin: 0;
+	}
+}
+
+div.css-1idn90j-MuiGrid-root:last-child {
+	display: flex;
+	flex-direction: column;
+
+	.buttons {
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+		width: 516px;
+
+		button {
+			width: inherit;
+		}
+
+		a {
+			margin-bottom: 70px;
+		}
+	}
+}
+
+.check-btn {
+	margin-top: 10px;
+	height: 40%;
+}

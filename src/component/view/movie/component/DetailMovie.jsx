@@ -5,25 +5,32 @@ import styled from "styled-components";
 import { Button } from "@mui/base";
 
 const DetailMovieWrapper = styled.div`
-    position: relative;
+  position: relative;
+  width: 70%;
+  height: auto;
+  margin: auto;
+  padding: 7%;
+
+  .movie {
     display: flex;
-    width: 70%;
-    height: auto;
-    margin: auto;
-    padding: 7%;
-    img{
-        width:300px;
-        height: 400px;
-        margin: auto 0;
+    flex-wrap: nowrap;
+    align-items: start;
+    height: 700px;
+    margin-bottom: 100px;
+    
+    img {
+      height: inherit;
+      margin: auto 0;
     }
+  } 
 `;
+
 const Description = styled.div`
     background-color: rgba( 255, 255, 255, 0.1 );
     margin-left: 10%;
     display: flex;
     flex-direction: column;
   
-    padding: 30px;
     >div{
         margin-top: 18px;
     }
@@ -130,32 +137,32 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
 
   return (
     <DetailMovieWrapper>
-      <div>
-        <img class="rounded" src={imageUrl + poster_path} />
+      <div className="movie">
+        <img className="rounded" src={imageUrl + poster_path} />
         {
           locations.map((location, index) => (
             <Button key={index} onClick={searchLocation}>{location}</Button>
           ))
         }
+        <Description>
+          <h1 className="title">{title}</h1>
+          <div className="genres">
+            {genres.map(genre =>
+              <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
+          <div className="sub-info">
+            <div className="release-date">개봉일 : {release_date}</div>
+          </div>
+          <div className="vote-average">
+            <Star vote_average={vote_average} />
+            <div>{vote_average}</div>
+          </div>
+          <div className="overviewInfo">
+            <div className="tagline">{tagline ? `"${tagline}"` : ''}</div>
+            <div className="overview">{overview}</div>
+          </div>
+        </Description>
       </div>
-      <Description>
-        <h1 className="title">{title}</h1>
-        <div className="genres">
-          {genres.map(genre =>
-            <div className="genre" key={genre.id}>{genre.name}</div>)}</div>
-        <div className="sub-info">
-          <div className="release-date">개봉일: {release_date}</div>
-        </div>
-        <div className="vote-average">
-          <Star vote_average={vote_average} />
-          <div>{vote_average}</div>
-        </div>
-        <div className="overviewInfo">
-          <div className="tagline">{tagline ? `"${tagline}"` : ''}</div>
-          <div className="overview">{overview}</div>
-        </div>
-        <GooMap location={gooLocation} />
-      </Description>
+      <GooMap location={gooLocation} />
     </DetailMovieWrapper>
   )
 }

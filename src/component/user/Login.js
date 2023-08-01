@@ -71,9 +71,9 @@ export default function SignInSide() {
       return;
     }
 
-    const { token, nick, id } = await res.json();
+    const { token, nick, id, role } = await res.json();
 
-    onLogin(token, nick, id);
+    onLogin(token, nick, id, role);
     redirection("/");
   };
 
@@ -234,6 +234,7 @@ export default function SignInSide() {
           <Box
             component="form"
             noValidate
+            autoComplete='off'
             onSubmit={loginHandler}
             sx={{ mt: 1 }}
           >

@@ -1,4 +1,4 @@
-import { React, memo } from 'react';
+import React, { memo, useState } from 'react';
 import styled from 'styled-components';
 import Star from './Star';
 
@@ -42,16 +42,48 @@ const HeaderMovie = styled.div`
       
     img {
       width: 100%;
+      min-width: 1068px;
+      min-height: 600px;
       z-index: -5;
     }
+
+    .video-container{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -5;
+
+      display: flex;
+      justify-content: end;
+      align-items: center;
+
+      .header-video{
+        border-radius: 5px;
+        margin-right: 80px;
+        width: 800px;
+        transition: 1s ease-in-out;
+        @keyframes transform {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        animation: transform 1.2s linear;
+      }
+    }
   }
+
     
   .info{
     z-index: 100;
     color: white;
     position: absolute;
     left: 3%;
-    bottom: 10%;
+    bottom: 5%;
 
     .title {
       margin: 0;
@@ -96,14 +128,44 @@ const imageHandler = (title) => {
   if (title === '플래시') {
     return require("../../../../img/flash.jpg");
   }
+
+  return "https://image.tmdb.org/t/p/w1280";
+}
+
+const videoHandler = (title) => {
+  if (title === '바비') {
+    return require("../../../../video/barbie.mp4");
+  }
+
+  if (title === '플래시') {
+    return require("../../../../img/flash.jpg");
+  }
+
+  return "";
 }
 
 export default memo(function Header({ mainMovie }) {
   const { title, backdrop_path, overview, release_date, vote_average } = mainMovie;
+  const videoSrc = videoHandler(title);
+
+  // 영상 플레이 여부 확인
+  const [play, setPlay] = useState(true);
+
+  // 영상이 끝났을 경우 숨기기
+  const hideVideo = () => {
+    setPlay(false);
+  }
+
   return (
     <HeaderMovie backdrop_path={backdrop_path}>
       <div className="frame" id={title}>
         <img src={imageHandler(title)} alt="" />
+        <div className="video-container">
+          <video className="header-video" autoPlay muted onEnded={hideVideo} style={{ opacity: (play ? 1 : 0) }}>
+            <source src={videoSrc} type="video/mp4" />
+            브라우저가 비디오 태그를 지원하지 않습니다.
+          </video>
+        </div>
       </div>
       <div className="info">
         <p className='title'>{title}</p>

@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
-import logo from '../../img/logo.png';
+import React, { useContext, useState } from 'react';
 import "../../design/layout/header.scss";
 import { Link, Router, useNavigate } from 'react-router-dom';
 import AuthContext from '../../util/AuthContext';
 import axios from 'axios';
-import { useState } from 'react';
 import { Box, Button, Divider, Drawer, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -60,12 +58,14 @@ const Header = () => {
 
   const searchHandler = async (e) => {
     e.preventDefault();
+
+
     const searchData = await searchMovie(text);
     redirection('/search', { state: { searchData } })
   };
 
   // 햄버거
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     top: false,
     left: false,
     bottom: false,
@@ -83,28 +83,33 @@ const Header = () => {
   const list = (anchor) => (
     <Box
       sx={{ width: '400px' }}
-      role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <Image src={require('../../img/profileImage.png')} width={'80px'} />
-        <ListItemText onClick={redirection('/login')} primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} />
+        <ListItem>
+          <Image src={require('../../img/profileImage.png')} width={'80px'} />
+          <ListItemText primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} sx={{ marginLeft: '20px' }} />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {['로그인', '회원가입', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index === 0 && <LockOutlinedIcon />}
-                {index === 1 && <AssignmentIcon />}
-                {index === 2 && <LockOutlinedIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem>
+          <Link to={'/login'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+            <ListItemIcon>
+              <LockOutlinedIcon color='primary' />
+            </ListItemIcon>
+            로그인
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link to={'/join'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+            <ListItemIcon>
+              <AssignmentIcon color='primary' />
+            </ListItemIcon>
+            회원가입
+          </Link>
+        </ListItem>
       </List>
     </Box>
   );
@@ -115,36 +120,37 @@ const Header = () => {
         {/* 로고 */}
         <Image src={require("../../img/long_logo.png")} onClick={moveToMainPage} />
 
-        {/* 검색 */}
-        <form onSubmit={searchHandler}>
-          <TextField
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: '25ch' }}
-            placeholder='영화 제목을 입력하세요.'
-            onChange={inputHandler}
-            value={text}
-            InputProps={{
-              startAdornment:
-                <InputAdornment position="start">
-                  <SearchIcon onClick={searchHandler} />
-                </InputAdornment>,
-            }}
-          />
-        </form>
-
-        {/* 햄버거 */}
-        {['right'].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
-            <Drawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-            >
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
-        ))}
+        <div class="right">
+          {/* 검색 */}
+          <form onSubmit={searchHandler} autocomplete="off">
+            <TextField
+              id="outlined-start-adornment"
+              color='secondary'
+              sx={{ width: '25ch', height: '50px' }}
+              placeholder='영화 제목을 입력하세요.'
+              onChange={inputHandler}
+              value={text}
+              InputProps={{
+                startAdornment:
+                  <InputAdornment position="start">
+                    <SearchIcon onClick={searchHandler} />
+                  </InputAdornment>,
+              }} />
+          </form>
+          {/* 햄버거 */}
+          {['right'].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+              <Drawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))}
+        </div>
       </header>
     </>
   );

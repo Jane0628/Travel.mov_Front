@@ -42,10 +42,10 @@ export default function Checkout() {
   const [couponId, setCouponId] = React.useState();
   const [hotel, setHotel] = React.useState();
 
-  //url에서 영화정보 얻어오기
-  const movie = useParams();
-  const id = movie.id;
-  //패치로 영화 정보 얻어오기
+  //url에서 호텔id 얻어오기
+  const hotelId = useParams();
+  const id = hotelId.id;
+  //패치로 호텔정보 얻어오기
   React.useEffect(() => {
     fetch(`${API_BASE_URL}/hotels/id/${id}`, {
       method: "GET",
@@ -102,23 +102,11 @@ export default function Checkout() {
   //체크인 날짜
   const startHandler = (date) => {
     // console.log(date);
-    setStartDate(
-      date.toLocaleString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    );
+    setStartDate(date);
   };
   //체크아웃 날짜
   const endHandler = (date) => {
-    setEndDate(
-      date.toLocaleString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    );
+    setEndDate(date);
     console.log(date);
   };
   //몇박
@@ -170,8 +158,16 @@ export default function Checkout() {
         total_amount: total - discount, // 결제 금액
         vat_amount: (total - discount) * 0.1,
         tax_free_amount: 0,
-        start_date: startDate,
-        end_date: endDate,
+        start_date: startDate.toLocaleString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+        end_date: endDate.toLocaleString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
         coupon: couponId,
       }),
     });
@@ -189,7 +185,7 @@ export default function Checkout() {
       alert("예약자 이름을 입력하세요");
       return;
     }
-    if (!days) {
+    if (days < 1) {
       alert("1박 이상 날짜를 선택하세요");
       return;
     }
@@ -222,9 +218,7 @@ export default function Checkout() {
               예약해주셔서 감사합니다.
             </Typography>
             <Typography variant="subtitle1">
-              Your order number is #2001539. We have emailed your order
-              confirmation, and will send you an update when your order has
-              shipped.
+              잠시 후 카카오 결제 페이지로 이동합니다.
             </Typography>
           </React.Fragment>
         ) : (
@@ -236,26 +230,24 @@ export default function Checkout() {
                   뒤로가기
                 </Button>
               )}
-
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                sx={{ mt: 3, ml: 1 }}
-              >
-                {activeStep === steps.length - 1 ? (
-                  <>
-                    <Typography variant="h6" gutterBottom>
-                      결제하기
-                    </Typography>
+              {activeStep !== steps.length - 1 ? (
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{ mt: 3, ml: 1 }}
+                >
+                  다음
+                </Button>
+              ) : (
+                <>
+                  <Button sx={{ mt: 3, ml: 1 }}>
                     <img
                       src={require("../../img/payment_icon_yellow_medium.png")}
                       onClick={preparePayment}
                     />
-                  </>
-                ) : (
-                  "다음"
-                )}
-              </Button>
+                  </Button>
+                </>
+              )}
             </Box>
           </React.Fragment>
         )}

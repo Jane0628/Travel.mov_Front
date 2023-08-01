@@ -49,7 +49,28 @@ header {
     }
   }
 
-  button.css-de3i9w-MuiButtonBase-root-MuiButton-root {
-    color: #424180;
+  .right {
+    display: flex;
+
+    form {
+      border-radius: 5px;
+      z-index: 100;
+
+
+      div.css-szwkwu-MuiInputBase-root-MuiOutlinedInput-root {
+        height: 50px;
+        font-size: 18px;
+        position: relative;
+
+        input {
+          padding: 5px 0;
+        }
+
+      }
+    }
+
+    button.css-de3i9w-MuiButtonBase-root-MuiButton-root {
+      color: #424180;
+    }
   }
 }

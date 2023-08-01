@@ -1,31 +1,27 @@
 import {
+  Autocomplete,
   Avatar,
   Box,
   Button,
   Checkbox,
   Container,
   CssBaseline,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
   Grid,
   IconButton,
   InputAdornment,
-  InputLabel,
   Link,
-  OutlinedInput,
   TextField,
-  ThemeProvider,
   Typography,
-  createTheme,
 } from "@mui/material";
 import "../../design/join.scss";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Copyright, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import AuthContext from "../../util/AuthContext";
 import { API_BASE_URL, USER } from "../../util/host-utils";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Header from "../layout/Header";
 
 const Join = () => {
@@ -42,7 +38,7 @@ const Join = () => {
     }
   });
 
-  //회원가입 요청 함수
+  // 회원가입 요청 함수
   const fetchJoin = async () => {
     const $id = document.getElementById("id");
     const $pw = document.getElementById("pw");
@@ -312,6 +308,22 @@ const Join = () => {
     setShowPassword(!showPassword);
   };
 
+
+  // 영화 장르 선택
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const top100Films = [
+    { title: '액션' },
+    { title: '공포' },
+    { title: '로맨스' },
+    { title: '코미디' },
+    { title: '뮤지컬' },
+    { title: "판타지" },
+    { title: '모험' },
+    { title: 'SF' },
+    { title: '애니메이션' },
+  ];
+
   return (
     <>
       <Header />
@@ -408,38 +420,49 @@ const Join = () => {
                   }}
                 />
               </Grid>
-              <FormGroup>
-                <h2>선호하는 영화 장르</h2>
-                <FormControlLabel control={<Checkbox />} label="액션" />
-                <FormControlLabel control={<Checkbox />} label="공포" />
-                <FormControlLabel control={<Checkbox />} label="로맨스" />
-                <FormControlLabel control={<Checkbox />} label="코미디" />
-                <FormControlLabel control={<Checkbox />} label="뮤지컬" />
-                <FormControlLabel control={<Checkbox />} label="판타지" />
-                <FormControlLabel control={<Checkbox />} label="모험" />
-                <FormControlLabel control={<Checkbox />} label="SF" />
-              </FormGroup>
-            </Grid>
-            <div className="buttons">
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                가입하기
-              </Button>
-            </div>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  이미 계정이 있으신가요? 로그인하기
-                </Link>
+              <Grid item xs={12}>
+                <Autocomplete
+                  multiple
+                  id="checkboxes-tags-demo"
+                  options={top100Films}
+                  disableCloseOnSelect
+                  getOptionLabel={(option) => option.title}
+                  renderOption={(props, option, { selected }) => (
+                    <li {...props}>
+                      <Checkbox
+                        icon={icon}
+                        checkedIcon={checkedIcon}
+                        style={{ marginRight: 8 }}
+                        checked={selected}
+                      />
+                      {option.title}
+                    </li>
+                  )}
+                  style={{ width: 516, height: 65.85 }}
+                  renderInput={(params) => (
+                    <><TextField {...params} label="선호하는 영화 장르" />
+                      <div className="buttons">
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          가입하기
+                        </Button>
+                        <Link href="/login" variant="body2">
+                          이미 계정이 있으신가요? 로그인하기
+                        </Link>
+                      </div>
+                    </>
+                  )}
+                />
+
               </Grid>
             </Grid>
           </Box>
         </Box>
-      </Container>
+      </Container >
     </>
   );
 };

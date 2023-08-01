@@ -30,31 +30,19 @@ export default function AddressForm({ start, end, name, days }) {
   //체크인 날짜 설정
   function checkIn(date) {
     setStartDate(date);
-    start(
-      date.toLocaleString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    );
+    start(date);
     calcDay(date);
   }
   //체크아웃 날짜 설정
   function checkout(date) {
     setEndDate(date);
-    end(
-      date.toLocaleString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    );
+    end(date);
     calcDays(date);
   }
   //날짜 차이 계산
   function dateDiffInDays(date1, date2) {
     const oneDay = 24 * 60 * 60 * 1000; // 1일 = 24시간 * 60분 * 60초 * 1000밀리초
-    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const timeDiff = date2.getTime() - date1.getTime();
     return Math.floor(timeDiff / oneDay);
   }
   //useEffect반응이 느려서 두가지로 구현
