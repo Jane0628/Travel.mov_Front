@@ -64,15 +64,6 @@ const HeaderMovie = styled.div`
         margin-right: 80px;
         width: 800px;
         transition: 1s ease-in-out;
-        @keyframes transform {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-        animation: transform 1.2s linear;
       }
     }
   }
