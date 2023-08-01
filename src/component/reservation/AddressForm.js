@@ -76,6 +76,7 @@ export default function AddressForm({ start, end, name, days }) {
           />
         </Grid>
         <Grid item xs={12} className="datepicker-container">
+        <div style={{ display: "flex", flexDirection: "row" }}>
           <DatePicker
             dateFormat="yyyy/MM/dd"
             selected={startDate}
@@ -94,7 +95,8 @@ export default function AddressForm({ start, end, name, days }) {
             endDate={endDate}
             minDate={startDate}
             locale={ko}
-          />
+            />
+        </div>
         </Grid>
         {/* <Grid item xs={12}>
           <TextField
