@@ -12,7 +12,7 @@ import { Image } from 'react-bootstrap';
 
 const Header = () => {
 
-  const { isLoggedIn, onLogout, nick } = useContext(AuthContext);
+  const { isLoggedIn, onLogout, onLogin, nick } = useContext(AuthContext);
 
   const redirection = useNavigate();
 
@@ -94,22 +94,42 @@ const Header = () => {
       </List>
       <Divider />
       <List>
-        <ListItem>
-          <Link to={'/login'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
-            <ListItemIcon>
-              <LockOutlinedIcon color='primary' />
-            </ListItemIcon>
-            로그인
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to={'/join'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
-            <ListItemIcon>
-              <AssignmentIcon color='primary' />
-            </ListItemIcon>
-            회원가입
-          </Link>
-        </ListItem>
+        {isLoggedIn
+          ?
+          (
+          <>
+            <ListItem>
+              <Link to={'/'} onClick={logoutHandler} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+                <ListItemIcon>
+                  <LockOutlinedIcon color='primary' />
+                </ListItemIcon>
+                로그아웃
+              </Link>
+            </ListItem>
+          </> 
+          )
+          : 
+          (
+          <>
+            <ListItem>
+              <Link to={'/login'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+                <ListItemIcon>
+                  <LockOutlinedIcon color='primary' />
+                </ListItemIcon>
+                로그인
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to={'/join'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+                <ListItemIcon>
+                  <AssignmentIcon color='primary' />
+                </ListItemIcon>
+                회원가입
+              </Link>
+            </ListItem>
+          </>
+          )
+          }
       </List>
     </Box>
   );
