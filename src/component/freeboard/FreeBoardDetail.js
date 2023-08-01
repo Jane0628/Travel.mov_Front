@@ -148,11 +148,7 @@ const FreeBoardDetail = ({ freeBoard }) => {
               <img
                 style={{ width: 40, height: 40 }}
                 id="pfp"
-                src={
-                  freeBoard.user.profileImg
-                    ? freeBoard.user.profileImg
-                    : imgHandler(freeBoard.user.profileImg)
-                }
+                src={imgHandler(freeBoard.user.profileImg)}
                 alt=""
               />
               {freeBoard.user.nick}
