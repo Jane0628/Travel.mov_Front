@@ -24,7 +24,7 @@ const Header = () => {
     e.preventDefault();
     alert('로그아웃 되었습니다');
     onLogout();
-    redirection('/login');
+    redirection('/');
   };
 
   const [text, setText] = useState('');
@@ -104,6 +104,14 @@ const Header = () => {
                   <LockOutlinedIcon color='primary' />
                 </ListItemIcon>
                 로그아웃
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to={'/myPage'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+                <ListItemIcon>
+                  <LockOutlinedIcon color='primary' />
+                </ListItemIcon>
+                마이페이지
               </Link>
             </ListItem>
           </> 
