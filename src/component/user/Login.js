@@ -276,7 +276,7 @@ export default function SignInSide() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/changePw" variant="body2">
                   비밀번호를 잊으셨나요?
                 </Link>
               </Grid>

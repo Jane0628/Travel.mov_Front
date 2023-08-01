@@ -86,8 +86,6 @@ function App() {
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
               <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
               <Route path="/search" element={<SearchMovie />} />
-              <Route path="/hotelJoin" element={<HotelJoin />} />
-              <Route path="/hotelCheck" element={<HotelCheck />} />
             </Routes>
           </ThemeProvider>
         </MovieStateProvider>
