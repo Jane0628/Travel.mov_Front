@@ -111,6 +111,7 @@ const HotelCarousel = () => {
           <div
             key={hotel.id}
             style={{
+              height: "500px",
               border: "1px solid #b1bff9",
               margin: "5px 20px",
               borderRadius: "15px",
@@ -118,6 +119,7 @@ const HotelCarousel = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              position:"relative",
             }}
           >
             <img
@@ -130,7 +132,7 @@ const HotelCarousel = () => {
               <p style={{ margin: "10px" }}>{hotel.address}</p>
               <p style={{ margin: "10px" }}>{hotel.price}원</p>
             </div>
-            <div>
+            <div style={{position: "absolute", bottom: "20px" }}>
               {hotel.reservation ? (
                 <button
                   style={{

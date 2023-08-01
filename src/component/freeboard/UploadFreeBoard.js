@@ -8,7 +8,8 @@ import { API_BASE_URL } from "../../util/host-utils";
 import { useNavigate, useParams } from "react-router-dom";
 import { getLoginUserInfo } from "../../util/login-utils";
 import { useHistory } from "react-router-dom";
-
+import { faStar as thinStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const UploadFreeBoard = () => {
   const direction = useNavigate();
   //url에서 호텔 정보 얻어오기
@@ -94,20 +95,23 @@ const UploadFreeBoard = () => {
         <div className="form-wrapper">
           <Rating>
             {starArr.map((idx) => (
-              <Star
+              <FontAwesomeIcon
+                className="star fa-fw"
+                style={{fontSize: '50px', color: idx <= starNum ? "#ff0" : "#E5E5E5" }}
+                icon={thinStar}
                 key={idx}
                 onMouseEnter={() => setHover(idx)}
                 onMouseLeave={() => setHover(0)}
                 onClick={() => setStarNum(idx)}
-                fill={
-                  starNum
-                    ? idx <= starNum
-                      ? "#000"
-                      : "#E5E5E5"
-                    : idx <= hover
-                    ? "#000"
-                    : "#E5E5E5"
-                }
+                // fill={
+                //   starNum
+                //     ? idx <= starNum
+                //       ? "#ff0"
+                //       : "#E5E5E5"
+                //     : idx <= hover
+                //     ? "#ff0"
+                //     : "#E5E5E5"
+                // }
               />
             ))}
           </Rating>
@@ -140,18 +144,18 @@ const UploadFreeBoard = () => {
             //   onClick={() => {
             //     setViewContent(viewContent.concat({ ...movieContent }));
             //   }}
-            onClick={submitReview}
+            onClick={cancelHandler}
           >
-            후기 작성
+            취소
           </button>
           <button
             className="submit-button"
             //   onClick={() => {
             //     setViewContent(viewContent.concat({ ...movieContent }));
             //   }}
-            onClick={cancelHandler}
+            onClick={submitReview}
           >
-            취소
+            후기 작성
           </button>
         </div>
       </div>
@@ -165,9 +169,4 @@ const Rating = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Star = styled(FiStar)`
-  font-size: 50px;
-  color: transparent;
 `;
