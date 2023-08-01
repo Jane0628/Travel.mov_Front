@@ -129,7 +129,7 @@ const videoHandler = (title) => {
   }
 
   if (title === '플래시') {
-    return require("../../../../img/flash.jpg");
+    return require("../../../../video/flash.mp4");
   }
 
   return "";

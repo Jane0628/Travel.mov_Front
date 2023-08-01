@@ -27,7 +27,7 @@ const DetailMovieWrapper = styled.div`
 
 const Description = styled.div`
     background-color: rgba( 255, 255, 255, 0.1 );
-    margin-left: 10%;
+    margin-left: 20px;
     display: flex;
     flex-direction: column;
   
@@ -49,7 +49,7 @@ const Description = styled.div`
             background-color: #7b8ce0;
             border-radius: 20px;
             &:last-child{
-                margin-right: 0;
+              margin-right: 0;
             }
         }
     }
@@ -57,12 +57,18 @@ const Description = styled.div`
     .sub-info{
         font-size: 16px;
         display: flex;
+        word-break: keep-all;
         
-          >div::after{
+        >div::after{
             content: "";
             padding: 7px;
           }
         }
+
+        h1.title {
+          word-break: keep-all;
+        }
+
         .release-date{
             overflow: nowrap;
         }
@@ -82,6 +88,7 @@ const Description = styled.div`
         .overview{
             font-size: 20px;
             font-weight: 300;
+            word-break: keep-all;
         }
     }
 
@@ -139,11 +146,6 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
     <DetailMovieWrapper>
       <div className="movie">
         <img className="rounded" src={imageUrl + poster_path} />
-        {
-          locations.map((location, index) => (
-            <Button key={index} onClick={searchLocation}>{location}</Button>
-          ))
-        }
         <Description>
           <h1 className="title">{title}</h1>
           <div className="genres">
@@ -163,6 +165,11 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
         </Description>
       </div>
       <GooMap location={gooLocation} />
+      {
+        locations.map((location, index) => (
+          <Button key={index} onClick={searchLocation}>{location}</Button>
+        ))
+      }
     </DetailMovieWrapper>
   )
 }

@@ -11,15 +11,14 @@ const AuthContext = React.createContext({
   nick: "",
   id: "",
   onLogout: () => { },
-  onLogin: (token, nick, id, role) => { },
+  onLogin: (token, nick, id, email, pfp, role) => { },
   setUserInfo: () => { },
 });
 
 // 위에서 생성한 Context를 제공할 수 있는 provider
 // 이 컴포넌트를 통해 자식 컴포넌트들에게 인증 상태와 관련된 함수들을 전달할 수 있음.
 export const AuthContextProvider = (props) => {
-  const [isLoggedIn, 
-    setIsLoggedIn] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(0);
   const [id, setId] = useState("");
   const [nick, setNick] = useState("");
   const [email, setEmail] = useState("");
@@ -51,11 +50,13 @@ export const AuthContextProvider = (props) => {
   };
 
   //로그인 핸들러
-  const loginHandler = (token, nick, id, role) => {
-    localStorage.setItem("isLoggedIn", "1");
-    //json에 담긴 인증정보를 클라이언트에 보관
-    // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관됨.
-    // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐.
+  const loginHandler = (token, nick, id, email, pfp, role) => {
+    if (id) {
+      localStorage.setItem("isLoggedIn", 1);
+    } else {
+      localStorage.setItem("isLoggedIn", 2);
+    }
+
     localStorage.setItem("ACCESS_TOKEN", token);
     localStorage.setItem("LOGIN_USER_NICK", nick);
     localStorage.setItem("LOGIN_USER_ID", id);

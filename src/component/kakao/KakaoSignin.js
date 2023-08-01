@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
-
+import AuthContext from "../../util/AuthContext";
 
 const KakaoSignin = () => {
   const redirection = useNavigate();
 
+  const { onLogin, isLoggedIn } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const [loggedin, setLoggedIn] = useState(false);
   const { Kakao } = window;
@@ -29,7 +30,7 @@ const KakaoSignin = () => {
           url: "/v2/user/me",
           success(res) {
             console.log("카카오 인가 요청 성공");
-            setLoggedIn(true);
+
             const kakaoAccount = res.kakao_account;
             localStorage.setItem("LOGIN_USER_EMAIL", kakaoAccount.email);
             localStorage.setItem("LOGIN_USER_PFP", kakaoAccount.profile.profile_image_url);
@@ -107,7 +108,7 @@ const KakaoSignin = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        {user ? (
+        {isLoggedIn ? (
           <Button
             type="button"
             fullWidth

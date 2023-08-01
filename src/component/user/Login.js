@@ -74,6 +74,7 @@ export default function SignInSide() {
     const { token, nick, id, role } = await res.json();
 
     onLogin(token, nick, id, role);
+    alert('환영합니다, ' + nick + '님!');
     redirection("/");
   };
 
