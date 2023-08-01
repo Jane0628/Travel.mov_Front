@@ -30,7 +30,6 @@ const KakaoSignin = () => {
           url: "/v2/user/me",
           success(res) {
             console.log("카카오 인가 요청 성공");
-
             const kakaoAccount = res.kakao_account;
             localStorage.setItem("LOGIN_USER_EMAIL", kakaoAccount.email);
             localStorage.setItem("LOGIN_USER_PFP", kakaoAccount.profile.profile_image_url);

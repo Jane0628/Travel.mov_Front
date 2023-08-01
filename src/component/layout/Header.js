@@ -9,6 +9,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { Image } from 'react-bootstrap';
+import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Header = () => {
 
@@ -22,7 +24,7 @@ const Header = () => {
 
   const logoutHandler = e => {
     e.preventDefault();
-    alert('로그아웃 되었습니다');
+    alert('로그아웃 되었습니다.');
     onLogout();
     redirection('/');
   };
@@ -88,56 +90,56 @@ const Header = () => {
     >
       <List>
         <ListItem>
-          <Image src={require('../../img/profileImage.png')} width={'80px'} />
-          <ListItemText primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} sx={{ marginLeft: '20px' }} />
+          <Image src={localStorage.getItem('LOGIN_USER_PFP') ? localStorage.getItem('LOGIN_USER_PFP') : require('../../img/profileImage.png')} width={'80px'} />
+          <ListItemText primary={localStorage.getItem('LOGIN_USER_NICK') ? `${localStorage.getItem('LOGIN_USER_NICK')}님` : '로그인 후 이용해주세요.'} sx={{ marginLeft: '20px' }} />
         </ListItem>
       </List>
       <Divider />
       <List>
-        {isLoggedIn
+        {localStorage.getItem('LOGIN_USER_NICK')
           ?
           (
-          <>
-            <ListItem>
-              <Link to={'/'} onClick={logoutHandler} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
-                <ListItemIcon>
-                  <LockOutlinedIcon color='primary' />
-                </ListItemIcon>
-                로그아웃
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to={'/myPage'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
-                <ListItemIcon>
-                  <LockOutlinedIcon color='primary' />
-                </ListItemIcon>
-                마이페이지
-              </Link>
-            </ListItem>
-          </> 
+            <>
+              <ListItem>
+                <Link to={'/'} onClick={logoutHandler} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+                  <ListItemIcon>
+                    <OutputOutlinedIcon color='primary' />
+                  </ListItemIcon>
+                  로그아웃
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to={'/myPage'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+                  <ListItemIcon>
+                    <PersonIcon color='primary' />
+                  </ListItemIcon>
+                  마이페이지
+                </Link>
+              </ListItem>
+            </>
           )
-          : 
+          :
           (
-          <>
-            <ListItem>
-              <Link to={'/login'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
-                <ListItemIcon>
-                  <LockOutlinedIcon color='primary' />
-                </ListItemIcon>
-                로그인
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to={'/join'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
-                <ListItemIcon>
-                  <AssignmentIcon color='primary' />
-                </ListItemIcon>
-                회원가입
-              </Link>
-            </ListItem>
-          </>
+            <>
+              <ListItem>
+                <Link to={'/login'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+                  <ListItemIcon>
+                    <LockOutlinedIcon color='primary' />
+                  </ListItemIcon>
+                  로그인
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link to={'/join'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+                  <ListItemIcon>
+                    <AssignmentIcon color='primary' />
+                  </ListItemIcon>
+                  회원가입
+                </Link>
+              </ListItem>
+            </>
           )
-          }
+        }
       </List>
     </Box>
   );

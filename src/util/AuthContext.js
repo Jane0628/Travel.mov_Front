@@ -11,7 +11,7 @@ const AuthContext = React.createContext({
   nick: "",
   id: "",
   onLogout: () => { },
-  onLogin: (token, nick, id, email, pfp, role) => { },
+  onLogin: ({ token, nick, id, role }) => { },
   setUserInfo: () => { },
 });
 
@@ -21,11 +21,9 @@ export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(0);
   const [id, setId] = useState("");
   const [nick, setNick] = useState("");
-  const [email, setEmail] = useState("");
-  const [pfp, setPfp] = useState("");
   const [role, setRole] = useState("일반회원");
 
-  //컴포넌트가 렌더링 될 때 localStorage에서 로그인 정보를 가지고 와서 상태를 설정.
+  // 컴포넌트가 렌더링될 때 localStorage에서 로그인 정보를 가지고 와서 상태를 설정.
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === 1) {
       console.log("일반 로그인했당!");
@@ -50,13 +48,8 @@ export const AuthContextProvider = (props) => {
   };
 
   //로그인 핸들러
-  const loginHandler = (token, nick, id, email, pfp, role) => {
-    if (id) {
-      localStorage.setItem("isLoggedIn", 1);
-    } else {
-      localStorage.setItem("isLoggedIn", 2);
-    }
-
+  const loginHandler = (token, nick, id, role) => {
+    localStorage.setItem("isLoggedIn", 1);
     localStorage.setItem("ACCESS_TOKEN", token);
     localStorage.setItem("LOGIN_USER_NICK", nick);
     localStorage.setItem("LOGIN_USER_ID", id);
@@ -70,7 +63,7 @@ export const AuthContextProvider = (props) => {
     setRole(role);
   };
 
-  //토큰 및 로그인 유저 데이터를 브라우저에 저장하는 함수
+  // 토큰 및 로그인 유저 데이터를 브라우저에 저장하는 함수
   const setLoginUserInfo = ({ token, nick, id, role }) => {
     localStorage.setItem("ACCESS_TOKEN", token);
     localStorage.setItem("LOGIN_USER_NICK", nick);
