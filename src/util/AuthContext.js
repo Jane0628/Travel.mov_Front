@@ -35,6 +35,8 @@ export const AuthContextProvider = (props) => {
       console.log("카카오 로그인했당!");
       setIsLoggedIn(2);
       setNick(localStorage.getItem("LOGIN_USER_NICK"));
+      // setEmail(localStorage.getItem("LOGIN_USER_EMAIL"));
+      // setPfp(localStorage.getItem("LOGIN_USER_PFP"));
       setRole(localStorage.getItem("ROLE"));
     }
   }, [isLoggedIn]);
@@ -53,7 +55,7 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("LOGIN_USER_ID", id);
     localStorage.setItem("ROLE", role);
     // 로그인할 때 db에서 이메일 정보 가져와서 로컬 스토리지에 담기
-    fetch(`${API_BASE_URL}${USER}/getEmail`)
+    fetch(`${API_BASE_URL}${USER}/getEmail`);
 
     setIsLoggedIn(1);
     setNick(nick);

@@ -20,13 +20,14 @@ const MyPage = () => {
   // 이미지를 가져오는 작업.
   const imgHandler = () => {
     if (profileUrl) return profileUrl;
-    else if (isLoggedIn === 1) {
+    if (isLoggedIn === 1) {
       // 일반 로그인 유저
       return require("../../img/profileImage.png");
-    } else {
+    } else if (isLoggedIn === 2) {
       // 카카오 로그인 유저
       return localStorage.getItem("LOGIN_USER_PFP");
     }
+    return require("../../img/profileImage.png");
   };
 
   // console.log("API_BASE_URL:", API_BASE_URL);
@@ -111,10 +112,11 @@ const MyPage = () => {
         <div className="my-page">
           <div className="welcome">
             <Grid item xs={8} /*</div>style={{ backgroundColor: 'blue' }}*/>
-              <img src={profileUrl || imgHandler()} alt="프사프사" />
+              <img src={imgHandler()} alt="프사프사" />
             </Grid>
             <div className="nick">
-              <span>{nick}</span>님 환영합니다!
+              <span>{localStorage.getItem("LOGIN_USER_NICK")}</span>님
+              환영합니다!
             </div>
           </div>
           <div className="page-menu">
