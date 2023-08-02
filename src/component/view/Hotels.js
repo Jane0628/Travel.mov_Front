@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../util/host-utils";
 import { useEffect } from "react";
 import { getLoginUserInfo } from "../../util/login-utils";
@@ -8,7 +8,8 @@ import Header from "../layout/Header";
 const HotelCarousel = () => {
   const [hotels, setHotels] = useState([]);
   const location = useLocation();
-  const hotel = location.state?.hotelName || '';
+  const hotel = location.state?.hotelName || "";
+  const redirection = useNavigate();
 
   const token = getLoginUserInfo().token;
   const requestHeader = {
@@ -20,7 +21,17 @@ const HotelCarousel = () => {
       method: "GET",
       headers: requestHeader,
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 200) return res.json();
+        else if (res.status === 403) {
+          alert("로그인이 필요한 서비스 입니다.");
+          redirection("/login");
+          return;
+        } else {
+          alert(res.text);
+        }
+        return;
+      })
       .then((json) => {
         console.log(json);
         setHotels(json);

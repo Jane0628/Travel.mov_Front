@@ -8,10 +8,35 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Title } from "@mui/icons-material";
+import { ExpandLess, ExpandMore, Title } from "@mui/icons-material";
 import Header from "../layout/Header";
+import { Collapse, List, ListItemButton } from "@mui/material";
+import FreeBoardDetail from "./FreeBoardDetail";
+
+//sns형식 날짜 바꾸는 함수
+function formatDateToSNS(dateString) {
+  const inputDate = new Date(dateString);
+  const now = new Date();
+
+  const diffInMilliseconds = now - inputDate;
+  const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  const diffInDays = Math.floor(diffInHours / 24);
+
+  if (diffInDays > 0) {
+    return `${diffInDays} 일 전`;
+  } else if (diffInHours > 0) {
+    return `${diffInHours} 시간 전`;
+  } else if (diffInMinutes > 0) {
+    return `${diffInMinutes} 분 전`;
+  } else {
+    return "방금 전";
+  }
+}
 
 const MyFreeBoardList = () => {
+  const [open, setOpen] = useState(-1);
   // 로그인 인증 토큰 얻어오기
   const token = getLoginUserInfo().token;
   const id = getLoginUserInfo().id;
@@ -23,6 +48,10 @@ const MyFreeBoardList = () => {
   const requestHeader = {
     "content-type": "application/json",
     Authorization: "Bearer " + token,
+  };
+
+  const handleClick = (index) => {
+    setOpen((prevIndex) => (prevIndex === index ? -1 : index));
   };
 
   useEffect(() => {
@@ -66,26 +95,29 @@ const MyFreeBoardList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {freeBoardList.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>
-                {row.uploadDate.toLocaleString("ko-KR", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </TableCell>
-              <TableCell>
-                <Link
-                  style={{ color: "black" }}
-                  to={`/freeBoardDetail/${row.id}`}
-                >
-                  {row.title}
-                </Link>
-              </TableCell>
-              <TableCell>{row.userNick}</TableCell>
-              <TableCell align="right">{row.star}</TableCell>
-            </TableRow>
+          {freeBoardList.map((row, index) => (
+            <>
+              <TableRow key={row.id}>
+                <TableCell>{formatDateToSNS(row.uploadDate)}</TableCell>
+                <TableCell>{row.title}</TableCell>
+                <TableCell>{row.hotel.name}</TableCell>
+                {/* <TableCell>{row.hotel.image}</TableCell> */}
+                <TableCell>{row.user.nick}</TableCell>
+                <TableCell>{row.star}</TableCell>
+                <ListItemButton onClick={() => handleClick(index)}>
+                  {open === index ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+              </TableRow>
+              <TableRow key={index}>
+                <TableCell colSpan={5}>
+                  <Collapse in={open === index} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <FreeBoardDetail freeBoard={row} />
+                    </List>
+                  </Collapse>
+                </TableCell>
+              </TableRow>
+            </>
           ))}
         </TableBody>
       </Table>
