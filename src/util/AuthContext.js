@@ -35,8 +35,6 @@ export const AuthContextProvider = (props) => {
       console.log("카카오 로그인했당!");
       setIsLoggedIn(2);
       setNick(localStorage.getItem("LOGIN_USER_NICK"));
-      setEmail(localStorage.getItem("LOGIN_USER_EMAIL"));
-      setPfp(localStorage.getItem("LOGIN_USER_PFP"));
       setRole(localStorage.getItem("ROLE"));
     }
   }, [isLoggedIn]);

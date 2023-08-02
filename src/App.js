@@ -69,23 +69,32 @@ function App() {
           <ThemeProvider theme={theme}>
             <Routes>
               <Route path="/" element={<Home />} />
+
+              {/* 사용자 */}
               <Route path="/join" element={<Join />} />
               <Route path="/login" element={<Login />} />
               <Route path="/myPage" element={<MyPage />} />
               <Route path="/profile" element={<Profile />} />
+
+              {/* 호텔 */}
               <Route path="/sights" element={<Sights />} />
               <Route path="/checkout/:id" element={<Checkout />} />
               <Route path="/reservationCheck" element={<ReservationCheck />} />
               <Route path="/hotelSearch" element={<Hotels />} />
               <Route path="/hotels" element={<HotelList />} />
+
+              {/* 영화 */}
               <Route path="/now_playing" element={<NowPlayingMovie />} />
               <Route path="/topRated" element={<TopRatedMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
+              <Route path="/search" element={<SearchMovie />} />
+
+              {/* 후기 게시판 */}
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
               <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
-              <Route path="/search" element={<SearchMovie />} />
+
             </Routes>
           </ThemeProvider>
         </MovieStateProvider>

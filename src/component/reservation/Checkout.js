@@ -21,7 +21,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://tramovel.com/">
-        Tramovle.com
+        Tramovel.com
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -44,8 +44,8 @@ export default function Checkout() {
   const [hotel, setHotel] = React.useState();
 
   //url에서 호텔id 얻어오기
-  const hotelId = useParams();
-  const id = hotelId.id;
+  const id = useParams().id;
+
   //패치로 호텔정보 얻어오기
   React.useEffect(() => {
     fetch(`${API_BASE_URL}/hotels/id/${id}`, {

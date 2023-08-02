@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../../design/profile.scss";
 import {
   Grid,
@@ -18,6 +18,17 @@ import { getLoginUserInfo } from "../../util/login-utils";
 import AuthContext from "../../util/AuthContext";
 
 const Profile = () => {
+
+  const redirection = useNavigate();
+
+  // 일반 로그인 유저가 아니라면 모두 튕겨내기
+  useEffect(() => {
+    if (localStorage.getItem('isLoggedIn') != 1) {
+      alert('일반 로그인 사용자만이 이용할 수 있는 페이지입니다.');
+      redirection('/');
+    }
+  });
+
   const $fileTag = useRef();
 
   const REQUEST_URL = API_BASE_URL + USER;
@@ -29,7 +40,6 @@ const Profile = () => {
     setNick(newNick);
   };
 
-  const redirection = useNavigate();
 
   // console.log(id);
 
@@ -70,34 +80,34 @@ const Profile = () => {
     });
   };
 
-  //   // 패스워드 입력창 체인지 이벤트 핸들러
-  //   const passwordHandler = (e) => {
-  //     const inputVal = e.target.value;
+  // 패스워드 입력창 체인지 이벤트 핸들러
+  const passwordHandler = (e) => {
+    const inputVal = e.target.value;
 
-  //     const pwRegex =
-  //       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
+    const pwRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
-  //     let msg;
-  //     let verification = 0;
-  //     if (!inputVal) {
-  //       //비밀번호 안적음
-  //       msg = "비밀번호는 필수입니다.";
-  //       verification = 1;
-  //     } else if (!pwRegex.test(inputVal)) {
-  //       msg = "8~20글자 영문, 숫자, 특수문자를 포함해 주세요.";
-  //       verification = 1;
-  //     } else {
-  //       verification = 2;
-  //       setCorrect({ ...correct, pw: verification });
-  //     }
+    let msg;
+    let verification = 0;
+    if (!inputVal) {
+      //비밀번호 안적음
+      msg = "비밀번호는 필수입니다.";
+      verification = 1;
+    } else if (!pwRegex.test(inputVal)) {
+      msg = "8~20글자 영문, 숫자, 특수문자를 포함해 주세요.";
+      verification = 1;
+    } else {
+      verification = 2;
+      setCorrect({ ...correct, pw: verification });
+    }
 
-  //     saveInputState({
-  //       key: "pw",
-  //       inputVal,
-  //       msg,
-  //       verification,
-  //     });
-  //   };
+    saveInputState({
+      key: "pw",
+      inputVal,
+      msg,
+      verification,
+    });
+  };
 
   //닉네임 입력창 체인지 이벤트 핸들러
   const nameHandler = (e) => {
@@ -153,10 +163,10 @@ const Profile = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  //   // 눈 클릭 시 비밀번호 보여주는/숨기는 메서드
-  //   const showPasswordHandler = () => {
-  //     setShowPassword(!showPassword);
-  //   };
+  // 눈 클릭 시 비밀번호 보여주는/숨기는 메서드
+  const showPasswordHandler = () => {
+    setShowPassword(!showPassword);
+  };
 
   // 새로운 이미지 파일과 그 썸네일을 다루기 위한 상태를 추가합니다.
   const [imgFile, setImgFile] = useState();
@@ -226,24 +236,28 @@ const Profile = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    // 닉네임 업데이트
-    setNick(userValue.nick);
+    if (localStorage.getItem('isLoggedIn') == 1) {
+      // 닉네임 업데이트
+      setNick(userValue.nick);
 
-    // // password, nickN, email 값 가져오기
-    // const passwordValue = document.getElementById('pw').value;
-    // const nickNValue = document.getElementById('nick').value;
-    // const emailValue = document.getElementById('email').value;
+      // password, nickN, email 값 가져오기
+      const passwordValue = document.getElementById('pw').value;
+      const nickNValue = document.getElementById('nick').value;
+      const emailValue = document.getElementById('email').value;
 
-    // 가져온 값 사용 또는 처리
-    // console.log('Password:', passwordValue);
-    // console.log('NickName:', nickNValue);
-    // console.log('Email:', emailValue);
+      // 가져온 값 사용 또는 처리
+      console.log('Password:', passwordValue);
+      console.log('NickName:', nickNValue);
+      console.log('Email:', emailValue);
 
-    if (isValid()) {
-      fetchSignUpPost();
-    } else {
-      alert("입력란을 다시 확인해 주세요!");
+      if (isValid()) {
+        fetchSignUpPost();
+      } else {
+        alert("입력란을 다시 확인해 주세요!");
+      }
+
     }
+
   };
 
   return (
@@ -276,8 +290,6 @@ const Profile = () => {
             </div>
             <div className="profile">
               <div className="right">
-                {/* {isLoggedIn === 1 ? (
-                  <>
                     <Grid item xs={8}>
                       <TextField
                         type="text"
@@ -317,8 +329,6 @@ const Profile = () => {
                         />
                       </div>
                     </Grid>
-                  </>
-                ) : null} */}
                 <Grid item xs={8}>
                   <TextField
                     variant="outlined"
@@ -355,7 +365,6 @@ const Profile = () => {
                     color="primary"
                     onClick={handleFormSubmit}
                   >
-                    {" "}
                     수정하기
                   </Button>
                 </Grid>

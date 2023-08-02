@@ -1,6 +1,14 @@
+div.container {
+	margin-top: 150px;
+
+	form h1 {
+		margin: 0;
+	}
+}
+
 .prof-main {
 	width: 60%;
-	margin: 0 auto;
+	margin: 50px auto;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

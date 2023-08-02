@@ -31,7 +31,7 @@ export default function PaymentForm({ value }) {
       .then((res) => {
         if (res.status === 200) return res.json();
         else if (res.status === 403) {
-          alert("로그인이 필요한 서비스 입니다.");
+          alert("로그인이 필요한 서비스입니다.");
           redirection("/login");
           return;
         } else {
@@ -86,7 +86,7 @@ export default function PaymentForm({ value }) {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
-            sx={{ width: "250px"}}
+            sx={{ width: "250px" }}
             select
             id="demo-simple-select"
             value={coupon}
@@ -101,7 +101,7 @@ export default function PaymentForm({ value }) {
             {couponList.map(
               (coupon) =>
                 coupon.status === 1 && (
-                  <MenuItem key={coupon.id} value={coupon} sx={{fontSize: "18px"}}>
+                  <MenuItem key={coupon.id} value={coupon} sx={{ fontSize: "18px" }}>
                     {coupon.name}
                   </MenuItem>
                 )
