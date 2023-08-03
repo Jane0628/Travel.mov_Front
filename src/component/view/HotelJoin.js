@@ -36,13 +36,6 @@ const HotelJoin = () => {
     redirection("/");
   }
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      alert("이미 로그인 중이십니다.");
-      redirection("/");
-    }
-  });
-
   //회원가입 요청 함수
   const fetchJoin = async () => {
     if (!name) {

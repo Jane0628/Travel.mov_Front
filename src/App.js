@@ -78,13 +78,18 @@ function App() {
               <Route path="/reservationCheck" element={<ReservationCheck />} />
               <Route path="/hotelSearch" element={<Hotels />} />
               <Route path="/hotels" element={<HotelList />} />
+              <Route path="/hotelCheck" element={<HotelCheck />} />
+              <Route path="/hotelJoin" element={<HotelJoin />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
               <Route path="/topRated" element={<TopRatedMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
-              <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
+              <Route
+                path="/freeBoardDetail/:id"
+                element={<FreeBoardDetail />}
+              />
               <Route path="/search" element={<SearchMovie />} />
             </Routes>
           </ThemeProvider>
