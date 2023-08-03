@@ -81,7 +81,6 @@ export default function Detail() {
         <DetailMovie
           movieInfo={movie}
           imageUrl={IMAGE_URL}
-          
         />
       </MovieContainer>
     </>
