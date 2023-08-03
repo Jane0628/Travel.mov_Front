@@ -86,10 +86,7 @@ function App() {
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
-              <Route
-                path="/freeBoardDetail/:id"
-                element={<FreeBoardDetail />}
-              />
+              <Route path="/freeBoardDetail" element={<FreeBoardDetail />} />
               <Route path="/search" element={<SearchMovie />} />
             </Routes>
           </ThemeProvider>
