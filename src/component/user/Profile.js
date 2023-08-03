@@ -16,10 +16,13 @@ import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
 import { getLoginUserInfo } from "../../util/login-utils";
 import AuthContext from "../../util/AuthContext";
+import { useHistory } from "react-router-dom";
+import Loading from "../view/movie/component/Loading";
 
 const Profile = () => {
 
   const redirection = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   // 일반 로그인 유저가 아니라면 모두 튕겨내기
   useEffect(() => {
@@ -27,6 +30,7 @@ const Profile = () => {
       alert('일반 로그인 사용자만이 이용할 수 있는 페이지입니다.');
       redirection('/');
     }
+    setLoading(true);
   });
 
   const $fileTag = useRef();
@@ -262,120 +266,125 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
-      <div style={{ margin: 20, marginTop: 100 }}></div>
-      <Container>
-        <form onSubmit={handleFormSubmit}>
-          <h1>프로필 수정</h1>
-          <div className="prof-main">
-            <div className="image">
-              <div className="frame" onClick={() => $fileTag.current.click()}>
-                <img id="pfp" src={imgFile ? imgFile : imgHandler()} alt="" />
-              </div>
-              <Fab color="secondary">
-                <label htmlFor="fileInput-hidden">
-                  <EditIcon />
-                  <input
-                    id="fileInput-hidden"
-                    type="file"
-                    className="file-input"
-                    accept="image/*"
-                    ref={$fileTag}
-                    onChange={showThumbnailHandler}
-                  />
-                </label>
-              </Fab>
-              <span className="recommendation">
-                ※ 1:1 비율의 사진 사용을 권장합니다.
-              </span>
-            </div>
-            <div className="profile">
-              <div className="right">
-                <Grid item xs={8}>
-                  <TextField
-                    type="text"
-                    fullWidth
-                    id="id"
-                    label="아이디"
-                    name="id"
-                    value={id}
-                    disabled
-                  />
-                </Grid>
-                <Grid item xs={8}>
-                  <div className="pwInput">
-                    <TextField
-                      type={showPassword ? "text" : "password"}
-                      fullWidth
-                      id="pw"
-                      label="비밀번호"
-                      name="pw"
-                      required
-                      onChange={passwordHandler}
-                      error={correct.pw === 1 ? true : false}
-                      helperText={correct.pw === 1 ? message.pw : null}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton onClick={showPasswordHandler}>
-                              {showPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
+      {
+        loading ? (
+          <>
+            <Header />
+            <Container>
+              <form onSubmit={handleFormSubmit}>
+                <h1>프로필 수정</h1>
+                <div className="prof-main">
+                  <div className="image">
+                    <div className="frame" onClick={() => $fileTag.current.click()}>
+                      <img id="pfp" src={imgFile ? imgFile : imgHandler()} alt="" />
+                    </div>
+                    <Fab color="secondary">
+                      <label htmlFor="fileInput-hidden">
+                        <EditIcon />
+                        <input
+                          id="fileInput-hidden"
+                          type="file"
+                          className="file-input"
+                          accept="image/*"
+                          ref={$fileTag}
+                          onChange={showThumbnailHandler}
+                        />
+                      </label>
+                    </Fab>
+                    <span className="recommendation">
+                      ※ 1:1 비율의 사진 사용을 권장합니다.
+                    </span>
                   </div>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="nick"
-                    label="닉네임"
-                    name="nick"
-                    required
-                    error={correct.nick === 1 ? true : false}
-                    helperText={correct.nick === 1 ? message.nick : null}
-                    defaultValue={localStorage.getItem("LOGIN_USER_NICK")}
-                    onChange={nameHandler}
-                  />
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="email"
-                    label="이메일"
-                    name="email"
-                    autoComplete="email"
-                    required
-                    error={correct.email === 1 ? true : false}
-                    helperText={correct.email === 1 ? message.email : null}
-                    defaultValue={localStorage.getItem("LOGIN_USER_EMAIL")}
-                    onChange={emailHandler}
-                  />
-                </Grid>
-                <Grid item xs={8}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    onClick={handleFormSubmit}
-                  >
-                    수정하기
-                  </Button>
-                </Grid>
-              </div>
-            </div>
-          </div>
-        </form>
-      </Container>
+                  <div className="profile">
+                    <div className="right">
+                      <Grid item xs={8}>
+                        <TextField
+                          type="text"
+                          fullWidth
+                          id="id"
+                          label="아이디"
+                          name="id"
+                          value={id}
+                          disabled
+                        />
+                      </Grid>
+                      <Grid item xs={8}>
+                        <div className="pwInput">
+                          <TextField
+                            type={showPassword ? "text" : "password"}
+                            fullWidth
+                            id="pw"
+                            label="비밀번호"
+                            name="pw"
+                            required
+                            onChange={passwordHandler}
+                            error={correct.pw === 1 ? true : false}
+                            helperText={correct.pw === 1 ? message.pw : null}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <IconButton onClick={showPasswordHandler}>
+                                    {showPassword ? (
+                                      <VisibilityOff />
+                                    ) : (
+                                      <Visibility />
+                                    )}
+                                  </IconButton>
+                                </InputAdornment>
+                              ),
+                            }}
+                          />
+                        </div>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <TextField
+                          variant="outlined"
+                          fullWidth
+                          id="nick"
+                          label="닉네임"
+                          name="nick"
+                          required
+                          error={correct.nick === 1 ? true : false}
+                          helperText={correct.nick === 1 ? message.nick : null}
+                          defaultValue={localStorage.getItem("LOGIN_USER_NICK")}
+                          onChange={nameHandler}
+                        />
+                      </Grid>
+                      <Grid item xs={8}>
+                        <TextField
+                          variant="outlined"
+                          fullWidth
+                          id="email"
+                          label="이메일"
+                          name="email"
+                          autoComplete="email"
+                          required
+                          error={correct.email === 1 ? true : false}
+                          helperText={correct.email === 1 ? message.email : null}
+                          defaultValue={localStorage.getItem("LOGIN_USER_EMAIL")}
+                          onChange={emailHandler}
+                        />
+                      </Grid>
+                      <Grid item xs={8}>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          onClick={handleFormSubmit}
+                        >
+                          수정하기
+                        </Button>
+                      </Grid>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </Container>
+          </>
+        ) : <Loading />}
     </>
   );
+
 };
 
 export default Profile;

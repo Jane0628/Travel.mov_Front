@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '../../design/goomap.scss';
 
 const GooMap = ({ location }) => {
   const [map, setMap] = useState(null);
@@ -153,7 +154,7 @@ const GooMap = ({ location }) => {
 
   return (
     <div>
-      <div id="map" style={{ width: "800px", height: "480px" }}></div>
+      <div id="map"></div>
       {selectedPlace && (
         <div>
           <img
@@ -181,7 +182,7 @@ const GooMap = ({ location }) => {
               </a>
             </p>
           )}
-          <button onClick={()=>reserveHotel(selectedHotel.name)}>예약하기</button>
+          <button onClick={() => reserveHotel(selectedHotel.name)}>예약하기</button>
         </div>
       )}
     </div>

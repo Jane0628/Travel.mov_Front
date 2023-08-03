@@ -30,10 +30,6 @@ const MyPage = () => {
     return require("../../img/profileImage.png");
   };
 
-  // console.log("API_BASE_URL:", API_BASE_URL);
-  // console.log("USER:", USER);
-  // console.log("profileRequestURL:", profileRequestURL);
-
   console.log("REQUEST_URL:", REQUEST_URL);
   // 닉네임이 수정될 때마다 MyPage 컴포넌트를 리렌더링
   useEffect(() => {
@@ -121,7 +117,7 @@ const MyPage = () => {
             </div>
           </div>
           <div className="page-menu">
-            {isLoggedIn === 2 ? null : (
+            {localStorage.getItem('isLoggedIn') == 2 ? null : (
               <Link to="/profile" className="link">
                 프로필 수정
               </Link>

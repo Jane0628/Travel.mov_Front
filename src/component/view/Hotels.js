@@ -66,7 +66,7 @@ const HotelCarousel = () => {
   return (
     <div>
       <Header />
-      <h1 style={{ marginTop: '150px' }}>호텔 목록</h1>
+      <h1 style={{ marginTop: '150px', zIndex: 3000 }}>호텔 예약하기</h1>
       <div
         style={{
           display: "grid",
@@ -177,7 +177,7 @@ const HotelCarousel = () => {
           다음
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 

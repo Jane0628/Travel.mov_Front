@@ -83,13 +83,13 @@ const HotelCarousel = () => {
   return (
     <div>
       <Header />
-      <div style={{ margin: 20, marginTop: 100 }}>
+      <h1 style={{ marginTop: '150px', marginBottom: 0 }}>
         <TextField
           select
-          id="demo-simple-select"
+          variant="standard"
           defaultValue="전체"
           value={name}
-          label="지역"
+          style={{ width: '100px', marginRight: '10px' }}
           onChange={handleChange}
         >
           {nameList.map((name) => (
@@ -98,7 +98,8 @@ const HotelCarousel = () => {
             </MenuItem>
           ))}
         </TextField>
-      </div>
+        호텔 예약하기
+      </h1>
       <div
         style={{
           display: "grid",
@@ -119,7 +120,7 @@ const HotelCarousel = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              position:"relative",
+              position: "relative",
             }}
           >
             <img
@@ -132,7 +133,7 @@ const HotelCarousel = () => {
               <p style={{ margin: "10px" }}>{hotel.address}</p>
               <p style={{ margin: "10px" }}>{hotel.price}원</p>
             </div>
-            <div style={{position: "absolute", bottom: "20px" }}>
+            <div style={{ position: "absolute", bottom: "20px" }}>
               {hotel.reservation ? (
                 <button
                   style={{
