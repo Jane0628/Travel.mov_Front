@@ -29,6 +29,7 @@ const HotelCarousel = () => {
           return;
         } else {
           alert(res.text);
+          redirection("/hotels");
         }
         return;
       })
