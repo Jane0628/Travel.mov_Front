@@ -155,11 +155,25 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
   return (
     <DetailMovieWrapper>
       <h1 className="title" style={{fontSize: '55px'}}>{title}</h1>
+      <Button 
+            onClick={toggleMap}
+            style={{
+              width: '180px',
+              height: '45px',
+              borderRadius: '30px',
+              background: '#7b8ce0',
+              color: '#ffffff',
+              position: 'absolute',
+              
+              right: '0px',
+              border: '2px solid #7b8ce0',
+              // zIndex: 1000, // 다른 요소 위에 나타나도록 zIndex 설정
+            }}>지도 표시/숨기기</Button> {/* 버튼 클릭 시 지도 표시 여부를 토글 */}
       <div className="movie" style={{position: 'relative'}}>
         <img className="rounded" src={imageUrl + poster_path} />
           {showMap ? (
             <MapContainer>
-              <GooMap location={gooLocation} /> // showMap이 true인 경우 지도 표시
+              <GooMap location={gooLocation} /> {/* // showMap이 true인 경우 지도 표시 */}
             </MapContainer>
           ) : (
             <Description>
@@ -182,21 +196,9 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
             </div>
             </Description>
           )}
-          <Button 
-            onClick={toggleMap}
-            style={{
-              width: '180px',
-              height: '45px',
-              borderRadius: '30px',
-              background: '#7b8ce0',
-              color: '#ffffff',
-              position: 'absolute',
-              bottom: '0px',
-              right: '0px',
-              border: '2px solid #7b8ce0',
-              zIndex: 1000, // 다른 요소 위에 나타나도록 zIndex 설정
-            }}>지도 표시/숨기기</Button> {/* 버튼 클릭 시 지도 표시 여부를 토글 */}
+          
         </div>
+        
       {
         locations.map((location, index) => (
           <Button key={index} onClick={searchLocation}>{location}</Button>

@@ -18,16 +18,15 @@ import { getLoginUserInfo } from "../../util/login-utils";
 import AuthContext from "../../util/AuthContext";
 
 const Profile = () => {
-
   const redirection = useNavigate();
 
   // 일반 로그인 유저가 아니라면 모두 튕겨내기
   useEffect(() => {
-    if (localStorage.getItem('isLoggedIn') != 1) {
-      alert('일반 로그인 사용자만이 이용할 수 있는 페이지입니다.');
-      redirection('/');
+    if (localStorage.getItem("isLoggedIn") != 1) {
+      alert("일반 로그인 사용자만이 이용할 수 있는 페이지입니다.");
+      redirection("/");
     }
-  });
+  }, []);
 
   const $fileTag = useRef();
 
@@ -39,7 +38,6 @@ const Profile = () => {
     // 새로운 닉네임을 설정하고 상태를 업데이트합니다.
     setNick(newNick);
   };
-
 
   // console.log(id);
 
@@ -236,28 +234,26 @@ const Profile = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    if (localStorage.getItem('isLoggedIn') == 1) {
+    if (localStorage.getItem("isLoggedIn") == 1) {
       // 닉네임 업데이트
       setNick(userValue.nick);
 
       // password, nickN, email 값 가져오기
-      const passwordValue = document.getElementById('pw').value;
-      const nickNValue = document.getElementById('nick').value;
-      const emailValue = document.getElementById('email').value;
+      const passwordValue = document.getElementById("pw").value;
+      const nickNValue = document.getElementById("nick").value;
+      const emailValue = document.getElementById("email").value;
 
       // 가져온 값 사용 또는 처리
-      console.log('Password:', passwordValue);
-      console.log('NickName:', nickNValue);
-      console.log('Email:', emailValue);
+      console.log("Password:", passwordValue);
+      console.log("NickName:", nickNValue);
+      console.log("Email:", emailValue);
 
       if (isValid()) {
         fetchSignUpPost();
       } else {
         alert("입력란을 다시 확인해 주세요!");
       }
-
     }
-
   };
 
   return (

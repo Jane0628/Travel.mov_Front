@@ -117,7 +117,7 @@ const HotelCheck = () => {
             <TableRow key={row.id}>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.name}</TableCell>
-              <TableCell>{`${row.price}원`}</TableCell>
+              <TableCell>{`${row.price.toLocaleString()}원`}</TableCell>
               <TableCell>
                 <img
                   src={row.img}

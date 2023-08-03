@@ -55,18 +55,10 @@ const HotelCarousel = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  const formatPrice = (target) => {
-    // 숫자만 남긴 후 포맷
-    console.log(target.value);
-    target.value = Number(target.value
-      .replace(/[^0-9]/g, ''))
-      .toLocaleString();
-  }
-
   return (
     <div>
       <Header />
-      <h1 style={{ marginTop: '150px' }}>호텔 목록</h1>
+      <h1 style={{ marginTop: "150px" }}>호텔 목록</h1>
       <div
         style={{
           display: "grid",
@@ -96,7 +88,7 @@ const HotelCarousel = () => {
             <div style={{ marginTop: "10px", textAlign: "left" }}>
               <h2 style={{ margin: "10px" }}>{hotel.name}</h2>
               <p style={{ margin: "10px" }}>{hotel.address}</p>
-              <p style={{ margin: "10px" }}>{formatPrice(hotel.price)}원</p>
+              <p style={{ margin: "10px" }}>{hotel.price.toLocaleString()}원</p>
             </div>
             <div>
               {hotel.reservation ? (
