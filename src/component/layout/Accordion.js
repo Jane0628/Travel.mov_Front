@@ -12,9 +12,11 @@ import RateReviewIcon from '@mui/icons-material/RateReview';
 import HotelIcon from '@mui/icons-material/Hotel';
 import { Link } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ExploreIcon from '@mui/icons-material/Explore';
 
 const Accordion = () => {
-  const [expanded, setExpanded] = useState('panel1');
+  const [expanded, setExpanded] = useState('');
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -39,8 +41,8 @@ const Accordion = () => {
         ? 'rgba(255, 255, 255, .05)'
         : 'rgba(0, 0, 0, .03)',
     flexDirection: 'row-reverse',
+    transition: '1s ease-in-out',
     '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-      transition: '1s ease-in-out',
       transform: 'rotate(90deg)',
     },
     '& .MuiAccordionSummary-content': {
@@ -56,7 +58,7 @@ const Accordion = () => {
   return (
     <div>
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" s>
           <Link to={'/myPage'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
             <ListItemIcon>
               <PersonIcon sx={{ width: '34.28px' }} color='primary' />
@@ -64,7 +66,7 @@ const Accordion = () => {
             마이페이지
           </Link>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails style={{ backgroundColor: 'rgba(177,191,249, 0.2)' }}>
           {localStorage.getItem('isLoggedIn') == 1 ?
             (
               <ListItem>
@@ -97,33 +99,30 @@ const Accordion = () => {
       </Accordion>
       <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Link to={'/hotels'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+          <div style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
             <ListItemIcon>
-              <HotelIcon sx={{ width: '34.28px' }} color='primary' />
+              <CalendarMonthIcon sx={{ width: '34.28px' }} color='primary' />
             </ListItemIcon>
-            호텔
-          </Link>
+            나의 여행 계획하기
+          </div>
         </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Collapsible Group Item #3</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+        <AccordionDetails style={{ backgroundColor: 'rgba(177,191,249, 0.2)' }}>
+          <ListItem>
+            <Link to={'/hotels'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+              <ListItemIcon>
+                <HotelIcon sx={{ width: '34.28px' }} color='primary' />
+              </ListItemIcon>
+              호텔 예약하기
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to={'/now_playing'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
+              <ListItemIcon>
+                <ExploreIcon sx={{ width: '34.28px' }} color='primary' />
+              </ListItemIcon>
+              영화 촬영지 둘러보기
+            </Link>
+          </ListItem>
         </AccordionDetails>
       </Accordion>
     </div>

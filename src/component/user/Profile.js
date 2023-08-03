@@ -291,45 +291,45 @@ const Profile = () => {
             </div>
             <div className="profile">
               <div className="right">
-                    <Grid item xs={8}>
-                      <TextField
-                        type="text"
-                        fullWidth
-                        id="id"
-                        label="아이디"
-                        name="id"
-                        value={id}
-                        disabled
-                      />
-                    </Grid>
-                    <Grid item xs={8}>
-                      <div class="pwInput">
-                        <TextField
-                          type={showPassword ? "text" : "password"}
-                          fullWidth
-                          id="pw"
-                          label="비밀번호"
-                          name="pw"
-                          required
-                          onChange={passwordHandler}
-                          error={correct.pw === 1 ? true : false}
-                          helperText={correct.pw === 1 ? message.pw : null}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <IconButton onClick={showPasswordHandler}>
-                                  {showPassword ? (
-                                    <VisibilityOff />
-                                  ) : (
-                                    <Visibility />
-                                  )}
-                                </IconButton>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                      </div>
-                    </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    type="text"
+                    fullWidth
+                    id="id"
+                    label="아이디"
+                    name="id"
+                    value={id}
+                    disabled
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <div className="pwInput">
+                    <TextField
+                      type={showPassword ? "text" : "password"}
+                      fullWidth
+                      id="pw"
+                      label="비밀번호"
+                      name="pw"
+                      required
+                      onChange={passwordHandler}
+                      error={correct.pw === 1 ? true : false}
+                      helperText={correct.pw === 1 ? message.pw : null}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton onClick={showPasswordHandler}>
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </div>
+                </Grid>
                 <Grid item xs={8}>
                   <TextField
                     variant="outlined"

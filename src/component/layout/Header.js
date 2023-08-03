@@ -83,9 +83,9 @@ const Header = () => {
         {/* 로고 */}
         <Image src={require("../../img/long_logo.png")} onClick={moveToMainPage} />
 
-        <div class="right">
+        <div className="right">
           {/* 검색 */}
-          <form onSubmit={searchHandler} autocomplete="off">
+          <form onSubmit={searchHandler} autoComplete="off">
             <TextField
               id="outlined-start-adornment"
               color='secondary'
