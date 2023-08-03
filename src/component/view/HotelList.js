@@ -131,7 +131,7 @@ const HotelCarousel = () => {
             <div style={{ marginTop: "10px", textAlign: "left" }}>
               <h2 style={{ margin: "10px" }}>{hotel.name}</h2>
               <p style={{ margin: "10px" }}>{hotel.address}</p>
-              <p style={{ margin: "10px" }}>{hotel.price}원</p>
+              <p style={{ margin: "10px" }}>{hotel.price.toLocaleString()}원</p>
             </div>
             <div style={{ position: "absolute", bottom: "20px" }}>
               {hotel.reservation ? (
