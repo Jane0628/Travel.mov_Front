@@ -97,7 +97,7 @@ const UploadFreeBoard = () => {
             {starArr.map((idx) => (
               <FontAwesomeIcon
                 className="star fa-fw"
-                style={{fontSize: '50px', color: idx <= starNum ? "#ff0" : "#E5E5E5" }}
+                style={{fontSize: '50px', color: idx <= starNum || idx <= hover ? "#ff0" : "#E5E5E5",}}
                 icon={thinStar}
                 key={idx}
                 onMouseEnter={() => setHover(idx)}
@@ -144,18 +144,18 @@ const UploadFreeBoard = () => {
             //   onClick={() => {
             //     setViewContent(viewContent.concat({ ...movieContent }));
             //   }}
-            onClick={cancelHandler}
+            onClick={submitReview}
           >
-            취소
+            등록하기
           </button>
           <button
             className="submit-button"
             //   onClick={() => {
             //     setViewContent(viewContent.concat({ ...movieContent }));
             //   }}
-            onClick={submitReview}
+            onClick={cancelHandler}
           >
-            후기 작성
+            뒤로가기
           </button>
         </div>
       </div>
