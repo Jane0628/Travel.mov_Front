@@ -84,6 +84,8 @@ function App() {
               <Route path="/hotels" element={<HotelList />} />
 
               {/* 영화 */}
+              <Route path="/hotelCheck" element={<HotelCheck />} />
+              <Route path="/hotelJoin" element={<HotelJoin />} />
               <Route path="/now_playing" element={<NowPlayingMovie />} />
               <Route path="/topRated" element={<TopRatedMovie />} />
               <Route path="/movie/:movie_id" element={<Detail />} />
@@ -93,8 +95,8 @@ function App() {
               <Route path="/freeBoard/:id" element={<UploadFreeBoard />} />
               <Route path="/freeBoardList/:id" element={<FreeBoardList />} />
               <Route path="/myfreeBoardList" element={<MyFreeBoardList />} />
-              <Route path="/freeBoardDetail/:id" element={<FreeBoardDetail />} />
-
+              <Route path="/freeBoardDetail" element={<FreeBoardDetail />} />
+              <Route path="/search" element={<SearchMovie />} />
             </Routes>
           </ThemeProvider>
         </MovieStateProvider>
