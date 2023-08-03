@@ -56,6 +56,7 @@ const MyPage = () => {
       // const imgUrl = window.URL.createObjectURL(profileBlob);
       const imgUrl = await res.text();
       setProfileUrl(imgUrl);
+      localStorage.setItem("LOGIN_USER_PFP", imgUrl);
     } else {
       const err = await res.text();
       setProfileUrl(null);
