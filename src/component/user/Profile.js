@@ -263,6 +263,7 @@ const Profile = () => {
   return (
     <>
       <Header />
+      <div style={{ margin: 20, marginTop: 100 }}></div>
       <Container>
         <form onSubmit={handleFormSubmit}>
           <h1>프로필 수정</h1>

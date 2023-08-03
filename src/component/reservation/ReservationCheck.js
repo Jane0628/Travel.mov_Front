@@ -66,7 +66,7 @@ const ReservationCheck = () => {
             <TableCell>체크아웃</TableCell>
             <TableCell>예약자 이름</TableCell>
             <TableCell>숙소 이름</TableCell>
-            <TableCell>결재 방식</TableCell>
+            <TableCell>결제 방식</TableCell>
             <TableCell>가격</TableCell>
             <TableCell align="right">후기</TableCell>
           </TableRow>

@@ -37,11 +37,12 @@ export default function Home() {
       if (json.freeBoards) {
         // 필요한 속성들을 추출하여 새로운 리스트 생성
         const formattedList = json.freeBoards.map((item) => ({
-          id: item.id,
+          id: item.hotel.id,
           poster_path:'' ,
           img : item.hotel.img,
           title: item.title,
-          vote_average: item.star,
+          vote_average: '',
+          star : item.star,
           release_date: '',
           uploadDate : item.uploadDate.split("T")[0]
         }));

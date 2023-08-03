@@ -84,7 +84,7 @@ export default function MovieItem({ movie, rank }) {
   const navigate = useNavigate();
   const handleClick = () => {
     if(movie.uploadDate) {
-      navigate()
+      navigate("/freeBoardList/"+id)
       return;
     }
     navigate("/movie/" + id);
@@ -95,8 +95,10 @@ export default function MovieItem({ movie, rank }) {
         <div className="rank">{rank}</div>
         <div className="info rounded">
           <div className="rate">
-            <Star vote_average={vote_average} />
-            <div className="vote-average">({vote_average} / 10)</div>
+            {vote_average ? <><Star vote_average={vote_average} />
+            <div className="vote-average">({vote_average} / 10)</div></> : <><Star vote_average={movie.star * 2} />
+            <div className="vote-average">({movie.star} / 5)</div></>}
+            
           </div>
           <div className="title">{title}</div>
           <div className="release-date">{release_date ? `개봉일 : ${release_date}` : `작성일 : ${movie.uploadDate}`}</div>
