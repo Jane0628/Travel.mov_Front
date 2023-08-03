@@ -111,7 +111,7 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
 
   useEffect(() => {
     getLocations();
-  }, [locations]);
+  }, []);
 
   const getLocations = async () => {
 
