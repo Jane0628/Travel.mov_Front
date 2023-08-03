@@ -10,6 +10,7 @@ import { getLoginUserInfo } from "../../util/login-utils";
 import { useHistory } from "react-router-dom";
 import { faStar as thinStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Header from "../layout/Header";
 const UploadFreeBoard = () => {
   const direction = useNavigate();
   //url에서 호텔 정보 얻어오기
@@ -25,6 +26,11 @@ const UploadFreeBoard = () => {
   });
   const token = getLoginUserInfo().token;
   const id = getLoginUserInfo().id;
+
+  if (!id) {
+    alert("로그인 후 이용하세요");
+    direction("/login");
+  }
 
   //   const [viewContent, setViewContent] = useState([]);
 
@@ -82,6 +88,8 @@ const UploadFreeBoard = () => {
   };
   return (
     <>
+      <Header />
+      <div style={{ margin: 20, marginTop: 100 }}></div>
       <div className="App">
         <h1>영화 촬영지 후기</h1>
         {/* <div className="movie-container">
@@ -97,7 +105,10 @@ const UploadFreeBoard = () => {
             {starArr.map((idx) => (
               <FontAwesomeIcon
                 className="star fa-fw"
-                style={{fontSize: '50px', color: idx <= starNum || idx <= hover ? "#ff0" : "#E5E5E5",}}
+                style={{
+                  fontSize: "50px",
+                  color: idx <= starNum || idx <= hover ? "#ff0" : "#E5E5E5",
+                }}
                 icon={thinStar}
                 key={idx}
                 onMouseEnter={() => setHover(idx)}
