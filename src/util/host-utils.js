@@ -3,12 +3,14 @@ const clientHostName = window.location.hostname;
 
 let backEndHostName; // 백엔드 서버 호스트 이름
 
-if(clientHostName === 'localhost') { //개발 중
-    backEndHostName = 'http://localhost:8181';
-} else if(clientHostName === 'spring.com') { //배포해서 서비스 중
-    backEndHostName = 'http://api.tramovel.com';
+if (clientHostName === "localhost") {
+  //개발 중
+  backEndHostName = "http://localhost:8181";
+} else if (clientHostName === "http://tramovel.com") {
+  //배포해서 서비스 중
+  backEndHostName = "http://13.209.179.148";
 }
 
 export const API_BASE_URL = backEndHostName;
-export const USER = '/user';
-export const HOTELS = '/hotels';
+export const USER = "/user";
+export const HOTELS = "/hotels";
