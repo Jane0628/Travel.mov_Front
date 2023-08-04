@@ -15,11 +15,10 @@ const DetailMovieWrapper = styled.div`
     display: flex;
     flex-wrap: nowrap;
     align-items: start;
-    height: 700px;
     margin-bottom: 100px;
     
     img {
-      height: inherit;
+      height: 700px;
       margin: auto 0;
     }
   } 
