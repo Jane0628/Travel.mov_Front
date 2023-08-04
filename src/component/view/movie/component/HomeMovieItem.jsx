@@ -15,7 +15,7 @@ const Item = styled.div`
     position: relative; 
     width: 250px;
     height: 400px;
-    ${props => `background-image: url('${IMAGE_URL + props.url}');`}
+    ${props => props.url ? `background-image: url('${IMAGE_URL + props.url}');` : `background-image: url('${props.img}');`}
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -83,19 +83,25 @@ export default function MovieItem({ movie, rank }) {
   const { id, poster_path, title, vote_average, release_date } = movie;
   const navigate = useNavigate();
   const handleClick = () => {
+    if(movie.uploadDate) {
+      navigate("/freeBoardList/"+id)
+      return;
+    }
     navigate("/movie/" + id);
   }
   return (
-    <Item url={poster_path}>
+    <Item url={poster_path} img={movie.img}>
       <div className="container rounded" onClick={handleClick}>
         <div className="rank">{rank}</div>
         <div className="info rounded">
           <div className="rate">
-            <Star vote_average={vote_average} />
-            <div className="vote-average">({vote_average} / 10)</div>
+            {vote_average ? <><Star vote_average={vote_average} />
+            <div className="vote-average">({vote_average} / 10)</div></> : <><Star vote_average={movie.star * 2} />
+            <div className="vote-average">({movie.star} / 5)</div></>}
+            
           </div>
           <div className="title">{title}</div>
-          <div className="release-date">개봉일 : {release_date}</div>
+          <div className="release-date">{release_date ? `개봉일 : ${release_date}` : `작성일 : ${movie.uploadDate}`}</div>
         </div>
       </div>
     </Item>

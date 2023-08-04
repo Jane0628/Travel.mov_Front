@@ -10,6 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Title } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import Header from "../layout/Header";
 
 const ReservationCheck = () => {
   // 로그인 인증 토큰 얻어오기
@@ -55,16 +56,17 @@ const ReservationCheck = () => {
   }
   return (
     <React.Fragment>
+      <Header />
+      <div style={{ margin: 20, marginTop: 100 }}></div>
       <Title>예약 내역</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>예약날짜</TableCell>
             <TableCell>체크인</TableCell>
             <TableCell>체크아웃</TableCell>
             <TableCell>예약자 이름</TableCell>
             <TableCell>숙소 이름</TableCell>
-            <TableCell>결재 방식</TableCell>
+            <TableCell>결제 방식</TableCell>
             <TableCell>가격</TableCell>
             <TableCell align="right">후기</TableCell>
           </TableRow>
@@ -72,7 +74,6 @@ const ReservationCheck = () => {
         <TableBody>
           {reserveList.map((row) => (
             <TableRow key={row.aid}>
-              <TableCell>{row.resDate.split("T")[0]}</TableCell>
               <TableCell>{row.startDate.split("T")[0]}</TableCell>
               <TableCell>{row.endDate.split("T")[0]}</TableCell>
               <TableCell>{row.partnerOrderId}</TableCell>

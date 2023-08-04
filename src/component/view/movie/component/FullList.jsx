@@ -9,7 +9,7 @@ const GridContainer = styled.div`
     gap: 15px;
     justify-content: center;
     align-content: center;
-    margin: 40px;
+    margin-top: 50px;
 `;
 
 const Item = styled.div`
@@ -44,7 +44,7 @@ const Item = styled.div`
 const PageBtn = styled.div`
     
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
     button {
         padding: 5px 10px;
         margin-right: 5px;
@@ -89,6 +89,7 @@ export default function FullList({ movieList }) {
   return (
     <>
       <Header />
+      <h1 style={{ marginTop: '150px' }}>영화 촬영지 둘러보기</h1>
       <GridContainer>
         {movieList[page - 1].map((movie) =>
           <Item key={movie.id} onClick={() => handleClick(movie.id)}>

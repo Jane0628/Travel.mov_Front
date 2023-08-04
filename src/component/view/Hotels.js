@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../util/host-utils";
 import { useEffect } from "react";
 import { getLoginUserInfo } from "../../util/login-utils";
@@ -8,7 +8,8 @@ import Header from "../layout/Header";
 const HotelCarousel = () => {
   const [hotels, setHotels] = useState([]);
   const location = useLocation();
-  const hotel = location.state?.hotelName || '';
+  const hotel = location.state?.hotelName || "";
+  const redirection = useNavigate();
 
   const token = getLoginUserInfo().token;
   const requestHeader = {
@@ -20,7 +21,18 @@ const HotelCarousel = () => {
       method: "GET",
       headers: requestHeader,
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 200) return res.json();
+        else if (res.status === 403) {
+          alert("로그인이 필요한 서비스 입니다.");
+          redirection("/login");
+          return;
+        } else {
+          alert(res.text);
+          redirection("/hotels");
+        }
+        return;
+      })
       .then((json) => {
         console.log(json);
         setHotels(json);
@@ -46,7 +58,7 @@ const HotelCarousel = () => {
   return (
     <div>
       <Header />
-      <div style={{ margin: 20, marginTop: 100 }}></div>
+      <h1 style={{ marginTop: "150px" }}>호텔 목록</h1>
       <div
         style={{
           display: "grid",
@@ -76,12 +88,42 @@ const HotelCarousel = () => {
             <div style={{ marginTop: "10px", textAlign: "left" }}>
               <h2 style={{ margin: "10px" }}>{hotel.name}</h2>
               <p style={{ margin: "10px" }}>{hotel.address}</p>
-              <p style={{ margin: "10px" }}>{hotel.price}원</p>
+              <p style={{ margin: "10px" }}>{hotel.price.toLocaleString()}원</p>
             </div>
-            {hotel.reservation ? (
+            <div>
+              {hotel.reservation ? (
+                <button
+                  style={{
+                    marginTop: "auto",
+                    padding: "5px 10px",
+                    backgroundColor: "#b1bff9",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "7px",
+                  }}
+                >
+                  <Link to={`/checkOut/${hotel.id}`} className="out">
+                    예약하기
+                  </Link>
+                </button>
+              ) : (
+                <button
+                  style={{
+                    marginTop: "auto",
+                    padding: "5px 10px",
+                    backgroundColor: "#c0c0c0",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "7px",
+                  }}
+                >
+                  <Link className="out">예약완료</Link>
+                </button>
+              )}
               <button
                 style={{
                   marginTop: "auto",
+                  marginLeft: 10,
                   padding: "5px 10px",
                   backgroundColor: "#b1bff9",
                   color: "#fff",
@@ -89,24 +131,11 @@ const HotelCarousel = () => {
                   borderRadius: "7px",
                 }}
               >
-                <Link to={`/checkOut/${hotel.id}`} className="out">
-                  예약하기
+                <Link to={`/freeboardList/${hotel.id}`} className="out">
+                  후기보기
                 </Link>
               </button>
-            ) : (
-              <button
-                style={{
-                  marginTop: "auto",
-                  padding: "5px 10px",
-                  backgroundColor: "#c0c0c0",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "7px",
-                }}
-              >
-                <Link className="out">예약완료</Link>
-              </button>
-            )}
+            </div>
           </div>
         ))}
       </div>
@@ -140,7 +169,7 @@ const HotelCarousel = () => {
           다음
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 

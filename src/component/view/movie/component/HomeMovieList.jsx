@@ -55,7 +55,7 @@ export default function HomeMovieList({ title, movieList, navLink }) {
         <MovieListContainer>
           <div className="main-title">
             <div>
-              <div>TOP 20 Popular</div>
+              <div>TOP 20</div>
               <div className="title">{title}</div>
             </div>
             <div className="moreBtn" type="button" onClick={handleClick}>더보기 {'>'}</div>

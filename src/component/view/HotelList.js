@@ -83,13 +83,13 @@ const HotelCarousel = () => {
   return (
     <div>
       <Header />
-      <div style={{ margin: 20, marginTop: 100 }}>
+      <h1 style={{ marginTop: '150px', marginBottom: 0 }}>
         <TextField
           select
-          id="demo-simple-select"
+          variant="standard"
           defaultValue="전체"
           value={name}
-          label="지역"
+          style={{ width: '100px', marginRight: '10px' }}
           onChange={handleChange}
         >
           {nameList.map((name) => (
@@ -98,7 +98,8 @@ const HotelCarousel = () => {
             </MenuItem>
           ))}
         </TextField>
-      </div>
+        호텔 예약하기
+      </h1>
       <div
         style={{
           display: "grid",
@@ -111,6 +112,7 @@ const HotelCarousel = () => {
           <div
             key={hotel.id}
             style={{
+              height: "500px",
               border: "1px solid #b1bff9",
               margin: "5px 20px",
               borderRadius: "15px",
@@ -118,6 +120,7 @@ const HotelCarousel = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              position: "relative",
             }}
           >
             <img
@@ -128,12 +131,42 @@ const HotelCarousel = () => {
             <div style={{ marginTop: "10px", textAlign: "left" }}>
               <h2 style={{ margin: "10px" }}>{hotel.name}</h2>
               <p style={{ margin: "10px" }}>{hotel.address}</p>
-              <p style={{ margin: "10px" }}>{hotel.price}원</p>
+              <p style={{ margin: "10px" }}>{hotel.price.toLocaleString()}원</p>
             </div>
-            {hotel.reservation ? (
+            <div style={{ position: "absolute", bottom: "20px" }}>
+              {hotel.reservation ? (
+                <button
+                  style={{
+                    marginTop: "auto",
+                    padding: "5px 10px",
+                    backgroundColor: "#b1bff9",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "7px",
+                  }}
+                >
+                  <Link to={`/checkOut/${hotel.id}`} className="out">
+                    예약하기
+                  </Link>
+                </button>
+              ) : (
+                <button
+                  style={{
+                    marginTop: "auto",
+                    padding: "5px 10px",
+                    backgroundColor: "#c0c0c0",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "7px",
+                  }}
+                >
+                  <Link className="out">예약완료</Link>
+                </button>
+              )}
               <button
                 style={{
                   marginTop: "auto",
+                  marginLeft: 10,
                   padding: "5px 10px",
                   backgroundColor: "#b1bff9",
                   color: "#fff",
@@ -141,24 +174,11 @@ const HotelCarousel = () => {
                   borderRadius: "7px",
                 }}
               >
-                <Link to={`/checkOut/${hotel.id}`} className="out">
-                  예약하기
+                <Link to={`/freeboardList/${hotel.id}`} className="out">
+                  후기보기
                 </Link>
               </button>
-            ) : (
-              <button
-                style={{
-                  marginTop: "auto",
-                  padding: "5px 10px",
-                  backgroundColor: "#c0c0c0",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "7px",
-                }}
-              >
-                <Link className="out">예약완료</Link>
-              </button>
-            )}
+            </div>
           </div>
         ))}
       </div>

@@ -8,7 +8,9 @@ import { API_BASE_URL } from "../../util/host-utils";
 import { useNavigate, useParams } from "react-router-dom";
 import { getLoginUserInfo } from "../../util/login-utils";
 import { useHistory } from "react-router-dom";
-
+import { faStar as thinStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Header from "../layout/Header";
 const UploadFreeBoard = () => {
   const direction = useNavigate();
   //url에서 호텔 정보 얻어오기
@@ -24,6 +26,11 @@ const UploadFreeBoard = () => {
   });
   const token = getLoginUserInfo().token;
   const id = getLoginUserInfo().id;
+
+  if (!id) {
+    alert("로그인 후 이용하세요");
+    direction("/login");
+  }
 
   //   const [viewContent, setViewContent] = useState([]);
 
@@ -81,6 +88,8 @@ const UploadFreeBoard = () => {
   };
   return (
     <>
+      <Header />
+      <div style={{ margin: 20, marginTop: 100 }}></div>
       <div className="App">
         <h1>영화 촬영지 후기</h1>
         {/* <div className="movie-container">
@@ -94,20 +103,26 @@ const UploadFreeBoard = () => {
         <div className="form-wrapper">
           <Rating>
             {starArr.map((idx) => (
-              <Star
+              <FontAwesomeIcon
+                className="star fa-fw"
+                style={{
+                  fontSize: "50px",
+                  color: idx <= starNum || idx <= hover ? "#ff0" : "#E5E5E5",
+                }}
+                icon={thinStar}
                 key={idx}
                 onMouseEnter={() => setHover(idx)}
                 onMouseLeave={() => setHover(0)}
                 onClick={() => setStarNum(idx)}
-                fill={
-                  starNum
-                    ? idx <= starNum
-                      ? "#000"
-                      : "#E5E5E5"
-                    : idx <= hover
-                    ? "#000"
-                    : "#E5E5E5"
-                }
+                // fill={
+                //   starNum
+                //     ? idx <= starNum
+                //       ? "#ff0"
+                //       : "#E5E5E5"
+                //     : idx <= hover
+                //     ? "#ff0"
+                //     : "#E5E5E5"
+                // }
               />
             ))}
           </Rating>
@@ -142,7 +157,7 @@ const UploadFreeBoard = () => {
             //   }}
             onClick={submitReview}
           >
-            후기 작성
+            등록하기
           </button>
           <button
             className="submit-button"
@@ -151,7 +166,7 @@ const UploadFreeBoard = () => {
             //   }}
             onClick={cancelHandler}
           >
-            취소
+            뒤로가기
           </button>
         </div>
       </div>
@@ -165,9 +180,4 @@ const Rating = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Star = styled(FiStar)`
-  font-size: 50px;
-  color: transparent;
 `;

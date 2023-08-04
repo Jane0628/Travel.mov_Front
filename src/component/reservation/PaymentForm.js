@@ -31,7 +31,7 @@ export default function PaymentForm({ value }) {
       .then((res) => {
         if (res.status === 200) return res.json();
         else if (res.status === 403) {
-          alert("로그인이 필요한 서비스 입니다.");
+          alert("로그인이 필요한 서비스입니다.");
           redirection("/login");
           return;
         } else {
@@ -65,7 +65,7 @@ export default function PaymentForm({ value }) {
           가격
         </Grid>
         <Grid item xs={12} md={6}>
-          {value.hotel.price}원
+          {value.hotel.price.toLocaleString()}원
         </Grid>
         <Grid item xs={12} md={6} sx={{ fontWeight: 700, fontSize: 30 }}>
           기간
@@ -77,28 +77,37 @@ export default function PaymentForm({ value }) {
           총 금액
         </Grid>
         <Grid item xs={12} md={6}>
-          {total}원
+          {total.toLocaleString()}원
         </Grid>
-        <Typography variant="h6" gutterBottom>
-          적용가능 쿠폰
-        </Typography>
-
-        <TextField
-          select
-          id="demo-simple-select"
-          value={coupon}
-          label="쿠폰"
-          onChange={handleChange}
-        >
-          {couponList.map(
-            (coupon) =>
-              coupon.status === 1 && (
-                <MenuItem key={coupon.id} value={coupon}>
-                  {coupon.name}
-                </MenuItem>
-              )
-          )}
-        </TextField>
+        <Grid item xs={12} md={6}>
+          <Typography variant="h6" gutterBottom>
+            적용가능 쿠폰
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            sx={{ width: "250px" }}
+            select
+            id="demo-simple-select"
+            value={coupon}
+            label="쿠폰"
+            onChange={handleChange}
+            InputProps={{
+              style: {
+                fontSize: "16px"
+              },
+            }}
+          >
+            {couponList.map(
+              (coupon) =>
+                coupon.status === 1 && (
+                  <MenuItem key={coupon.id} value={coupon} sx={{ fontSize: "18px" }}>
+                    {coupon.name}
+                  </MenuItem>
+                )
+            )}
+          </TextField>
+        </Grid>
 
         {/* <Grid item xs={12} md={6}>
           <TextField

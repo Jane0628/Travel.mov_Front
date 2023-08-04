@@ -64,15 +64,6 @@ const HeaderMovie = styled.div`
         margin-right: 80px;
         width: 800px;
         transition: 1s ease-in-out;
-        @keyframes transform {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-        animation: transform 1.2s linear;
       }
     }
   }
@@ -138,7 +129,7 @@ const videoHandler = (title) => {
   }
 
   if (title === '플래시') {
-    return require("../../../../img/flash.jpg");
+    return require("../../../../video/flash.mp4");
   }
 
   return "";

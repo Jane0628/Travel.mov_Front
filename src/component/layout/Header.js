@@ -9,23 +9,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { Image } from 'react-bootstrap';
+import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
+import PersonIcon from '@mui/icons-material/Person';
+import Accordion from './Accordion';
+import HamburgerMenu from './HamburgerMenu';
 
 const Header = () => {
 
-  const { isLoggedIn, onLogout, nick } = useContext(AuthContext);
+  const { isLoggedIn, onLogout, onLogin, nick } = useContext(AuthContext);
 
   const redirection = useNavigate();
 
   const moveToMainPage = () => {
     redirection('/');
   }
-
-  const logoutHandler = e => {
-    e.preventDefault();
-    alert('로그아웃 되었습니다');
-    onLogout();
-    redirection('/login');
-  };
 
   const [text, setText] = useState('');
 
@@ -59,60 +56,26 @@ const Header = () => {
   const searchHandler = async (e) => {
     e.preventDefault();
 
-
     const searchData = await searchMovie(text);
     redirection('/search', { state: { searchData } })
   };
 
   // 햄버거
   const [state, setState] = useState({
-    top: false,
-    left: false,
-    bottom: false,
     right: false,
   });
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
+  const toggleDrawer = (anchor, open) => (e) => {
+    const accordions = document.getElementsByClassName('css-jsoc8j-MuiTypography-root');
+
+    for (let a in accordions) {
+      if (e.target === a) {
+        return;
+      }
     }
 
     setState({ ...state, [anchor]: open });
   };
-
-  const list = (anchor) => (
-    <Box
-      sx={{ width: '400px' }}
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        <ListItem>
-          <Image src={require('../../img/profileImage.png')} width={'80px'} />
-          <ListItemText primary={isLoggedIn ? '메롱' : '로그인 후 이용해주세요.'} sx={{ marginLeft: '20px' }} />
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        <ListItem>
-          <Link to={'/login'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
-            <ListItemIcon>
-              <LockOutlinedIcon color='primary' />
-            </ListItemIcon>
-            로그인
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to={'/join'} style={{ color: '#424180', display: 'flex', alignItems: 'center' }}>
-            <ListItemIcon>
-              <AssignmentIcon color='primary' />
-            </ListItemIcon>
-            회원가입
-          </Link>
-        </ListItem>
-      </List>
-    </Box>
-  );
 
   return (
     <>
@@ -120,9 +83,9 @@ const Header = () => {
         {/* 로고 */}
         <Image src={require("../../img/long_logo.png")} onClick={moveToMainPage} />
 
-        <div class="right">
+        <div className="right">
           {/* 검색 */}
-          <form onSubmit={searchHandler} autocomplete="off">
+          <form onSubmit={searchHandler} autoComplete="off">
             <TextField
               id="outlined-start-adornment"
               color='secondary'
@@ -139,16 +102,16 @@ const Header = () => {
           </form>
           {/* 햄버거 */}
           {['right'].map((anchor) => (
-            <React.Fragment key={anchor}>
+            <>
               <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
               <Drawer
                 anchor={anchor}
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
               >
-                {list(anchor)}
+                <HamburgerMenu anchor />
               </Drawer>
-            </React.Fragment>
+            </>
           ))}
         </div>
       </header>

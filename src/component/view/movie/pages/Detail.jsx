@@ -7,38 +7,39 @@ import DetailMovie from '../component/DetailMovie';
 import Header from "../../../layout/Header";
 
 const MovieContainer = styled.div`
-    @keyframes trans {
-      from {
-          opacity: 0;
-          visibility: hidden;
-      }
-      to {
-          opacity: 1;
-          visibility: visible;
-      }
+  @keyframes trans {
+    from {
+      opacity: 0;
+      visibility: hidden;
     }
-    animation: trans 1s linear;
+    to {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  animation: trans 1s linear;
 
-    position: relative;
-    width: 100%;
-    height: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
     
-    &::before{ //한번 더
-        content: "";
-        position: absolute;
-        ${props => `
-            background-image: url(${props.imgUrl});
-        `}
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        
-        opacity: 0.2;
-        top: 0;
-        left:0;
-        right:0;
-        bottom:0;
-    }
+  &::before{ //한번 더
+      content: "";
+      position: absolute;
+      ${props => `
+          background-image: url(${props.imgUrl});
+      `}
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      filter: blur(15px);
+      
+      opacity: 0.2;
+      top: 0;
+      left:0;
+      right:0;
+      bottom:0;
+  }
 `;
 
 export default function Detail() {

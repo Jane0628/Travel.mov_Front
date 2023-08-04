@@ -37,8 +37,8 @@ const FreeBoardDetail = ({ freeBoard }) => {
   }
 
   //url에서 게시글 번호 얻어오기
-  const id = freeBoard.id;
-  console.log(freeBoard.id);
+  // const id = freeBoard.id;
+  // console.log(freeBoard.id);
   // 로그인 인증 토큰 얻어오기
   const token = getLoginUserInfo().token;
   const nick = getLoginUserInfo().username;
@@ -83,7 +83,7 @@ const FreeBoardDetail = ({ freeBoard }) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
     } else return;
 
-    fetch(`${API_BASE_URL}/freeBoard/${id}`, {
+    fetch(`${API_BASE_URL}/freeBoard/${freeBoard.id}`, {
       method: "DELETE",
       headers: requestHeader,
     })
@@ -148,11 +148,7 @@ const FreeBoardDetail = ({ freeBoard }) => {
               <img
                 style={{ width: 40, height: 40 }}
                 id="pfp"
-                src={
-                  freeBoard.user.profileImg
-                    ? freeBoard.user.profileImg
-                    : imgHandler(freeBoard.user.profileImg)
-                }
+                src={imgHandler(freeBoard.user.profileImg)}
                 alt=""
               />
               {freeBoard.user.nick}

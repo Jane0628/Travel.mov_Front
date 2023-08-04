@@ -95,6 +95,9 @@ const FreeBoardList = () => {
       });
   }, []);
 
+  const goBack = () => {
+    redirection(-1);
+  };
   return (
     <React.Fragment>
       <Title>호텔 후기</Title>
@@ -138,6 +141,12 @@ const FreeBoardList = () => {
           ))}
         </TableBody>
       </Table>
+      <Button>
+        <Link to={`/checkOut/${id}`} style={{ color: "black" }}>
+          예약하기
+        </Link>
+      </Button>
+      <Button onClick={goBack}>돌아가기</Button>
     </React.Fragment>
   );
 };
