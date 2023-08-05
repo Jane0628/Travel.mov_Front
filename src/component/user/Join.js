@@ -20,8 +20,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import AuthContext from "../../util/AuthContext";
 import { API_BASE_URL, USER } from "../../util/host-utils";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import Header from "../layout/Header";
 
 const Join = () => {
@@ -119,6 +119,8 @@ const Join = () => {
   // 아이디 중복 체크
   const fetchIdCheck = () => {
     const id = document.getElementById("id");
+    const clientHostName = window.location.hostname;
+    console.log(clientHostName);
 
     //아이디 검증 실패시
     if (correct.id !== 3) {
@@ -132,6 +134,9 @@ const Join = () => {
       .then((res) => {
         if (res.status === 200) {
           return res.json();
+        } else {
+          alert("서버와 통신이 원활하지 않습니다.");
+          return;
         }
       })
       .then((json) => {
@@ -308,20 +313,19 @@ const Join = () => {
     setShowPassword(!showPassword);
   };
 
-
   // 영화 장르 선택
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const top100Films = [
-    { title: '액션' },
-    { title: '공포' },
-    { title: '로맨스' },
-    { title: '코미디' },
-    { title: '뮤지컬' },
+    { title: "액션" },
+    { title: "공포" },
+    { title: "로맨스" },
+    { title: "코미디" },
+    { title: "뮤지컬" },
     { title: "판타지" },
-    { title: '모험' },
-    { title: 'SF' },
-    { title: '애니메이션' },
+    { title: "모험" },
+    { title: "SF" },
+    { title: "애니메이션" },
   ];
 
   return (
@@ -440,7 +444,8 @@ const Join = () => {
                   )}
                   style={{ width: 516, height: 65.85 }}
                   renderInput={(params) => (
-                    <><TextField {...params} label="선호하는 영화 장르" />
+                    <>
+                      <TextField {...params} label="선호하는 영화 장르" />
                       <div className="buttons">
                         <Button
                           type="submit"
@@ -457,12 +462,11 @@ const Join = () => {
                     </>
                   )}
                 />
-
               </Grid>
             </Grid>
           </Box>
         </Box>
-      </Container >
+      </Container>
     </>
   );
 };

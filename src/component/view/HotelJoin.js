@@ -36,7 +36,7 @@ const HotelJoin = () => {
     redirection("/");
   }
 
-  //회원가입 요청 함수
+  //호텔 등록 요청 함수
   const fetchJoin = async () => {
     if (!name) {
       alert("이름을 입력해주세요");
