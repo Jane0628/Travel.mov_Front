@@ -3,6 +3,7 @@ import GooMap from "../../../google/GooMap";
 import Star from "../component/Star";
 import styled from "styled-components";
 import { Button } from "@mui/base";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const DetailMovieWrapper = styled.div`
   position: relative;
@@ -161,32 +162,70 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
 
   };
 
-  const searchLocation = (e) => {
-    setGooLocation(e.target.textContent);
-  }
 
   const toggleMap = () => {
     setShowMap(prevShowMap => !prevShowMap);
   }
 
+  // Select에 위치 입력
+  const [location, setLocation] = useState('');
+
+  const searchLocation = (e) => {
+    setLocation(e.target.textContent);
+    setGooLocation(e.target.textContent);
+  }
+
+  const [age, setAge] = useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
   return (
     <DetailMovieWrapper>
       <h1 className="title" style={{ fontSize: '55px' }}>{title}</h1>
-      <div className="movie" style={{ position: 'relative' }}>
+      <div className="movie">
         {showMap ? (
-          <>
+          <div className="map">
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age}
+                  label="Age"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            {/* <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">영화 촬영지</InputLabel>
+                <Select
+                  value={gooLocation}
+                  label="영화 촬영지"
+                  onChange={searchLocation}
+                >
+                  {
+                    locations.map((location) => (
+                      <MenuItem>{location}</MenuItem>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+            </Box> */}
             <MapContainer>
               {/* showMap이 true인 경우 지도 표시 */}
               <GooMap location={gooLocation} />
             </MapContainer>
-            <Description>
-              {
-                locations.map((location, index) => (
-                  <Button key={index} onClick={searchLocation}>{location}</Button>
-                ))
-              }
-            </Description>
-          </>
+          </div>
+          // <Description>
+          // </Description>
         ) : (
           <>
             <img className="rounded" src={imageUrl + poster_path} />
