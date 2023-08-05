@@ -174,10 +174,19 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
       <h1 className="title" style={{ fontSize: '55px' }}>{title}</h1>
       <div className="movie" style={{ position: 'relative' }}>
         {showMap ? (
-          <MapContainer>
-            {/* showMap이 true인 경우 지도 표시 */}
-            <GooMap location={gooLocation} />
-          </MapContainer>
+          <>
+            <MapContainer>
+              {/* showMap이 true인 경우 지도 표시 */}
+              <GooMap location={gooLocation} />
+            </MapContainer>
+            <Description>
+              {
+                locations.map((location, index) => (
+                  <Button key={index} onClick={searchLocation}>{location}</Button>
+                ))
+              }
+            </Description>
+          </>
         ) : (
           <>
             <img className="rounded" src={imageUrl + poster_path} />
@@ -213,11 +222,6 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
           border: '2px solid #7b8ce0',
           zIndex: 1000, // 다른 요소 위에 나타나도록 zIndex 설정
         }}>{showMap ? '영화 정보 보기' : '영화 촬영지 보기'}</Button> {/* 버튼 클릭 시 지도 표시 여부를 토글 */}
-      {
-        locations.map((location, index) => (
-          <Button key={index} onClick={searchLocation}>{location}</Button>
-        ))
-      }
     </DetailMovieWrapper>
   )
 }
