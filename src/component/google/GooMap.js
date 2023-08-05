@@ -154,7 +154,7 @@ const GooMap = ({ location }) => {
 
   const redirection = useNavigate();
   const reserveHotel = (hotelName) => {
-    // redirection('/hotelSearch', { state: { hotelName } });
+    redirection('/hotelSearch', { state: { hotelName } });
   }
 
   return (
@@ -179,7 +179,7 @@ const GooMap = ({ location }) => {
                 <img
                   src={logo}
                 />
-                <p>장소를 선택해주세요.</p>
+                <p>촬영지를 선택해주세요.</p>
               </div>
             )}
           </div>

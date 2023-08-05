@@ -26,6 +26,16 @@ const DetailMovieWrapper = styled.div`
       height: 700px;
       margin: auto 0;
     }
+
+  }
+  
+  .css-1f6u0wk-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+    width: 410px;
+    height: auto;
+    min-height: 1.4375em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   
   button {
@@ -162,24 +172,21 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
 
   };
 
+  const [selection, setSelection] = useState('');
+
+  const searchLocation = (e) => {
+    // 영화 촬영지 값 설정
+    setSelection(e.target.value);
+  }
 
   const toggleMap = () => {
+    // 영화 촬영지 선택 해제
+    setSelection(null);
+
+    // 지도 보여주기
     setShowMap(prevShowMap => !prevShowMap);
   }
 
-  // Select에 위치 입력
-  const [location, setLocation] = useState('');
-
-  const searchLocation = (e) => {
-    setLocation(e.target.textContent);
-    setGooLocation(e.target.textContent);
-  }
-
-  const [age, setAge] = useState('');
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
 
   return (
     <DetailMovieWrapper>
@@ -189,36 +196,20 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
           <div className="map">
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <InputLabel >영화 촬영지</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Age"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            {/* <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">영화 촬영지</InputLabel>
-                <Select
-                  value={gooLocation}
                   label="영화 촬영지"
+                  value={selection}
                   onChange={searchLocation}
                 >
                   {
-                    locations.map((location) => (
-                      <MenuItem>{location}</MenuItem>
+                    locations.map((location, index) => (
+                      <MenuItem className="selectItems" value={index} onClick={(e) => { setGooLocation(e.target.textContent) }}>{location}</MenuItem>
                     ))
                   }
                 </Select>
               </FormControl>
-            </Box> */}
+            </Box>
             <MapContainer>
               {/* showMap이 true인 경우 지도 표시 */}
               <GooMap location={gooLocation} />
