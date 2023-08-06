@@ -1,8 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { API_BASE_URL, USER } from "./host-utils";
 
-//새로운 전역 Context를 생성
-const AuthContext = React.createContext({
+const AuthContext = createContext({
   // 로그인 여부
   // 0 : 로그인 안함
   // 1 : 사이트 로그인
@@ -10,6 +9,8 @@ const AuthContext = React.createContext({
   isLoggedIn: 0,
   nick: "",
   id: "",
+  email: "",
+  role: "",
   onLogout: () => { },
   onLogin: ({ token, nick, id, role }) => { },
   setUserInfo: () => { },
@@ -24,22 +25,22 @@ export const AuthContextProvider = (props) => {
   const [role, setRole] = useState("일반회원");
 
   // 컴포넌트가 렌더링될 때 localStorage에서 로그인 정보를 가지고 와서 상태를 설정.
-  useEffect(() => {
-    if (localStorage.getItem("isLoggedIn") === 1) {
-      console.log("일반 로그인했당!");
-      setIsLoggedIn(1);
-      setId(localStorage.getItem("LOGIN_USER_ID"));
-      setNick(localStorage.getItem("LOGIN_USER_NICK"));
-      setRole(localStorage.getItem("ROLE"));
-    } else if (localStorage.getItem("isLoggedIn") === 2) {
-      console.log("카카오 로그인했당!");
-      setIsLoggedIn(2);
-      setNick(localStorage.getItem("LOGIN_USER_NICK"));
-      // setEmail(localStorage.getItem("LOGIN_USER_EMAIL"));
-      // setPfp(localStorage.getItem("LOGIN_USER_PFP"));
-      setRole(localStorage.getItem("ROLE"));
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (localStorage.getItem("isLoggedIn") === 1) {
+  //     console.log("일반 로그인했당!");
+  //     setIsLoggedIn(1);
+  //     setId(localStorage.getItem("LOGIN_USER_ID"));
+  //     setNick(localStorage.getItem("LOGIN_USER_NICK"));
+  //     setRole(localStorage.getItem("ROLE"));
+  //   } else if (localStorage.getItem("isLoggedIn") === 2) {
+  //     console.log("카카오 로그인했당!");
+  //     setIsLoggedIn(2);
+  //     setNick(localStorage.getItem("LOGIN_USER_NICK"));
+  //     // setEmail(localStorage.getItem("LOGIN_USER_EMAIL"));
+  //     // setPfp(localStorage.getItem("LOGIN_USER_PFP"));
+  //     setRole(localStorage.getItem("ROLE"));
+  //   }
+  // }, [isLoggedIn]);
 
   //로그아웃 핸들러
   const logoutHandler = () => {
@@ -54,14 +55,28 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("LOGIN_USER_NICK", nick);
     localStorage.setItem("LOGIN_USER_ID", id);
     localStorage.setItem("ROLE", role);
+
     // 로그인할 때 db에서 이메일 정보 가져와서 로컬 스토리지에 담기
-    fetch(`${API_BASE_URL}${USER}/getEmail`);
+    localStorage.setItem("LOGIN_USER_EMAIL", getUserEmail(id));
+
 
     setIsLoggedIn(1);
     setNick(nick);
     setId(id);
     setRole(role);
   };
+
+  // 사용자 이메일 가져오기
+  const getUserEmail = async (id) => {
+    const res = await fetch(`${API_BASE_URL}${USER}/getEmail`, { method: "POST", headers: { "Content-Type": "text/plain" }, body: id });
+
+    if (res.status !== 200) {
+      console.log(res.text());
+      return null;
+    }
+
+    return res.text();
+  }
 
   // 토큰 및 로그인 유저 데이터를 브라우저에 저장하는 함수
   const setLoginUserInfo = ({ token, nick, id, role }) => {

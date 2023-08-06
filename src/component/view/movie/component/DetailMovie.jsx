@@ -29,13 +29,6 @@ const DetailMovieWrapper = styled.div`
 
   }
   
-  .css-1f6u0wk-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
-    width: 410px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  
   button {
     margin-top: 50px;
   }
@@ -199,6 +192,7 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
                   label="영화 촬영지"
                   value={selection}
                   onChange={searchLocation}
+                  style={{ width: '466.66px' }}
                 >
                   {
                     locations.map((location, index) => (

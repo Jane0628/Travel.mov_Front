@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getLoginUserInfo } from "../../util/login-utils";
+import { Link, useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from "../../util/host-utils";
 
 const ChosenHotel = () => {
-	const [hotel, setHotel] = useState(null);
+	const [hotels, setHotels] = useState([]);
+	const hotel = location.state?.hotelName || "";
+	const redirection = useNavigate();
 
 	const token = getLoginUserInfo().token;
 	const requestHeader = {
@@ -29,7 +33,7 @@ const ChosenHotel = () => {
 			})
 			.then((json) => {
 				console.log(json);
-				setHotel(json);
+				setHotels(json);
 			});
 	}, []);
 
@@ -54,7 +58,7 @@ const ChosenHotel = () => {
 			<div style={{ marginTop: "10px", textAlign: "left" }}>
 				<h2 style={{ margin: "10px" }}>{hotel.name}</h2>
 				<p style={{ margin: "10px" }}>{hotel.address}</p>
-				<p style={{ margin: "10px" }}>{hotel.price.toLocaleString()}원</p>
+				<p style={{ margin: "10px" }}>{hotel.price}원</p>
 			</div>
 			<div>
 				{hotel.reservation ? (

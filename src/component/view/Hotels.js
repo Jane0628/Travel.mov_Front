@@ -4,19 +4,16 @@ import { API_BASE_URL } from "../../util/host-utils";
 import { useEffect } from "react";
 import { getLoginUserInfo } from "../../util/login-utils";
 import Header from "../layout/Header";
-
 const HotelCarousel = () => {
   const [hotels, setHotels] = useState([]);
   const location = useLocation();
   const hotel = location.state?.hotelName || "";
   const redirection = useNavigate();
-
   const token = getLoginUserInfo().token;
   const requestHeader = {
     "content-type": "application/json",
     Authorization: "Bearer " + token,
   };
-
   useEffect(() => {
     fetch(`${API_BASE_URL}/hotels/name/${hotel}`, {
       method: "GET",
@@ -25,7 +22,7 @@ const HotelCarousel = () => {
       .then((res) => {
         if (res.status === 200) return res.json();
         else if (res.status === 403) {
-          alert("로그인이 필요한 서비스입니다.");
+          alert("로그인이 필요한 서비스 입니다.");
           redirection("/login");
           return;
         } else {
@@ -39,7 +36,6 @@ const HotelCarousel = () => {
         setHotels(json);
       });
   }, []);
-
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 6;
   const pageCount = Math.ceil(hotels.length / pageSize);
@@ -47,11 +43,9 @@ const HotelCarousel = () => {
     currentPage * pageSize,
     (currentPage + 1) * pageSize
   );
-
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
-
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -170,8 +164,7 @@ const HotelCarousel = () => {
           다음
         </button>
       </div>
-    </div >
+    </div>
   );
 };
-
 export default HotelCarousel;
