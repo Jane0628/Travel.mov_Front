@@ -16,6 +16,7 @@ const HotelCarousel = () => {
     "content-type": "application/json",
     Authorization: "Bearer " + token,
   };
+
   useEffect(() => {
     fetch(`${API_BASE_URL}/hotels/name/${hotel}`, {
       method: "GET",
@@ -24,7 +25,7 @@ const HotelCarousel = () => {
       .then((res) => {
         if (res.status === 200) return res.json();
         else if (res.status === 403) {
-          alert("로그인이 필요한 서비스 입니다.");
+          alert("로그인이 필요한 서비스입니다.");
           redirection("/login");
           return;
         } else {
