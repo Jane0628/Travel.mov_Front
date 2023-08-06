@@ -14,10 +14,9 @@ import {
   Typography,
 } from "@mui/material";
 import "../../design/join.scss";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import AuthContext from "../../util/AuthContext";
 import { API_BASE_URL, USER } from "../../util/host-utils";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
@@ -25,9 +24,9 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import Header from "../layout/Header";
 
 const Join = () => {
-  const redirection = useNavigate();
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-  const { onLogin, isLoggedIn } = useContext(AuthContext);
+  const redirection = useNavigate();
 
   const REQUEST_URL = API_BASE_URL + USER;
 
@@ -331,7 +330,7 @@ const Join = () => {
   return (
     <>
       <Header />
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" id="joinPage">
         <CssBaseline />
         <Box
           sx={{
@@ -342,19 +341,20 @@ const Join = () => {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <AssignmentIcon />
+            <AssignmentIcon className="joinIcon" />
           </Avatar>
           <Typography component="h1" variant="h5">
             회원가입
           </Typography>
           <Box
+            id="joinForm"
             component="form"
             noValidate
             onSubmit={joinHandler}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} className="inputBoxes">
                 <TextField
                   variant="outlined"
                   fullWidth
@@ -362,6 +362,7 @@ const Join = () => {
                   label="아이디"
                   name="id"
                   required
+                  autoComplete="off"
                   error={correct.id === 1 ? true : false}
                   helperText={correct.id === 2 ? null : message.id}
                   onChange={idHandler}
@@ -377,7 +378,7 @@ const Join = () => {
                   중복체크
                 </Button>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} className="inputBoxes">
                 <TextField
                   variant="outlined"
                   fullWidth
@@ -385,24 +386,26 @@ const Join = () => {
                   label="닉네임"
                   name="nick"
                   required
+                  autoComplete="off"
                   error={correct.nick === 1 ? true : false}
                   helperText={correct.nick === 2 ? null : message.nick}
                   onChange={nameHandler}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} className="inputBoxes">
                 <TextField
                   required
                   fullWidth
                   id="email"
                   label="이메일"
                   name="email"
+                  autoComplete="off"
                   error={correct.email === 1 ? true : false}
                   helperText={correct.email === 2 ? null : message.email}
                   onChange={emailHandler}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} className="inputBoxes">
                 <TextField
                   type={showPassword ? "text" : "password"}
                   fullWidth
@@ -424,7 +427,7 @@ const Join = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} className="inputBoxes select">
                 <Autocomplete
                   multiple
                   id="checkboxes-tags-demo"
@@ -442,7 +445,6 @@ const Join = () => {
                       {option.title}
                     </li>
                   )}
-                  style={{ width: 516, height: 65.85 }}
                   renderInput={(params) => (
                     <>
                       <TextField {...params} label="선호하는 영화 장르" />

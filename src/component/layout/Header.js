@@ -1,35 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "../../design/layout/header.scss";
-import { Link, Router, useNavigate } from "react-router-dom";
-import AuthContext from "../../util/AuthContext";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  InputAdornment,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-} from "@mui/material";
+import { Button, Drawer, InputAdornment, TextField, } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import AssignmentIcon from "@mui/icons-material/Assignment";
 import { Image } from "react-bootstrap";
-import OutputOutlinedIcon from "@mui/icons-material/OutputOutlined";
-import PersonIcon from "@mui/icons-material/Person";
-import Accordion from "./Accordion";
 import HamburgerMenu from "./HamburgerMenu";
 import menu from "../../img/menu.png";
 
 const Header = () => {
-  const { isLoggedIn, onLogout, onLogin, nick } = useContext(AuthContext);
-
   const redirection = useNavigate();
 
   const moveToMainPage = () => {

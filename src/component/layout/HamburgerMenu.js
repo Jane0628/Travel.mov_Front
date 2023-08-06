@@ -26,7 +26,7 @@ const HamburgerMenu = (anchor) => {
     >
       <List>
         <ListItem sx={{ cursor: 'default' }}>
-          <div style={{ borderRadius: '50%', overflow: 'hidden' }}>
+          <div style={{ width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '2px solid #424180' }}>
             <img src={localStorage.getItem('LOGIN_USER_PFP') ? localStorage.getItem('LOGIN_USER_PFP') : require('../../img/profileImage.png')} width={'80px'} />
           </div>
 
@@ -79,7 +79,7 @@ const HamburgerMenu = (anchor) => {
           )
         }
       </List>
-    </Box>
+    </Box >
   )
 }
 

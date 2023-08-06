@@ -7,7 +7,7 @@ div.container form h1 {
 	margin: 50px auto;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
 
 	// 프사
 	.image {
@@ -32,8 +32,8 @@ div.container form h1 {
 			}
 		}
 
-		// Fab
-		button.css-v49lkv-MuiButtonBase-root-MuiFab-root {
+		// 프로필 편집 버튼
+		button#pfpEditBtn {
 			width: 40px;
 			height: 40px;
 			display: flex;
@@ -41,7 +41,7 @@ div.container form h1 {
 			align-items: center;
 			position: absolute;
 			top: 22px;
-			right: 45px;
+			right: 55px;
 
 			label {
 				height: 40px;
@@ -76,7 +76,7 @@ div.container form h1 {
 			}
 
 			// 수정하기 버튼
-			.css-13i4rnv-MuiGrid-root:last-child {
+			.editBtn {
 				display: flex;
 				justify-content: center;
 

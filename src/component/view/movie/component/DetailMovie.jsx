@@ -31,8 +31,6 @@ const DetailMovieWrapper = styled.div`
   
   .css-1f6u0wk-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
     width: 410px;
-    height: auto;
-    min-height: 1.4375em;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

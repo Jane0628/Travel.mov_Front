@@ -24,6 +24,7 @@ const HeaderMovie = styled.div`
     height: 600px;
     overflow: hidden;
     display: flex;
+    align-items: center;
     background: linear-gradient(
     rgba(27, 26, 26, 1) 0%,
     rgba(20, 20, 20, 0.2) 30%,
@@ -35,15 +36,9 @@ const HeaderMovie = styled.div`
     &#바비 {
       align-items: start;
     }
-
-    &#플래시 {
-      align-items: center;
-    }
       
-    img {
+    img#mainMovie {
       width: 100%;
-      min-width: 1068px;
-      min-height: 600px;
       z-index: -5;
     }
 
@@ -67,7 +62,6 @@ const HeaderMovie = styled.div`
       }
     }
   }
-
     
   .info{
     z-index: 100;
@@ -111,7 +105,7 @@ const HeaderMovie = styled.div`
   }
 `;
 
-const imageHandler = (title) => {
+const imageHandler = (title, backdrop_path) => {
   if (title === '바비') {
     return require("../../../../img/barbie.jpg");
   }
@@ -120,7 +114,7 @@ const imageHandler = (title) => {
     return require("../../../../img/flash.jpg");
   }
 
-  return "https://image.tmdb.org/t/p/w1280";
+  return "https://image.tmdb.org/t/p/w1280" + backdrop_path;
 }
 
 const videoHandler = (title) => {
@@ -150,7 +144,7 @@ export default memo(function Header({ mainMovie }) {
   return (
     <HeaderMovie backdrop_path={backdrop_path}>
       <div className="frame" id={title}>
-        <img src={imageHandler(title)} alt="" />
+        <img id='mainMovie' src={imageHandler(title, backdrop_path)} alt="" />
         <div className="video-container">
           <video className="header-video" autoPlay muted onEnded={hideVideo} style={{ opacity: (play ? 1 : 0) }}>
             <source src={videoSrc} type="video/mp4" />

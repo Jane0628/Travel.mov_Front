@@ -100,8 +100,8 @@ export default function SignInSide() {
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
-      <Grid item xs={12} sm={4} md={7}>
-        <Carousel fade>
+      <Grid item xs={12} sm={4} md={7} className="carouselGrid">
+        <Carousel id="carousel" fade>
           <Carousel.Item>
             <img
               src={require("../../img/carousel_img/parasite.jpg")}
@@ -240,7 +240,7 @@ export default function SignInSide() {
           </Carousel.Item>
         </Carousel>
       </Grid>
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={8} md={5} className="loginPage" component={Paper} elevation={6} square>
         <Box
           sx={{
             my: 8,
@@ -251,7 +251,7 @@ export default function SignInSide() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+            <LockOutlinedIcon className="lockIcon" />
           </Avatar>
           <Typography component="h1" variant="h5">
             로그인
@@ -271,7 +271,7 @@ export default function SignInSide() {
               name="id"
               autoFocus
             />
-            <FormControl fullWidth variant="outlined" size="small">
+            <FormControl className="password" fullWidth variant="outlined" size="small">
               <InputLabel>비밀번호</InputLabel>
               <OutlinedInput
                 autoComplete="off"
@@ -280,6 +280,7 @@ export default function SignInSide() {
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
+                      id="eyeIcon"
                       aria-label="toggle password visibility"
                       onClick={showPasswordHandler}
                       edge="end"
@@ -292,6 +293,7 @@ export default function SignInSide() {
               />
             </FormControl>
             <Button
+              id="loginBtn"
               type="submit"
               fullWidth
               variant="contained"
@@ -299,18 +301,9 @@ export default function SignInSide() {
             >
               로그인
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="/changePw" variant="body2">
-                  비밀번호를 잊으셨나요?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/join" variant="body2">
-                  회원가입
-                </Link>
-              </Grid>
-            </Grid>
+            <Link href="/join" variant="body2">
+              계정이 없으십니까? 회원가입하기
+            </Link>
             <div className="division">
               <div className="line" />
               <p>or</p>

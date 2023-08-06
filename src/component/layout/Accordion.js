@@ -64,15 +64,14 @@ const Accordion = () => {
         onChange={handleChange("panel1")}
       >
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" s>
-          <Link
-            to={"/myPage"}
+          <div
             style={{ color: "#424180", display: "flex", alignItems: "center" }}
           >
             <ListItemIcon>
               <PersonIcon sx={{ width: "34.28px" }} color="primary" />
             </ListItemIcon>
             마이페이지
-          </Link>
+          </div>
         </AccordionSummary>
         <AccordionDetails style={{ backgroundColor: "rgba(177,191,249, 0.2)" }}>
           {localStorage.getItem("isLoggedIn") == 1 ? (

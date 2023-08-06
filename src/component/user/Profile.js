@@ -272,9 +272,9 @@ const Profile = () => {
                 <div className="prof-main">
                   <div className="image">
                     <div className="frame" onClick={() => $fileTag.current.click()}>
-                      <img id="pfp" src={imgFile ? imgFile : imgHandler()} alt="" />
+                      <img id="pfp" src={localStorage.getItem('LOGIN_USER_PFP') ? localStorage.getItem('LOGIN_USER_PFP') : require("../../img/profileImage.png")} alt="" />
                     </div>
-                    <Fab color="secondary">
+                    <Fab id="pfpEditBtn" color="secondary">
                       <label htmlFor="fileInput-hidden">
                         <EditIcon />
                         <input
@@ -300,7 +300,7 @@ const Profile = () => {
                           id="id"
                           label="아이디"
                           name="id"
-                          value={id}
+                          value={localStorage.getItem('LOGIN_USER_ID')}
                           disabled
                         />
                       </Grid>
@@ -361,7 +361,7 @@ const Profile = () => {
                           onChange={emailHandler}
                         />
                       </Grid>
-                      <Grid item xs={8}>
+                      <Grid item xs={8} className="editBtn">
                         <Button
                           type="submit"
                           variant="contained"
