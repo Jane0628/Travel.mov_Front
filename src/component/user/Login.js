@@ -1,24 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import '../../design/login.scss';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate, } from 'react-router-dom';
-import AuthContext from '../../util/AuthContext';
-import { API_BASE_URL, USER } from '../../util/host-utils';
-import KakaoSignin from '../kakao/KakaoSignin';
-import { isLogin } from '../../util/login-utils';
+import React, { useContext, useEffect, useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import "../../design/login.scss";
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../../util/AuthContext";
+import { API_BASE_URL, USER } from "../../util/host-utils";
+import KakaoSignin from "../kakao/KakaoSignin";
+import { isLogin } from "../../util/login-utils";
 
 // 캐러셀에 꼭 필요합니다. 지우지 말아주세요!
 import { Carousel } from "react-bootstrap";
@@ -42,16 +48,16 @@ export default function SignInSide() {
 
   // 로그인 요청 함수
   const fetchLogin = async () => {
-    const $id = document.getElementById('id');
-    const $pw = document.getElementById('pw');
+    const $id = document.getElementById("id");
+    const $pw = document.getElementById("pw");
 
     if (!$id.value) {
-      alert('아이디를 입력해주세요.');
+      alert("아이디를 입력해주세요.");
       $id.focus();
       return;
     }
     if (!$pw.value) {
-      alert('비밀번호를 입력해주세요.');
+      alert("비밀번호를 입력해주세요.");
       $pw.focus();
       return;
     }
@@ -74,7 +80,7 @@ export default function SignInSide() {
     const { token, nick, id, role } = await res.json();
 
     onLogin(token, nick, id, role);
-    alert('환영합니다, ' + nick + '님!');
+    alert("환영합니다, " + nick + "님!");
     redirection("/");
   };
 
@@ -100,12 +106,14 @@ export default function SignInSide() {
             <img
               src={require("../../img/carousel_img/parasite.jpg")}
               alt="기생충"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/parasite.png")}
                 alt="기생충"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -113,12 +121,14 @@ export default function SignInSide() {
             <img
               src={require("../../img/carousel_img/about_time.jpg")}
               alt="어바웃 타임"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/about_time.png")}
                 alt="어바웃 타임"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -126,12 +136,14 @@ export default function SignInSide() {
             <img
               src={require("../../img/carousel_img/train_to_busan.jpg")}
               alt="부산행"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/train_to_busan.png")}
                 alt="부산행"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -139,12 +151,14 @@ export default function SignInSide() {
             <img
               src={require("../../img/carousel_img/avatar.jpg")}
               alt="아바타2 물의 길"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/avatar.png")}
                 alt="아바타"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -153,12 +167,14 @@ export default function SignInSide() {
               className="align_right"
               src={require("../../img/carousel_img/the_round_up.jpg")}
               alt="범죄도시3"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/the_round_up.png")}
                 alt="범죄도시3"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -166,12 +182,14 @@ export default function SignInSide() {
             <img
               src={require("../../img/carousel_img/mission_impossible.jpg")}
               alt="미션 임파서블"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/mission_impossible.png")}
                 alt="미션 임파서블"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -179,12 +197,14 @@ export default function SignInSide() {
             <img
               src={require("../../img/carousel_img/memories_of_murder.jpg")}
               alt="살인의 추억"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/memories_of_murder.png")}
                 alt="살인의 추억"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -192,12 +212,14 @@ export default function SignInSide() {
             <img
               src={require("../../img/carousel_img/lala_land.jpg")}
               alt="라라랜드"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/lala_land.png")}
                 alt="라라랜드"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -205,12 +227,14 @@ export default function SignInSide() {
             <img
               src={require("../../img/carousel_img/decision_to_leave.jpg")}
               alt="헤어질 결심"
+              style={{ height: "100vh" }}
             />
             <Carousel.Caption>
               <img
                 className="logo"
                 src={require("../../img/carousel_logo/decision_to_leave.png")}
                 alt="헤어질 결심"
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
               />
             </Carousel.Caption>
           </Carousel.Item>
@@ -235,7 +259,7 @@ export default function SignInSide() {
           <Box
             component="form"
             noValidate
-            autoComplete='off'
+            autoComplete="off"
             onSubmit={loginHandler}
             sx={{ mt: 1 }}
           >
@@ -288,9 +312,9 @@ export default function SignInSide() {
               </Grid>
             </Grid>
             <div className="division">
-              <div className='line' />
+              <div className="line" />
               <p>or</p>
-              <div className='line' />
+              <div className="line" />
             </div>
             <KakaoSignin />
           </Box>
