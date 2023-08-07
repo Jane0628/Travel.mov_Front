@@ -11,9 +11,9 @@ const AuthContext = createContext({
   id: "",
   email: "",
   role: "",
-  onLogout: () => { },
-  onLogin: ({ token, nick, id, role }) => { },
-  setUserInfo: () => { },
+  onLogout: () => {},
+  onLogin: ({ token, nick, id, role }) => {},
+  setUserInfo: () => {},
 });
 
 // 위에서 생성한 Context를 제공할 수 있는 provider
@@ -57,8 +57,7 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("ROLE", role);
 
     // 로그인할 때 db에서 이메일 정보 가져와서 로컬 스토리지에 담기
-    localStorage.setItem("LOGIN_USER_EMAIL", getUserEmail(id));
-
+    // localStorage.setItem("LOGIN_USER_EMAIL", getUserEmail(id));
 
     setIsLoggedIn(1);
     setNick(nick);
@@ -68,7 +67,11 @@ export const AuthContextProvider = (props) => {
 
   // 사용자 이메일 가져오기
   const getUserEmail = async (id) => {
-    const res = await fetch(`${API_BASE_URL}${USER}/getEmail`, { method: "POST", headers: { "Content-Type": "text/plain" }, body: id });
+    const res = await fetch(`${API_BASE_URL}${USER}/getEmail`, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: id,
+    });
 
     if (res.status !== 200) {
       console.log(res.text());
@@ -76,7 +79,7 @@ export const AuthContextProvider = (props) => {
     }
 
     return res.text();
-  }
+  };
 
   // 토큰 및 로그인 유저 데이터를 브라우저에 저장하는 함수
   const setLoginUserInfo = ({ token, nick, id, role }) => {
