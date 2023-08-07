@@ -186,31 +186,31 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
       <h1 className="title" style={{ fontSize: '55px' }}>{title}</h1>
       <div className="movie">
         {showMap ? (
-          <div className="map">
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel>영화 촬영지</InputLabel>
-                <Select
-                  label="영화 촬영지"
-                  value={selection}
-                  onChange={searchLocation}
-                  style={{ width: '466.66px' }}
-                >
-                  {
-                    locations.map((location, index) => (
-                      <MenuItem className="selectItems" value={index} onClick={(e) => { setGooLocation(e.target.textContent) }}>{location}</MenuItem>
-                    ))
-                  }
-                </Select>
-              </FormControl>
-            </Box>
-            <MapContainer>
-              {/* showMap이 true인 경우 지도 표시 */}
-              <GooMap location={gooLocation} />
-            </MapContainer>
-          </div>
-          // <Description>
-          // </Description>
+          <>
+            <div className="map">
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel>영화 촬영지</InputLabel>
+                  <Select
+                    label="영화 촬영지"
+                    value={selection}
+                    onChange={searchLocation}
+                    style={{ width: '466.66px' }}
+                  >
+                    {
+                      locations.map((location, index) => (
+                        <MenuItem className="selectItems" value={index} onClick={(e) => { setGooLocation(e.target.textContent) }}>{location}</MenuItem>
+                      ))
+                    }
+                  </Select>
+                </FormControl>
+              </Box>
+              <MapContainer>
+                {/* showMap이 true인 경우 지도 표시 */}
+                <GooMap location={gooLocation} />
+              </MapContainer>
+            </div>
+          </>
         ) : (
           <>
             <img className="rounded" src={imageUrl + poster_path} />

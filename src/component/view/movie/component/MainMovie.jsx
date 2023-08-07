@@ -126,6 +126,10 @@ const videoHandler = (title) => {
     return require("../../../../video/flash.mp4");
   }
 
+  if (title === '인시디어스: 빨간 문') {
+    return require("../../../../video/incidious.mp4");
+  }
+
   return "";
 }
 

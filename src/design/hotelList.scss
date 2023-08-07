@@ -1,0 +1,22 @@
+.hotelInfos {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+
+  h2 {
+    font-weight: 600;
+    font-size: 30px;
+  }
+
+  p {
+    margin: 0;
+
+    &.price {
+      margin-top: 20px;
+      align-self: flex-end;
+      font-size: 25px;
+      color: #424180;
+    }
+  }
+}

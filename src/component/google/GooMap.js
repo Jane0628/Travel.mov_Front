@@ -4,6 +4,7 @@ import "../../design/goomap.scss";
 
 // 장소 선택 안할 시 나타날 로고 이미지
 import logo from "../../img/logo.png";
+import { Button } from "@mui/material";
 
 const GooMap = ({ location }) => {
   const [map, setMap] = useState(null);
@@ -181,31 +182,37 @@ const GooMap = ({ location }) => {
         </div>
         <div id="map" />
       </div>
-      {selectedHotel && (
-        <div>
-          <img
-            src={selectedHotel.photos && selectedHotel.photos[0].getUrl()}
-            alt={selectedHotel.name}
-            style={{ maxWidth: "500px", maxHeight: "375px" }}
-          />
-          <h3>{selectedHotel.name}</h3>
-          <p>{selectedHotel.formatted_address}</p>
-          {selectedHotel.website && (
-            <p>
-              <a
-                href={selectedHotel.website}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {selectedHotel.website}
-              </a>
-            </p>
-          )}
-          <button onClick={() => reserveHotel(selectedHotel.name)}>
-            예약하기
-          </button>
-        </div>
-      )}
+      <div id="frame">
+        {selectedHotel ? (
+          <div id="movieDetailRight">
+            <img
+              src={selectedHotel.photos ? selectedHotel.photos[0].getUrl() : logo}
+              style={{ maxWidth: "500px", maxHeight: "375px" }}
+            />
+            <h3>{selectedHotel.name}</h3>
+            <p>{selectedHotel.formatted_address}</p>
+            {selectedHotel.website && (
+              <p>
+                <a
+                  href={selectedHotel.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {selectedHotel.website}
+                </a>
+              </p>
+            )}
+            <Button onClick={() => reserveHotel(selectedHotel.name)}>
+              예약하기
+            </Button>
+          </div>
+        ) : (
+          <div className="hotelNotSelected">
+            <img src={logo} />
+            <p>호텔을 선택해주세요.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

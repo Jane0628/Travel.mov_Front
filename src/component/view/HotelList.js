@@ -3,8 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { API_BASE_URL } from "../../util/host-utils";
 import { useEffect } from "react";
 import { getLoginUserInfo } from "../../util/login-utils";
-import { MenuItem, TextField } from "@mui/material";
+import { Button, MenuItem, TextField } from "@mui/material";
 import Header from "../layout/Header";
+import '../../design/hotelList.scss';
 
 const nameList = [
   { name: "전체", value: "전체", key: "전체" },
@@ -83,13 +84,13 @@ const HotelCarousel = () => {
   return (
     <div>
       <Header />
-      <h1 style={{ marginTop: '150px', marginBottom: 0 }}>
+      <h1 style={{ marginTop: '150px', marginBottom: '50px' }}>
         <TextField
           select
           variant="standard"
           defaultValue="전체"
           value={name}
-          style={{ width: '100px', marginRight: '10px' }}
+          style={{ width: '100px', marginRight: '20px' }}
           onChange={handleChange}
         >
           {nameList.map((name) => (
@@ -112,7 +113,7 @@ const HotelCarousel = () => {
           <div
             key={hotel.id}
             style={{
-              height: "500px",
+              height: "470px",
               border: "1px solid #b1bff9",
               margin: "5px 20px",
               borderRadius: "15px",
@@ -126,12 +127,12 @@ const HotelCarousel = () => {
             <img
               src={hotel.img}
               alt={hotel.name}
-              style={{ width: "100%", height: "225px", objectFit: "cover" }}
+              style={{ width: "100%", height: "225px", objectFit: "cover", borderRadius: '5px' }}
             />
-            <div style={{ marginTop: "10px", textAlign: "left" }}>
-              <h2 style={{ margin: "10px" }}>{hotel.name}</h2>
-              <p style={{ margin: "10px" }}>{hotel.address}</p>
-              <p style={{ margin: "10px" }}>{hotel.price.toLocaleString()}원</p>
+            <div className="hotelInfos">
+              <h2>{hotel.name}</h2>
+              <p>{hotel.address}</p>
+              <p className="price">{hotel.price.toLocaleString()}원 / 박</p>
             </div>
             <div style={{ position: "absolute", bottom: "20px" }}>
               {hotel.reservation ? (
@@ -182,8 +183,8 @@ const HotelCarousel = () => {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: "10px", textAlign: "center" }}>
-        <button
+      <div style={{ marginTop: "30px", textAlign: "center", marginBottom: "70px" }}>
+        <Button
           onClick={handlePreviousPage}
           disabled={currentPage === 0}
           style={{
@@ -196,8 +197,8 @@ const HotelCarousel = () => {
           }}
         >
           이전
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={handleNextPage}
           disabled={currentPage === pageCount - 1}
           style={{
@@ -210,7 +211,7 @@ const HotelCarousel = () => {
           }}
         >
           다음
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -4,6 +4,8 @@ import { API_BASE_URL } from "../../util/host-utils";
 import { useEffect } from "react";
 import { getLoginUserInfo } from "../../util/login-utils";
 import Header from "../layout/Header";
+import "../../design/hotelList.scss";
+
 const HotelCarousel = () => {
   const [hotels, setHotels] = useState([]);
   const location = useLocation();
@@ -80,10 +82,10 @@ const HotelCarousel = () => {
               alt={hotel.name}
               style={{ width: "100%", height: "225px", objectFit: "cover" }}
             />
-            <div style={{ marginTop: "10px", textAlign: "left" }}>
-              <h2 style={{ margin: "10px" }}>{hotel.name}</h2>
-              <p style={{ margin: "10px" }}>{hotel.address}</p>
-              <p style={{ margin: "10px" }}>{hotel.price.toLocaleString()}원</p>
+            <div className="hotelInfos">
+              <h2>{hotel.name}</h2>
+              <p>{hotel.address}</p>
+              <p className="price">{hotel.price.toLocaleString()}원 / 박</p>
             </div>
             <div>
               {hotel.reservation ? (
@@ -94,7 +96,7 @@ const HotelCarousel = () => {
                     backgroundColor: "#b1bff9",
                     color: "#fff",
                     border: "none",
-                    borderRadius: "7px",
+                    borderRadius: "5px",
                   }}
                 >
                   <Link to={`/checkOut/${hotel.id}`} className="out">
@@ -112,7 +114,7 @@ const HotelCarousel = () => {
                     borderRadius: "7px",
                   }}
                 >
-                  <Link className="out">예약완료</Link>
+                  <Link className="out">예약 완료</Link>
                 </button>
               )}
               <button

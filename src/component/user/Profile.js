@@ -175,13 +175,15 @@ const Profile = () => {
 
   // 이미지를 가져오는 작업.
   const imgHandler = () => {
-    if (imgFile) return imgFile;
-    else if (isLoggedIn === 1) {
-      // 일반 로그인 유저
-      return require("../../img/profileImage.png");
-    } else {
-      // 카카오 로그인 유저
+    if (imgFile) {
+      localStorage.setItem('LOGIN_USER_PFP', imgFile);
+      return imgFile;
+    } else if (localStorage.getItem("LOGIN_USER_PFP")) {
+      // 유저 프사가 있을 경우
       return localStorage.getItem("LOGIN_USER_PFP");
+    } else {
+      // 기본 프사 적용
+      return require("../../img/profileImage.png");
     }
   };
 
@@ -228,7 +230,7 @@ const Profile = () => {
       if (res.status === 200) {
         alert("수정이 완료되었습니다");
         localStorage.setItem("LOGIN_USER_NICK", userValue.nick);
-        redirection("/myPage");
+        redirection("/");
       } else {
         alert("서버와의 통신이 원활하지 않습니다.");
       }
@@ -272,7 +274,7 @@ const Profile = () => {
                 <div className="prof-main">
                   <div className="image">
                     <div className="frame" onClick={() => $fileTag.current.click()}>
-                      <img id="pfp" src={localStorage.getItem('LOGIN_USER_PFP') ? localStorage.getItem('LOGIN_USER_PFP') : imgHandler()} alt="" />
+                      <img id="pfp" src={imgHandler()} alt="" />
                     </div>
                     <Fab id="pfpEditBtn" color="secondary">
                       <label htmlFor="fileInput-hidden">
