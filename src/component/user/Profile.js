@@ -262,125 +262,136 @@ const Profile = () => {
 
   return (
     <>
-      {
-        loading ? (
-          <>
-            <Header />
-            <Container>
-              <form onSubmit={handleFormSubmit}>
-                <h1>프로필 수정</h1>
-                <div className="prof-main">
-                  <div className="image">
-                    <div className="frame" onClick={() => $fileTag.current.click()}>
-                      <img id="pfp" src={localStorage.getItem('LOGIN_USER_PFP') ? localStorage.getItem('LOGIN_USER_PFP') : require("../../img/profileImage.png")} alt="" />
-                    </div>
-                    <Fab id="pfpEditBtn" color="secondary">
-                      <label htmlFor="fileInput-hidden">
-                        <EditIcon />
-                        <input
-                          id="fileInput-hidden"
-                          type="file"
-                          className="file-input"
-                          accept="image/*"
-                          ref={$fileTag}
-                          onChange={showThumbnailHandler}
-                        />
-                      </label>
-                    </Fab>
-                    <span className="recommendation">
-                      ※ 1:1 비율의 사진 사용을 권장합니다.
-                    </span>
+      {loading ? (
+        <>
+          <Header />
+          <Container>
+            <form onSubmit={handleFormSubmit}>
+              <h1>프로필 수정</h1>
+              <div className="prof-main">
+                <div className="image">
+                  <div
+                    className="frame"
+                    onClick={() => $fileTag.current.click()}
+                  >
+                    <img
+                      id="pfp"
+                      src={
+                        localStorage.getItem("LOGIN_USER_PFP")
+                          ? localStorage.getItem("LOGIN_USER_PFP")
+                          : imgHandler()
+                      }
+                      alt=""
+                    />
                   </div>
-                  <div className="profile">
-                    <div className="right">
-                      <Grid item xs={8}>
+                  <Fab id="pfpEditBtn" color="secondary">
+                    <label htmlFor="fileInput-hidden">
+                      <EditIcon />
+                      <input
+                        id="fileInput-hidden"
+                        type="file"
+                        className="file-input"
+                        accept="image/*"
+                        ref={$fileTag}
+                        onChange={showThumbnailHandler}
+                      />
+                    </label>
+                  </Fab>
+                  <span className="recommendation">
+                    ※ 1:1 비율의 사진 사용을 권장합니다.
+                  </span>
+                </div>
+                <div className="profile">
+                  <div className="right">
+                    <Grid item xs={8}>
+                      <TextField
+                        type="text"
+                        fullWidth
+                        id="id"
+                        label="아이디"
+                        name="id"
+                        value={localStorage.getItem("LOGIN_USER_ID")}
+                        disabled
+                      />
+                    </Grid>
+                    <Grid item xs={8}>
+                      <div className="pwInput">
                         <TextField
-                          type="text"
+                          type={showPassword ? "text" : "password"}
                           fullWidth
-                          id="id"
-                          label="아이디"
-                          name="id"
-                          value={localStorage.getItem('LOGIN_USER_ID')}
-                          disabled
-                        />
-                      </Grid>
-                      <Grid item xs={8}>
-                        <div className="pwInput">
-                          <TextField
-                            type={showPassword ? "text" : "password"}
-                            fullWidth
-                            id="pw"
-                            label="비밀번호"
-                            name="pw"
-                            required
-                            onChange={passwordHandler}
-                            error={correct.pw === 1 ? true : false}
-                            helperText={correct.pw === 1 ? message.pw : null}
-                            InputProps={{
-                              endAdornment: (
-                                <InputAdornment position="end">
-                                  <IconButton onClick={showPasswordHandler}>
-                                    {showPassword ? (
-                                      <VisibilityOff />
-                                    ) : (
-                                      <Visibility />
-                                    )}
-                                  </IconButton>
-                                </InputAdornment>
-                              ),
-                            }}
-                          />
-                        </div>
-                      </Grid>
-                      <Grid item xs={8}>
-                        <TextField
-                          variant="outlined"
-                          fullWidth
-                          id="nick"
-                          label="닉네임"
-                          name="nick"
+                          id="pw"
+                          label="비밀번호"
+                          name="pw"
                           required
-                          error={correct.nick === 1 ? true : false}
-                          helperText={correct.nick === 1 ? message.nick : null}
-                          defaultValue={localStorage.getItem("LOGIN_USER_NICK")}
-                          onChange={nameHandler}
+                          onChange={passwordHandler}
+                          error={correct.pw === 1 ? true : false}
+                          helperText={correct.pw === 1 ? message.pw : null}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton onClick={showPasswordHandler}>
+                                  {showPassword ? (
+                                    <VisibilityOff />
+                                  ) : (
+                                    <Visibility />
+                                  )}
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
                         />
-                      </Grid>
-                      <Grid item xs={8}>
-                        <TextField
-                          variant="outlined"
-                          fullWidth
-                          id="email"
-                          label="이메일"
-                          name="email"
-                          autoComplete="email"
-                          required
-                          error={correct.email === 1 ? true : false}
-                          helperText={correct.email === 1 ? message.email : null}
-                          defaultValue={localStorage.getItem("LOGIN_USER_EMAIL")}
-                          onChange={emailHandler}
-                        />
-                      </Grid>
-                      <Grid item xs={8} className="editBtn">
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                          onClick={handleFormSubmit}
-                        >
-                          수정하기
-                        </Button>
-                      </Grid>
-                    </div>
+                      </div>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <TextField
+                        variant="outlined"
+                        fullWidth
+                        id="nick"
+                        label="닉네임"
+                        name="nick"
+                        required
+                        error={correct.nick === 1 ? true : false}
+                        helperText={correct.nick === 1 ? message.nick : null}
+                        defaultValue={localStorage.getItem("LOGIN_USER_NICK")}
+                        onChange={nameHandler}
+                      />
+                    </Grid>
+                    <Grid item xs={8}>
+                      <TextField
+                        variant="outlined"
+                        fullWidth
+                        id="email"
+                        label="이메일"
+                        name="email"
+                        autoComplete="email"
+                        required
+                        error={correct.email === 1 ? true : false}
+                        helperText={correct.email === 1 ? message.email : null}
+                        // defaultValue={localStorage.getItem("LOGIN_USER_EMAIL")}
+                        onChange={emailHandler}
+                      />
+                    </Grid>
+                    <Grid item xs={8} className="editBtn">
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleFormSubmit}
+                      >
+                        수정하기
+                      </Button>
+                    </Grid>
                   </div>
                 </div>
-              </form>
-            </Container>
-          </>
-        ) : <Loading />}
+              </div>
+            </form>
+          </Container>
+        </>
+      ) : (
+        <Loading />
+      )}
     </>
   );
-
 };
 
 export default Profile;

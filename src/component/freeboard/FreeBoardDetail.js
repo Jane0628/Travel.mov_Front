@@ -100,7 +100,7 @@ const FreeBoardDetail = ({ freeBoard }) => {
       })
       .then((text) => {
         alert(text);
-        window.location.reload();
+        redirection("/");
       });
   };
 

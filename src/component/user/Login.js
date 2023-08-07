@@ -240,7 +240,16 @@ export default function SignInSide() {
           </Carousel.Item>
         </Carousel>
       </Grid>
-      <Grid item xs={12} sm={8} md={5} className="loginPage" component={Paper} elevation={6} square>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        className="loginPage"
+        component={Paper}
+        elevation={6}
+        square
+      >
         <Box
           sx={{
             my: 8,
@@ -271,7 +280,12 @@ export default function SignInSide() {
               name="id"
               autoFocus
             />
-            <FormControl className="password" fullWidth variant="outlined" size="small">
+            <FormControl
+              className="password"
+              fullWidth
+              variant="outlined"
+              size="small"
+            >
               <InputLabel>비밀번호</InputLabel>
               <OutlinedInput
                 autoComplete="off"
@@ -301,7 +315,7 @@ export default function SignInSide() {
             >
               로그인
             </Button>
-            <Link href="/join" variant="body2">
+            <Link href="/" variant="body2">
               계정이 없으십니까? 회원가입하기
             </Link>
             <div className="division">
