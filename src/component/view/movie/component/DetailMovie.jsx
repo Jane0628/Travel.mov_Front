@@ -152,6 +152,8 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
+      console.log('response : ', response);
+      console.log('result : ', result);
       if (result && result.locations) {
         // Extracting the location strings from the result and setting it to the 'locations' state.
         const locationNames = result.locations.map((location) => location.location);
@@ -187,7 +189,7 @@ export default function DetailMovie({ movieInfo, imageUrl }) {
           <div className="map">
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <InputLabel >영화 촬영지</InputLabel>
+                <InputLabel>영화 촬영지</InputLabel>
                 <Select
                   label="영화 촬영지"
                   value={selection}

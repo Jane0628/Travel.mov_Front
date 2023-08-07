@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '../../design/goomap.scss';
+
+// 장소 선택 안할 시 나타날 로고 이미지
+import logo from '../../img/logo.png';
+import ChosenHotel from "../view/ChosenHotel";
 
 const GooMap = ({ location }) => {
   const [map, setMap] = useState(null);
@@ -152,19 +157,34 @@ const GooMap = ({ location }) => {
   }
 
   return (
-    <div>
-      <div id="map" style={{ width: "800px", height: "480px" }}></div>
-      {selectedPlace && (
-        <div>
-          <img
-            src={selectedPlace.photos && selectedPlace.photos[0].getUrl()}
-            alt={selectedPlace.name}
-            style={{ maxWidth: "1000px", maxHeight: "750px" }}
-          />
-          <h3>{selectedPlace.name}</h3>
-          <p>{selectedPlace.formatted_address}</p>
+    <div className="align">
+      <div className="gooMap">
+        <div id="locationInfo">
+          <div className="frame">
+            {selectedPlace ? (
+              <>
+                <img
+                  id={selectedPlace.name}
+                  src={selectedPlace.photos && selectedPlace.photos[0].getUrl()}
+                  alt={selectedPlace.name}
+                />
+                <div className="text">
+                  <h3>{selectedPlace.name}</h3>
+                  <p>{selectedPlace.formatted_address}</p>
+                </div>
+              </>
+            ) : (
+              <div className="locationNotSelected">
+                <img
+                  src={logo}
+                />
+                <p>촬영지를 선택해주세요.</p>
+              </div>
+            )}
+          </div>
         </div>
-      )}
+        <div id="map" />
+      </div>
       {selectedHotel && (
         <div>
           <img

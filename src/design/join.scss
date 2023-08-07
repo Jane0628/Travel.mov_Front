@@ -19,11 +19,12 @@ main#joinPage {
 			justify-content: center;
 
 			// 선호 장르 선택창
-			&.select {
+			&.select>div {
+				width: 412px;
 				height: inherit;
 
-				>div>div>div {
-					padding: 20px 75px 5px 10px;
+				>div>div {
+					padding: 20px 60px 5px 10px;
 				}
 
 				span {

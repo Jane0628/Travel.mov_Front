@@ -5,12 +5,16 @@ import Accordion from './Accordion';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AuthContext from '../../util/AuthContext';
+import { API_BASE_URL, USER } from "../../util/host-utils";
 
 const HamburgerMenu = (anchor) => {
 
   const { onLogout } = useContext(AuthContext);
+  const id = localStorage.getItem('LOGIN_USER_ID');
 
   const redirection = useNavigate();
+
+  const REQUEST_URL = API_BASE_URL + USER;
 
   const logoutHandler = e => {
     e.preventDefault();

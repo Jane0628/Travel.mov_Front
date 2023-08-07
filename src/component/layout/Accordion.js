@@ -185,7 +185,7 @@ const Accordion = () => {
               </ListItemIcon>
               관리자 페이지
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails style={{ backgroundColor: "rgba(177,191,249, 0.2)" }}>
               <ListItem>
                 <Link
                   to={"/hotelCheck"}
