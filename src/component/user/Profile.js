@@ -272,7 +272,7 @@ const Profile = () => {
                 <div className="prof-main">
                   <div className="image">
                     <div className="frame" onClick={() => $fileTag.current.click()}>
-                      <img id="pfp" src={localStorage.getItem('LOGIN_USER_PFP') ? localStorage.getItem('LOGIN_USER_PFP') : require("../../img/profileImage.png")} alt="" />
+                      <img id="pfp" src={localStorage.getItem('LOGIN_USER_PFP') ? localStorage.getItem('LOGIN_USER_PFP') : imgHandler()} alt="" />
                     </div>
                     <Fab id="pfpEditBtn" color="secondary">
                       <label htmlFor="fileInput-hidden">
@@ -293,7 +293,7 @@ const Profile = () => {
                   </div>
                   <div className="profile">
                     <div className="right">
-                      <Grid item xs={8}>
+                      <Grid item xs={8} className="marBo">
                         <TextField
                           type="text"
                           fullWidth
@@ -304,7 +304,7 @@ const Profile = () => {
                           disabled
                         />
                       </Grid>
-                      <Grid item xs={8}>
+                      <Grid item xs={8} className="marBo">
                         <div className="pwInput">
                           <TextField
                             type={showPassword ? "text" : "password"}
@@ -332,7 +332,7 @@ const Profile = () => {
                           />
                         </div>
                       </Grid>
-                      <Grid item xs={8}>
+                      <Grid item xs={8} className="marBo">
                         <TextField
                           variant="outlined"
                           fullWidth
@@ -346,7 +346,7 @@ const Profile = () => {
                           onChange={nameHandler}
                         />
                       </Grid>
-                      <Grid item xs={8}>
+                      <Grid item xs={8} className="marBo">
                         <TextField
                           variant="outlined"
                           fullWidth
@@ -357,7 +357,6 @@ const Profile = () => {
                           required
                           error={correct.email === 1 ? true : false}
                           helperText={correct.email === 1 ? message.email : null}
-                          defaultValue={localStorage.getItem("LOGIN_USER_EMAIL")}
                           onChange={emailHandler}
                         />
                       </Grid>
