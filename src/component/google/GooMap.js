@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '../../design/goomap.scss';
+import "../../design/goomap.scss";
 
 // 장소 선택 안할 시 나타날 로고 이미지
-import logo from '../../img/logo.png';
-import ChosenHotel from "../view/ChosenHotel";
+import logo from "../../img/logo.png";
 
 const GooMap = ({ location }) => {
   const [map, setMap] = useState(null);
@@ -113,7 +112,6 @@ const GooMap = ({ location }) => {
 
       window.google.maps.event.addListener(hotelMarker, "mouseout", () => {
         hotelMarker.setLabel("");
-
       });
 
       window.google.maps.event.addListener(hotelMarker, "click", () => {
@@ -153,8 +151,8 @@ const GooMap = ({ location }) => {
 
   const redirection = useNavigate();
   const reserveHotel = (hotelName) => {
-    redirection('/hotelSearch', { state: { hotelName } });
-  }
+    redirection("/hotelSearch", { state: { hotelName } });
+  };
 
   return (
     <div className="align">
@@ -175,9 +173,7 @@ const GooMap = ({ location }) => {
               </>
             ) : (
               <div className="locationNotSelected">
-                <img
-                  src={logo}
-                />
+                <img src={logo} />
                 <p>촬영지를 선택해주세요.</p>
               </div>
             )}
@@ -196,17 +192,22 @@ const GooMap = ({ location }) => {
           <p>{selectedHotel.formatted_address}</p>
           {selectedHotel.website && (
             <p>
-              <a href={selectedHotel.website} target="_blank" rel="noopener noreferrer">
+              <a
+                href={selectedHotel.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {selectedHotel.website}
               </a>
             </p>
           )}
-          <button onClick={() => reserveHotel(selectedHotel.name)}>예약하기</button>
+          <button onClick={() => reserveHotel(selectedHotel.name)}>
+            예약하기
+          </button>
         </div>
       )}
     </div>
   );
-
 };
 
 export default GooMap;

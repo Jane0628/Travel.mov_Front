@@ -379,7 +379,6 @@ const Profile = () => {
         ) : <Loading />}
     </>
   );
-
 };
 
 export default Profile;
